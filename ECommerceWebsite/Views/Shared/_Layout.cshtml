@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ECommerceWebsite</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/js/site.js" />
+</head>
+@model BaseViewModel
+<body>
+    <header>
+        <nav id="topMenuContainer" class="row">
+            <div id="topMenuLogo">ShopZone</div>
+            <div id="searchSite">
+                <input id="inputSearchSite" type="text" />
+                <img src="~/img/icon-pack/png/164-search.png" class="mainMenuIcon" onclick="ActivateSearch();" />
+            </div>
+            <div class="rightMenu">
+                @if (Model.Login.User != null)
+                {
+                    <a href="@Url.Action("Index", "Account")">
+                        <img src="~/img/icon-pack/png/148-profile.png" class="imgMenuIcon" />
+                    </a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Index", "Login")">
+                        <img src="~/img/icon-pack/png/148-profile.png" class="imgMenuIcon" />
+                    </a>   
+                }
+            </div>
+            <div class="rightMenu">
+                <a href="@Url.Action("Index", "Cart")">
+                    <div class="cartContainer" title="Items in cart: @Model.Cart.NumberOfItemsInCart">
+                        <img src="~/img/icon-pack/png/171-shopping-cart.png" class="imgMenuIcon" />
+                        <div class="centered">@Model.Cart.NumberOfItemsInCart</div>
+                    </div>
+                </a>
+            </div>
+        </nav>
+        <nav id="categoryMenu" class="row">
+            @foreach (var item in Model.TopMenuItems)
+            {
+                <div class="categorySubMenuItem">
+                    <a href="@item.Url">
+                        @item.Text
+                    </a>
+                </div>
+            }
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div id="pageContentContainer">
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - ECommerceWebsite | Daniel Thornton- <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <a href="http://www.flaticon.com/packs/basic-icons-6?k=1603616581314" alt="Icon Pack By IconGeek26">Icon Pack</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

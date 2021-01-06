@@ -1,0 +1,384 @@
+﻿@model CheckoutViewModel
+@{
+    ViewData["Title"] = "Checkout";
+}
+<div id="checkout">
+    @Html.ValidationSummary()
+
+    @using (Html.BeginForm("OrderSuccessful", "Checkout", FormMethod.Post))
+    {
+        <div id="shippingDetails" class="formDetails">
+            <div id="shippingHeader" class="formHeader purpleBlueGrad">Shipping Information</div>
+            <div class="padding10" onkeyup="checkShippingForm();">
+                <div>
+                    <div class="formLabel floatLeft">
+                        @Html.LabelFor(m => m.ShippingFirstName)<span class="required">*</span>
+                    </div>
+                    <div class="formInput floatLeft shippingRequired">
+                        @Html.TextBoxFor(m => m.ShippingFirstName)
+                    </div>
+                    <div class="clearBoth"></div>
+                </div>
+
+                <div>
+                    <div class="formLabel floatLeft">
+                        @Html.LabelFor(m => m.ShippingLastName)<span class="required">*</span>
+                    </div>
+                    <div class="formInput floatLeft shippingRequired">
+                        @Html.TextBoxFor(m => m.ShippingLastName)
+                    </div>
+                    <div class="clearBoth"></div>
+                </div>
+
+                <div>
+                    <div class="formLabel floatLeft">
+                        @Html.LabelFor(m => m.ShippingAddress1)<span class="required">*</span>
+                    </div>
+                    <div class="formInput floatLeft shippingRequired">
+                        @Html.TextBoxFor(m => m.ShippingAddress1)
+                    </div>
+                    <div class="clearBoth"></div>
+                </div>
+
+                <div>
+                    <div class="formLabel floatLeft">
+                        @Html.LabelFor(m => m.ShippingAddress2)
+                    </div>
+                    <div class="formInput floatLeft">
+                        @Html.TextBoxFor(m => m.ShippingAddress2)
+                    </div>
+                    <div class="clearBoth"></div>
+                </div>
+
+                <div>
+                    <div class="formLabel floatLeft">
+                        @Html.LabelFor(m => m.ShippingCityTown)<span class="required">*</span>
+                    </div>
+                    <div class="formInput floatLeft shippingRequired">
+                        @Html.TextBoxFor(m => m.ShippingCityTown)
+                    </div>
+                    <div class="clearBoth"></div>
+                </div>
+
+                <div>
+                    <div class="formLabel floatLeft">
+                        @Html.LabelFor(m => m.ShippingPostalCode)<span class="required">*</span>
+                    </div>
+                    <div class="formInput floatLeft shippingRequired">
+                        @Html.TextBoxFor(m => m.ShippingPostalCode)
+                    </div>
+                    <div class="clearBoth"></div>
+                </div>
+
+                <div>
+                    <div class="formLabel floatLeft">
+                        @Html.LabelFor(m => m.ShippingCountry)<span class="required">*</span>
+                    </div>
+                    <div class="formInput floatLeft shippingRequired">
+                        @Html.TextBoxFor(m => m.ShippingCountry)
+                    </div>
+                    <div class="clearBoth"></div>
+                </div>
+
+                <div>
+                    <div class="formLabel floatLeft">
+                        @Html.LabelFor(m => m.ShippingDeliveryMethod)<span class="required">*</span>
+                    </div>
+                    <div class="formInput floatLeft">
+                        @Model.ShippingDeliveryMethod
+                    </div>
+                    <div class="clearBoth"></div>
+                </div>
+
+                <div>
+                    <div class="formLabel floatLeft">
+                        @Html.LabelFor(m => m.ShippingPhone)
+                    </div>
+                    <div class="formInput floatLeft">
+                        @Html.TextBoxFor(m => m.ShippingPhone)
+                    </div>
+                    <div class="clearBoth"></div>
+                </div>
+
+                <div>
+                    <div class="formLabel floatLeft">
+                        @Html.LabelFor(m => m.ShippingEmail)<span class="required">*</span>
+                    </div>
+                    <div class="formInput floatLeft shippingRequired">
+                        @Html.TextBoxFor(m => m.ShippingEmail)
+                    </div>
+                    <div class="clearBoth"></div>
+                </div>
+
+                <div>
+                    <div class="floatRight marginTop10">
+                        <input id="btnShipping" type="button" value="Proceed to Billing" class="btnSubmit disabledButton" onclick="confirmShippingForm();" />
+                    </div>
+                    <div class="clearBoth"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="billingDetails" class="formDetails">
+            <div id="billingHeader" class="inactiveForm">Billing Information</div>
+            <div id="billingForm" onkeyup="checkBillingForm();">
+                <div>
+                    @Html.LabelFor(m => m.BillingIsShippingAddress)
+                    @Html.CheckBoxFor(m => m.BillingIsShippingAddress, new Dictionary<string, object>{
+                         { "onclick","showShippingDetails();" },
+                         { "class","billingCheckBox" }
+                    })
+                </div>
+
+                <div id="billingFormContainer">
+                    <div id="billingFormDetails" onkeyup="checkBillingForm();">
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(m => m.BillingFirstName)
+                        </div>
+                        <div class="formInput floatLeft">
+                            @Html.TextBoxFor(m => m.BillingFirstName)
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+
+                    <div>
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(m => m.BillingLastName)
+                        </div>
+                        <div class="formInput floatLeft">
+                            @Html.TextBoxFor(m => m.BillingLastName)
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+
+                    <div>
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(p => p.BillingAddress1)
+                        </div>
+                        <div class="formInput floatLeft">
+                            @Html.TextBoxFor(m => m.BillingAddress1)
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+
+                    <div>
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(m => m.BillingAddress2)
+                        </div>
+                        <div class="formInput floatLeft">
+                            @Html.TextBoxFor(m => m.BillingAddress2)
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+
+                    <div>
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(p => p.BillingCityTown)
+                        </div>
+                        <div class="formInput floatLeft">
+                            @Html.TextBoxFor(m => m.BillingCityTown)
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+
+                    <div>
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(m => m.BillingPostalCode)
+                        </div>
+                        <div class="formInput floatLeft">
+                            @Html.TextBoxFor(m => m.BillingPostalCode)
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+
+                    <div>
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(m => m.BillingCountry)
+                        </div>
+                        <div class="formInput floatLeft">
+                            @Html.TextBoxFor(m => m.BillingCountry)
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+
+                    <div>
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(m => m.BillingPhone)
+                        </div>
+                        <div class="formInput floatLeft">
+                            @Html.TextBoxFor(m => m.BillingPhone)
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+
+                    <div>
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(m => m.BillingEmail)
+                        </div>
+                        <div class="formInput floatLeft">
+                            @Html.TextBoxFor(m => m.BillingEmail)
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+                </div>
+                <div id="billingShippingInfo">
+                    <div>
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(m => m.BillingFirstName)
+                        </div>
+                        <div class="formInput floatLeft">
+                            <label id="billingShippingFirstName"></label>
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+
+                    <div>
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(m => m.BillingLastName)
+                        </div>
+                        <div class="formInput floatLeft">
+                            <label id="billingShippingLastName"></label>
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+
+                    <div>
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(m => m.BillingAddress1)
+                        </div>
+                        <div class="formInput floatLeft">
+                            <label id="billingShippingAddress1"></label>
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+
+                    <div>
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(m => m.BillingAddress2)
+                        </div>
+                        <div class="formInput floatLeft">
+                            <label id="billingShippingAddress2"></label>
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+
+                    <div>
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(m => m.BillingCityTown)
+                        </div>
+                        <div class="formInput floatLeft">
+                            <label id="billingShippingCityTown"></label>
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+
+                    <div>
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(m => m.BillingPostalCode)
+                        </div>
+                        <div class="formInput floatLeft">
+                            <label id="billingShippingPostalCode"></label>
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+
+                    <div>
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(m => m.BillingCountry)
+                        </div>
+                        <div class="formInput floatLeft">
+                            <label id="billingShippingCountry"></label>
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+
+                    <div>
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(m => m.BillingPhone)
+                        </div>
+                        <div class="formInput floatLeft">
+                            <label id="billingShippingPhone"></label>
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+
+                    <div>
+                        <div class="formLabel floatLeft">
+                            @Html.LabelFor(m => m.BillingEmail)
+                        </div>
+                        <div class="formInput floatLeft">
+                            <label id="billingShippingEmail"></label>
+                        </div>
+                        <div class="clearBoth"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="floatLeft marginTop10">
+                        <input type="button" value="Back to Shipping" class="btnSubmit purpleBlueGrad" onclick="returnToShipping();" />
+                    </div>
+                    <div class="floatRight marginTop10">
+                        <input id="btnBilling" type="button" value="Proceed to Payment" class="btnSubmit disabledButton" onclick="confirmBillingForm();" />
+                    </div>
+                    <div class="clearBoth"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cardDetails" class="formDetails">
+            <div id="cardHeader" class="inactiveForm">Card Details</div>
+            <div id="cardForm" onkeyup="checkCardForm();">
+                <div>
+                    <div class="formLabel floatLeft">
+                        @Html.LabelFor(m => m.NameOnCard)<span class="required">*</span>
+                    </div>
+                    <div class="formInput floatLeft">
+                        @Html.TextBoxFor(m => m.NameOnCard)
+                    </div>
+                    <div class="clearBoth"></div>
+                </div>
+
+                <div>
+                    <div class="formLabel floatLeft">
+                        @Html.LabelFor(m => m.CardNumber)<span class="required">*</span>
+                    </div>
+                    <div class="formInput floatLeft cardRequired">
+                        @Html.TextBoxFor(m => m.CardNumber)
+                    </div>
+                    <div class="clearBoth"></div>
+                </div>
+
+                <div>
+                    <div class="formLabel floatLeft">
+                        @Html.LabelFor(m => m.ExpiryDateMonth) / @Html.LabelFor(m => m.ExpiryDateYear)
+                    </div>
+                    <div class="formInput floatLeft cardRequired">
+                        @Html.TextBoxFor(m => m.ExpiryDateMonth, new { @placeholder = "MM", @class = "cardMonthYearInputs" }) / @Html.TextBoxFor(m => m.ExpiryDateYear, new { @placeholder = "YY", @class = "cardMonthYearInputs" })
+                    </div>
+                    <div class="clearBoth"></div>
+                </div>
+
+                <div>
+                    <div class="formLabel floatLeft">
+                        @Html.LabelFor(m => m.CCV)
+                    </div>
+                    <div class="formInput floatLeft">
+                        @Html.TextBoxFor(m => m.CCV, new { @type = "password", @class = "cardCcvInput" })
+                    </div>
+                    <div class="clearBoth"></div>
+                </div>
+
+                <div>
+                    <div class="floatRight marginTop10">
+                        <input id="btnPlaceOrder" type="submit" value="Place Order" class="btnSubmit purpleBlueGrad" />
+                    </div>
+                    <div class="clearBoth"></div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    window.onload = function () {
+        setupCheckout();
+    }
+</script>

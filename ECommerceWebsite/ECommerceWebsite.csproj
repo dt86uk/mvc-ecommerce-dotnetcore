@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\img\carousel\nike-air-zoom-pegasus-37-hero.jpg" />
+    <Content Remove="wwwroot\img\carousel\nike-mercurial-superfly-7-elite-mds-fg-hero.jpg" />
+    <Content Remove="wwwroot\img\carousel\nike-zoom-pegasus-turbo-2-hero.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.AspNet.Mvc.Futures" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ECommerceService\ECommerceService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Content\Styles\" />
+    <Folder Include="Views\Admin\Transactions\" />
+    <Folder Include="Views\Admin\Brands\" />
+    <Folder Include="Views\Admin\Categories\" />
+    <Folder Include="Views\Admin\Users\" />
+    <Folder Include="Views\Admin\Roles\" />
+    <Folder Include="Views\Admin\Orders\" />
+    <Folder Include="Views\Admin\Products\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\img\carousel\nike-air-zoom-pegasus-37-hero.jpg" />
+    <None Include="wwwroot\img\carousel\nike-mercurial-superfly-7-elite-mds-fg-hero.jpg" />
+    <None Include="wwwroot\img\carousel\nike-zoom-pegasus-turbo-2-hero.jpg" />
+  </ItemGroup>
+
+</Project>

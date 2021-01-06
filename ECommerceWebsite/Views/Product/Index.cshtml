@@ -1,0 +1,102 @@
+﻿@using System.Linq;
+@model ProductViewModel
+@{
+    ViewData["Title"] = Model.Title;
+    string soldOutClass = Model.IsSoldOut ? "soldOut" : string.Empty;
+    bool addedToCart = TempData["AddedToCart"] != null ? Convert.ToBoolean(TempData["AddedToCart"]) : false;
+}
+
+@if (addedToCart)
+{
+<div id="addedToCart">
+    <div id="addedToCartMessage">
+        Item added to cart!
+        <img src="/img/icon-pack/png/icon-green-tick.png" class="imgMenuIcon">
+    </div>
+    <div>
+        <div class="floatRight marginTop10">
+            <a href="@Url.Action("Index", "Checkout")" alt="Go to Checkout">
+                <input id="btnCheckout" type="button" class="floatRight" value="Go to Checkout" />
+            </a> 
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+</div>
+}
+
+@using (Html.BeginForm("AddToCart", "Product", FormMethod.Post))
+{
+<div id="productImageContainer">
+    <div class="productImageRow">
+        <div class="productImageLeft">
+            <img class="d-block w-100" style="height: 400px;" src="@Model.Images[0].ImageSrc" alt="@Model.HeroTitle">
+        </div>
+        <div class="productImageRight">
+            <img class="d-block w-100" style="height: 400px;" src="@Model.Images[1].ImageSrc" alt="@Model.HeroTitle">
+        </div>
+    </div>
+    <div class="clearBoth"></div>
+
+    <div class="productImageRow">
+        <div class="productImageLeft">
+            <img class="d-block w-100" style="height: 400px;" src="@Model.Images[2].ImageSrc" alt="@Model.HeroTitle">
+        </div>
+        <div class="productImageRight">
+            <img class="d-block w-100" style="height: 400px;" src="@Model.Images[3].ImageSrc" alt="@Model.HeroTitle">
+        </div>
+    </div>
+</div>
+<div id="productDetailsContainer">
+    <div id="productGenderAndPrice">
+        @Model.Gender $@Model.Price.ToString("N")
+    </div>
+    <div id="productName">
+        @Model.Title
+    </div>
+    @if (!string.IsNullOrEmpty(soldOutClass))
+    {
+        <div class="soldOutText">
+            Sold Out
+        </div>
+    }
+    <div id="sizeInfo">
+        @foreach (var size in Model.Sizes.OrderBy(p => p.Id))
+        {
+            <div id="@size.Id" class="sizeInfoDetails @soldOutClass" onclick="selectShoeSize(@size.Id)">
+                @size.Size
+            </div>
+            <input id="@string.Format("hiddenIsSelected_{0}", size.Id)" type="hidden" value="@size.IsSelected" />
+        }
+    </div>
+    <div id="description">
+        @Model.Description
+    </div>
+    <div id="addToCartContainer">
+        <input id="btnSubmit" type="submit" class="disabledButton" value="Add to Cart">
+        @Html.HiddenFor(p => p.AddToCart.ProductId)
+        @Html.HiddenFor(p => p.AddToCart.SizeId, new { id = "hiddenSizeId" })
+    </div>
+</div>
+}
+
+<hr />
+
+<div>
+    <div id="youMayAlsoLike">You Might Also Like</div>
+
+    <div id="suggestedProducts">
+        @foreach (var product in Model.SuggestedProducts)
+        {
+            <div class="suggestedProductContainer">
+                <div style="display:block; width: 100%; height: auto;">
+                    <a href="@product.Url">
+                        <img class="suggestedProductImage" src="@product.ImageSrc" alt="@Model.HeroTitle">
+                    </a>
+                </div>
+
+                <div class="suggestedProductName">@product.ProductName</div>
+                <div class="suggestedProductCategory">@product.Category</div>
+            </div>
+        }
+    </div>
+</div>

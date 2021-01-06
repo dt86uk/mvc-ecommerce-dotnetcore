@@ -1,0 +1,95 @@
+﻿@model RegisterViewModel
+
+@using (Html.BeginForm("Register", "Register", FormMethod.Post))
+{
+    <div class="formDetails" onkeyup="checkRegisterForm()">
+        <div class="formHeader purpleBlueGrad">Register</div>
+
+        @Html.ValidationSummary()
+
+        <div class="padding10">
+            <div>
+                <div class="formLabel floatLeft">
+                    @Html.LabelFor(m => m.Email)<span class="required">*</span>
+                </div>
+                <div class="formInput floatLeft">
+                    @Html.TextBoxFor(m => m.Email, new { @required = "required" })
+                </div>
+                <div class="clearBoth"></div>
+            </div>
+
+            <div>
+                <div class="formLabel floatLeft">
+                    @Html.LabelFor(m => m.FirstName)<span class="required">*</span>
+                </div>
+                <div class="formInput floatLeft">
+                    @Html.TextBoxFor(m => m.FirstName, new { @required = "required" })
+                </div>
+                <div class="clearBoth"></div>
+            </div>
+
+            <div>
+                <div class="formLabel floatLeft">
+                    @Html.LabelFor(m => m.LastName)<span class="required">*</span>
+                </div>
+                <div class="formInput floatLeft">
+                    @Html.TextBoxFor(m => m.LastName, new { @required = "required" } )
+                </div>
+                <div class="clearBoth"></div>
+            </div>
+
+            <div>
+                <div class="formLabel floatLeft">
+                    @Html.LabelFor(m => m.DateOfBirthDay)<span class="required">*</span>
+                </div>
+                <div class="floatLeft">
+                    @Html.TextBoxFor(m => m.DateOfBirthDay, new { @class = "inlineBlock dobInputSmall", @maxlength = "2", @placeholder = "DD", @required = "required", onkeyup = "moveToMonth();", id= "dobDay" })
+                    @Html.TextBoxFor(m => m.DateOfBirthMonth, new { @class = "inlineBlock dobInputSmall", @maxlength = "2", @placeholder = "MM", @required = "required", onkeyup = "moveToYear();", id = "dobMonth" })
+                    @Html.TextBoxFor(m => m.DateOfBirthYear, new { @class = "inlineBlock dobInputMedium", @maxlength = "4", @placeholder = "YYYY", @required = "required", id = "dobYear" })
+                </div>
+                <div class="clearBoth"></div>
+            </div>
+
+            <div>
+                <div class="formLabel floatLeft">
+                    @Html.LabelFor(m => m.Password)<span class="required">*</span>
+                </div>
+                <div class="formInput floatLeft">
+                    @Html.TextBoxFor(m => m.Password, new { @type = "password", @required = "required" })
+                </div>
+                <div class="clearBoth"></div>
+            </div>
+
+            <div>
+                <div class="formLabel floatLeft">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @type = "password" })<span class="required">*</span>
+                </div>
+                <div class="formInput floatLeft">
+                    @Html.TextBoxFor(m => m.ConfirmPassword, new { @type = "password", @required = "required" })
+                </div>
+                <div class="clearBoth"></div>
+            </div>
+
+            <div>
+                <div class="formLabel floatLeft">
+                    @Html.LabelFor(m => m.IsSubscribed)
+                </div>
+                <div class="formInput floatLeft subscribeCheckbox">
+                    @Html.CheckBoxFor(m => m.IsSubscribed)
+                </div>
+                <div class="clearBoth"></div>
+
+                <div class="subscribeInfo marginBot10">
+                    Subscribed to get the latest news, seassonal offers, giveaways and more!
+                </div>
+            </div>
+
+            <div>
+                <div class="width50 floatRight"> 
+                    <input id="btnSubmit" class="disabledButton" disabled value="Sign up" type="submit" />
+                </div>
+                <div class="clearBoth"></div>
+            </div>
+        </div>
+    </div>
+}

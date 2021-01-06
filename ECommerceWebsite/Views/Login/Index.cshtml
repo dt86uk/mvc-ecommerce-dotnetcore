@@ -1,0 +1,40 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+{
+    <div class="formContainerCentered">
+        <div id="loginForm">
+            <div class="formHeader purpleBlueGrad">Sign In</div>
+
+            <div style="margin:10px;">
+                <div>
+                    @Html.TextBoxFor(p => Model.Email, new { @placeholder = "Email", @id = "txtEmail", @onkeyup = "checkLoginForm()" })
+                </div>
+
+                <div>
+                    @Html.TextBoxFor(p => Model.Password, new { @type = "password", @placeholder = "Password", @id = "txtPassword", @onkeyup = "checkLoginForm()" })
+                </div>
+
+                @Html.ValidationSummary()
+
+                <div>
+                    <input id="btnSubmit" value="Sign in" type="submit" class="disabledButton" disabled>
+                </div>
+            </div>
+
+            <div class="paddingNoTop10">
+                <a href="@Url.Action("Index", "Register")">
+                    <input id="btnRegisterUser" value="Register" class="btnRegister" type="button">
+                </a>
+            </div>
+
+            @*<div>
+                TODO: Implement this functionality => create a secret question/answer on registration
+                <a href="@Url.Action("ForgotPassword", "Account")">Forgot your password?</a>
+            </div>*@
+        </div>
+    </div>
+}

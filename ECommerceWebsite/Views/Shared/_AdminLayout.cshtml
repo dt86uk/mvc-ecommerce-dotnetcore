@@ -1,0 +1,35 @@
+﻿@using ECommerceWebsite.Models.Admin
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin - ECommerce Website</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/admin.css" />
+    <link rel="stylesheet" href="~/js/admin.js" />
+</head>
+@model AdminBaseViewModel
+<body>
+    <div class="header"></div>
+    <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
+    <label for="openSidebarMenu" class="sidebarIconToggle">
+        <div class="spinner diagonal part-1"></div>
+        <div class="spinner horizontal"></div>
+        <div class="spinner diagonal part-2"></div>
+    </label>
+    <div id="sidebarMenu">
+        <ul class="sidebarMenuInner">
+            <li>@Html.ActionLink("Products", "Index", "AdminProducts")</li>
+            <li>@Html.ActionLink("Orders", "Index", "AdminOrders")</li>
+            <li>@Html.ActionLink("Transactions", "Index", "AdminTransactions")</li>
+            <li>@Html.ActionLink("Orders", "Index", "AdminOrders")</li>
+            <li>@Html.ActionLink("Category", "Index", "AdminCategories")</li>
+            <li>@Html.ActionLink("Users", "Index", "AdminUsers")</li>
+            <li>@Html.ActionLink("Roles", "Index", "AdminRoles")</li>
+        </ul>
+    </div>
+    <div id="adminContainer">
+        @RenderBody()
+    </div>
+</body>

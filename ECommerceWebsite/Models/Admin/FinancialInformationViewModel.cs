@@ -1,0 +1,10 @@
+﻿using System;
+
+namespace ECommerceWebsite.Models.Admin
+{
+    public class FinancialInformationViewModel
+    {
+        public decimal TotalTakings { get; set; }
+        public DateTime Date { get; set; }
+    }
+}

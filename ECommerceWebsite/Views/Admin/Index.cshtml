@@ -1,0 +1,118 @@
+﻿@using ECommerceWebsite.Models.Admin
+@model AdminHomeViewModel
+@{
+    ViewData["Title"] = "Admin Home";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="titleHeader">Dashboard</div>
+
+<div class="cardPadBottom">
+    <div class="dashboardCard">
+        <div class="subTitleHeader">Low Stock</div>
+
+        @if (Model.LowStockProducts.Count == 0)
+        {
+            <div>There are no low products to show.</div>
+        }
+        else
+        {
+            <div style="width: 76%; display:inline-block; font-weight: bold;">Product Name</div>
+            <div style="width: 20%; display:inline-block; font-weight: bold; text-align: left;">Quantity</div>
+
+            @foreach (var product in Model.LowStockProducts)
+            {
+
+                <div style="width: 76%; display:inline-block;">@Html.ActionLink(product.ProductName, "Edit", "AdminProductController", new { @title = "Edit Product" })</div>
+                <div style="width: 20%; display:inline-block; text-align: left;">@product.Quantity</div>
+            }
+        }
+
+        <div class="floatRight">
+            @Html.ActionLink("View all Products", "Index", "AdminProducts")
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div class="dashboardCard cardPadLeft">
+        <div class="subTitleHeader">New Users</div>
+
+        @if (Model.NewUsers.Count == 0)
+        {
+            <div>There are no new users to show.</div>
+        }
+        else
+        {
+            <div style="width: 76%; display:inline-block; font-weight: bold;">Full Name</div>
+            <div style="width: 20%; display:inline-block; font-weight: bold; text-align: left;">Date Registered</div>
+
+            @foreach (var user in Model.NewUsers)
+            {
+
+                <div style="width: 76%; display:inline-block;">@Html.ActionLink($"{user.FirstName} {user.LastName}", "Edit", "AdminUsersController", new { @title = "Edit User" })</div>
+                <div style="width: 20%; display:inline-block; text-align: left;">@user.DateRegistered.ToShortDateString()</div>
+            }
+        }
+
+        <div class="floatRight">
+            @Html.ActionLink("View all Users", "Index", "AdminUsers")
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+    <div class="clearBoth"></div>
+</div>
+
+<div class="cardPadBottom">
+    <div class="dashboardCard">
+        <div class="subTitleHeader">Latest Transactions</div>
+
+        @if (Model.LatestTransactions.Count == 0)
+        {
+            <div>There is no transaction information to show.</div>
+        }
+        else
+        {
+            <div style="width: 56%; display:inline-block; font-weight: bold;">Full Name</div>
+            <div style="width: 20%; display:inline-block; font-weight: bold; text-align: left;">Cost</div>
+            <div style="width: 20%; display:inline-block; font-weight: bold; text-align: left;">Date Created</div>
+
+            @foreach (var transaction in Model.LatestTransactions)
+            {
+                <div style="width: 56%;">@Html.ActionLink($"{transaction.FirstName} {transaction.LastName}", "Edit", "AdminTransactionController", new { @title = "Edit User" })</div>
+                <div style="width: 20%; display:inline-block; text-align: left;">$@transaction.TotalCost</div>
+                <div style="width: 20%; display:inline-block; text-align: left;">@transaction.DateCreated.ToShortDateString()</div>
+            }
+        }
+
+        <div class="floatRight">
+            @Html.ActionLink("View all Transactions", "Index", "AdminTransactions", new { @class = "textAlignRight" })
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div class="dashboardCard cardPadLeft">
+        <div class="subTitleHeader">Financial Information</div>
+
+        @if (Model.FinancialInformation.Count == 0)
+        {
+            <div>There is no financial information to show.</div>
+        }
+        else
+        {
+            <div style="width: 76%; display:inline-block; font-weight: bold;">Date</div>
+            <div style="width: 20%; display:inline-block; font-weight: bold; text-align: left;">Takings</div>
+
+            @foreach (var dailyTakings in Model.FinancialInformation)
+            {
+                <div style="width: 76%; display:inline-block; ">@Html.ActionLink($"{dailyTakings.Date.ToShortDateString()}", "Takings", "AdminTransactionController", new { @title = "Edit User" })</div>
+                <div style="width: 20%; display:inline-block; text-align: left;">$@dailyTakings.TotalTakings</div>
+            }
+        }
+
+        <div class="floatRight">
+            @Html.ActionLink("View Financial Information", "Index", "AdminFinancial", new { @class = "textAlignRight" })
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+    <div class="clearBoth"></div>
+</div>

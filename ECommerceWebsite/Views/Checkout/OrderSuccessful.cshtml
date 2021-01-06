@@ -1,0 +1,25 @@
+﻿@model OrderSuccessfulViewModel 
+@{
+    ViewData["Title"] = "Order Successful";
+    string orderNumber = (Model.Id.ToString("D").Length + 5).ToString();
+}
+
+<div>
+    <div class="marginBot10">
+        <img src="~/img/icon-pack/png/icon-green-tick.png" width="50" alt="Order successful" />
+        <div id="orderPlacedText" class="titleHeader">Your order has been placed!</div>
+    </div>
+
+    <div id="orderSuccessful" class="formDetails">
+        <div id="orderSuccessfulHeader" class="formHeader purpleBlueGrad">Order Information</div>
+
+        <div class="padding10">
+            <div>Order Number: @orderNumber</div>
+            <div style="color:green;">Arriving on @Model.ArrivalDate.ToLongDateString()</div>
+            <div>Reference Number: @Model.ReferenceNumber</div>
+            <div class="orderInformation">
+                Use your Reference Number to track your order <a href='@Url.ActionLink("Index", "Track")'>here</a>.
+            </div>
+        </div>
+    </div>
+</div>

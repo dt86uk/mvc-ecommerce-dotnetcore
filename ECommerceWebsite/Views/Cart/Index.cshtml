@@ -1,0 +1,60 @@
+﻿@model CartSummaryViewModel
+@{ 
+    ViewData["Title"] = "Cart";
+}
+
+<div id="cartItems">
+    @if (Model.NumberOfItems > 0)
+    {
+        <div class="titleHeader">Your Items</div>
+
+        @foreach (var product in Model.Items)
+        {
+            <div class="floatLeft">
+                <img style="width: 150px;" src="@product.ImageSrc" alt="@product.Title">
+            </div>
+            <div class="floatLeft">
+                <div class="cartProductTitle">@product.Title</div>
+                <div class="cartProductSubtitle">@product.Gender @product.Size.Size</div>
+                <div class="cartProductSubtitle">
+                    @Html.HiddenFor(p => product.Size)
+
+                    <span class="cartQuantityAction">@Html.ActionLink("-", "DecreaseQuantity", "Cart", new { productId = product.ProductId })</span>
+                    @product.Size.Quantity
+                    <span class="cartQuantityAction">@Html.ActionLink("+", "IncreaseQuantity", "Cart", new { productId = product.ProductId, sizeId = product.Size.Id })</span>
+                </div>
+
+                <a href="@Url.Action("RemoveProduct", "Cart", new { productId = product.ProductId })"
+                   onclick="return CartRemoveItem();" class="removeItem">
+                    Remove item
+                </a>
+            </div>
+            <div class="clearBoth"></div>
+        }
+    }
+    else 
+    {
+        <div class="titleHeader">Your Cart is empty!</div>
+    }
+</div>
+
+@if(Model.NumberOfItems > 0) 
+{ 
+<div id="cartSummary">
+    <div class="titleHeader">Summary</div>
+
+    <div id="cartSummaryBreakdown">
+        <div>Subtotal: $@Model.SubTotal</div>
+        <div>Delivery: $@Model.Delivery</div>
+
+        <hr />
+        <div>Total: $@Model.GrandTotal</div>
+        <hr />
+
+        <a href="@Url.Action("Index", "Checkout")">
+            <input id="btnCart" type="submit" class="purpleBlueGrad btnSubmit" value="Checkout" />
+        </a>
+    </div>
+</div>
+<div class="clearBoth"></div>
+}

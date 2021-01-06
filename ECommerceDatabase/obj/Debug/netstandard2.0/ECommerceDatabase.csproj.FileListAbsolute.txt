@@ -1,0 +1,9 @@
+C:\Users\danie\source\repos\ECommerceWebsite\ECommerceDatabase\bin\Debug\netstandard2.0\ECommerceDatabase.deps.json
+C:\Users\danie\source\repos\ECommerceWebsite\ECommerceDatabase\bin\Debug\netstandard2.0\ECommerceDatabase.dll
+C:\Users\danie\source\repos\ECommerceWebsite\ECommerceDatabase\bin\Debug\netstandard2.0\ECommerceDatabase.pdb
+C:\Users\danie\source\repos\ECommerceWebsite\ECommerceDatabase\obj\Debug\netstandard2.0\ECommerceDatabase.AssemblyInfoInputs.cache
+C:\Users\danie\source\repos\ECommerceWebsite\ECommerceDatabase\obj\Debug\netstandard2.0\ECommerceDatabase.AssemblyInfo.cs
+C:\Users\danie\source\repos\ECommerceWebsite\ECommerceDatabase\obj\Debug\netstandard2.0\ECommerceDatabase.csproj.CoreCompileInputs.cache
+C:\Users\danie\source\repos\ECommerceWebsite\ECommerceDatabase\obj\Debug\netstandard2.0\ECommerceDatabase.dll
+C:\Users\danie\source\repos\ECommerceWebsite\ECommerceDatabase\obj\Debug\netstandard2.0\ECommerceDatabase.pdb
+C:\Users\danie\source\repos\ECommerceWebsite\ECommerceDatabase\obj\Debug\netstandard2.0\ECommerceDatabase.csprojAssemblyReference.cache

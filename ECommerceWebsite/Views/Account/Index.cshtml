@@ -1,0 +1,84 @@
+﻿@model AccountViewModel
+@{
+    ViewData["Title"] = "Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="width:50%;" class="floatLeft">
+    @Url.ActionLink("Index", "Admin", new { @title = "Add, Edit & Delete Products, Users and more..." })
+</div>
+<div class="clearBoth"></div>
+
+@using (Html.BeginForm("UpdateAccount", "Account", FormMethod.Post))
+{
+    <div id="account" class="formDetails">
+        <div class="formHeader purpleBlueGrad">Personal Information</div>
+
+        @Html.ValidationSummary()
+
+        <div class="padding10">
+            <div>
+                <div class="formLabel floatLeft">
+                    @Html.LabelFor(m => m.Email)<span class="required">*</span>
+                </div>
+                <div class="formInput floatLeft">
+                    @Html.TextBoxFor(m => m.Email, new { @required = "required" })
+                </div>
+                <div class="clearBoth"></div>
+            </div>
+
+            <div>
+                <div class="formLabel floatLeft">
+                    @Html.LabelFor(m => m.FirstName)<span class="required">*</span>
+                </div>
+                <div class="formInput floatLeft">
+                    @Html.TextBoxFor(m => m.FirstName, new { @required = "required" })
+                </div>
+                <div class="clearBoth"></div>
+            </div>
+
+            <div>
+                <div class="formLabel floatLeft">
+                    @Html.LabelFor(m => m.LastName)<span class="required">*</span>
+                </div>
+                <div class="formInput floatLeft">
+                    @Html.TextBoxFor(m => m.LastName, new { @required = "required" } )
+                </div>
+                <div class="clearBoth"></div>
+            </div>
+
+            <div>
+                <div class="formLabel floatLeft">
+                    @Html.LabelFor(m => m.DateOfBirthDay)<span class="required">*</span>
+                </div>
+                <div class="floatLeft">
+                    @Html.TextBoxFor(m => m.DateOfBirthDay, new { @class = "inlineBlock dobInputSmall", @maxlength = "2", @placeholder = "DD", @required = "required", onkeyup = "moveToMonth();", id= "dobDay" })
+                    @Html.TextBoxFor(m => m.DateOfBirthMonth, new { @class = "inlineBlock dobInputSmall", @maxlength = "2", @placeholder = "MM", @required = "required", onkeyup = "moveToYear();", id = "dobMonth" })
+                    @Html.TextBoxFor(m => m.DateOfBirthYear, new { @class = "inlineBlock dobInputMedium", @maxlength = "4", @placeholder = "YYYY", @required = "required", id = "dobYear" })
+                </div>
+                <div class="clearBoth"></div>
+            </div>
+
+            <div>
+                <div class="formLabel floatLeft">
+                    @Html.LabelFor(m => m.IsSubscribed)
+                </div>
+                <div class="formInput floatLeft subscribeCheckbox">
+                    @Html.CheckBoxFor(m => m.IsSubscribed)
+                </div>
+                <div class="clearBoth"></div>
+
+                <div class="subscribeInfo marginBot10">
+                    Subscribed to get the latest news, seassonal offers, giveaways and more!
+                </div>
+            </div>
+
+            <div>
+                <div class="floatRight marginTop10">
+                    <input id="btnUpdateDetails" type="submit" value="Update Details" class="btnSubmit purpleBlueGrad" />
+                </div>
+                <div class="clearBoth"></div>
+            </div>
+        </div>
+    </div>
+}

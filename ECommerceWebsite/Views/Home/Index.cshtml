@@ -1,0 +1,38 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Home";
+    bool newUserCreated = TempData["NewUser"] != null;
+}
+@if (newUserCreated)
+{
+    <div id="addedToCart">
+        <div id="addedToCartMessage">
+            Your account has been created!
+            <img src="/img/icon-pack/png/icon-green-tick.png" class="imgMenuIcon">
+        </div>
+    </div>
+}
+
+<div id="carouselHome" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        @foreach (var item in Model.CarouselItems)
+        {
+            if (item == Model.CarouselItems.First())
+            {
+                <div class="carousel-item active">
+                    <a href="@item.Url">
+                        <img class="d-block w-100" style="height: 400px;" src="@item.ImageSrc" alt="@item.Text">
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="carousel-item">
+                    <a href="@item.Url">
+                        <img class="d-block w-100" style="height: 400px;" src="@item.ImageSrc" alt="@item.Text">
+                    </a>
+                </div>
+            }
+        }
+    </div>
+</div>
