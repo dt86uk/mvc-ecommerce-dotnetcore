@@ -90,14 +90,17 @@ namespace ECommerceWebsite
             app.UseStaticFiles();
             
             app.UseRouting();
-            
             app.UseAuthorization();
-            
             app.UseSession();
-            //app.UseMvcWithDefaultRoute();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "admin",
+                    pattern: "admin/{controller}/{action}/{id?}",
+                    defaults: new { controller = "Admin", action = "Index" }
+                );
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
