@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5H0hliWHXemtIpcKW5EtrX5x0opxjIierJdK2okFng+JHVEiDqu957ITydrvtrb4lTy0r7AxC5b4oYyfJ23O0A==",
+  "dgSpecHash": "S2lnvUS00k1pkKcHeymIZCOdNHyqfaP4+pd0m7kdSfdqQyGNqOEdFMIzy5GiBqgXmx/2FV+95PyrT+izFXsBYw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danie\\source\\repos\\ECommerceWebsite\\Tests\\TestsECommerceDatabase\\TestsECommerceDatabase.csproj",
+  "projectFilePath": "C:\\Users\\danie\\source\\repos\\mvc-ecommerce-dotnetcore\\Tests\\TestsECommerceDatabase\\TestsECommerceDatabase.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danie\\.nuget\\packages\\coverlet.collector\\1.2.0\\coverlet.collector.1.2.0.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",

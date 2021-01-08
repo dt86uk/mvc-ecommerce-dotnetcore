@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AXJ3BZaBbvjwVp9gO0rgV796QKKUxdLjGiV3KQeg47of+l9ux//y6cudSfUC12btpmFvCf+UHLGOrRMkO299tw==",
+  "dgSpecHash": "Zrsj5Cgsot6siJOzDAjhWuXnvDyNhoP6vJ1xDIyP+yi+Qe16V8rhxULiinsObmX+u9xsDUibOCx/UZElZ8dMDg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danie\\source\\repos\\ECommerceWebsite\\ECommerceService\\ECommerceService.csproj",
+  "projectFilePath": "C:\\Users\\danie\\source\\repos\\mvc-ecommerce-dotnetcore\\ECommerceService\\ECommerceService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danie\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",

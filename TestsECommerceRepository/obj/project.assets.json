@@ -6773,11 +6773,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\danie\\source\\repos\\ECommerceWebsite\\TestsECommerceRepository\\TestsECommerceRepository.csproj",
+      "projectUniqueName": "C:\\Users\\danie\\source\\repos\\mvc-ecommerce-dotnetcore\\TestsECommerceRepository\\TestsECommerceRepository.csproj",
       "projectName": "TestsECommerceRepository",
-      "projectPath": "C:\\Users\\danie\\source\\repos\\ECommerceWebsite\\TestsECommerceRepository\\TestsECommerceRepository.csproj",
+      "projectPath": "C:\\Users\\danie\\source\\repos\\mvc-ecommerce-dotnetcore\\TestsECommerceRepository\\TestsECommerceRepository.csproj",
       "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\danie\\source\\repos\\ECommerceWebsite\\TestsECommerceRepository\\obj\\",
+      "outputPath": "C:\\Users\\danie\\source\\repos\\mvc-ecommerce-dotnetcore\\TestsECommerceRepository\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -6798,8 +6798,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\danie\\source\\repos\\ECommerceWebsite\\ECommerceRepository\\ECommerceRepository.csproj": {
-              "projectPath": "C:\\Users\\danie\\source\\repos\\ECommerceWebsite\\ECommerceRepository\\ECommerceRepository.csproj"
+            "C:\\Users\\danie\\source\\repos\\mvc-ecommerce-dotnetcore\\ECommerceRepository\\ECommerceRepository.csproj": {
+              "projectPath": "C:\\Users\\danie\\source\\repos\\mvc-ecommerce-dotnetcore\\ECommerceRepository\\ECommerceRepository.csproj"
             }
           }
         }

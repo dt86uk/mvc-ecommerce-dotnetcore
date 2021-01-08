@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "F/W2b5zv9wS+wfH7itZHCtylyXZqBCodNEAvV1CgkzHD6cL+rl0H8kyym2/E7ARmVm20HGEtjYaZk7ttTgopCA==",
+  "dgSpecHash": "QtCb0Su5lTMPafaHfK6iQlFHsxPMoZK8WM1bRAF3hyPBV+iN1vlil+5LteBH3HSG58ifDfN8zOUhZWKKm1ZYow==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danie\\source\\repos\\ECommerceWebsite\\TestsECommerceRepository\\TestsECommerceRepository.csproj",
+  "projectFilePath": "C:\\Users\\danie\\source\\repos\\mvc-ecommerce-dotnetcore\\TestsECommerceRepository\\TestsECommerceRepository.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danie\\.nuget\\packages\\castle.core\\4.4.0\\castle.core.4.4.0.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\coverlet.collector\\1.2.0\\coverlet.collector.1.2.0.nupkg.sha512",

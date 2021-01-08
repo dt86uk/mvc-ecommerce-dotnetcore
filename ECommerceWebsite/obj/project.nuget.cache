@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/qow+Tx8pwqtG8xAMM/8BORRQ7J3bsAlvl7nWdjWgD6oRS9ylYLenjHqPkgD0gVw9N43z85sjXZ5BLYoq+DWag==",
+  "dgSpecHash": "kwzrpgkmTXESRlLNE6jYE5UvDtnaGW8tFfIZQ6y1FR+GFTsj4CuCUKPZU62eTz1px2fuLLYmWA9NFuBZqiDM2w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danie\\source\\repos\\ECommerceWebsite\\ECommerceWebsite\\ECommerceWebsite.csproj",
+  "projectFilePath": "C:\\Users\\danie\\source\\repos\\mvc-ecommerce-dotnetcore\\ECommerceWebsite\\ECommerceWebsite.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danie\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\microsoft.aspnet.mvc.futures\\5.0.0\\microsoft.aspnet.mvc.futures.5.0.0.nupkg.sha512",

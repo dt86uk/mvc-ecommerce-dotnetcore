@@ -23,19 +23,19 @@
 
   <ItemGroup>
     <Folder Include="Content\Styles\" />
-    <Folder Include="Views\Admin\Transactions\" />
-    <Folder Include="Views\Admin\Brands\" />
-    <Folder Include="Views\Admin\Categories\" />
-    <Folder Include="Views\Admin\Users\" />
-    <Folder Include="Views\Admin\Roles\" />
-    <Folder Include="Views\Admin\Orders\" />
-    <Folder Include="Views\Admin\Products\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\img\carousel\nike-air-zoom-pegasus-37-hero.jpg" />
     <None Include="wwwroot\img\carousel\nike-mercurial-superfly-7-elite-mds-fg-hero.jpg" />
     <None Include="wwwroot\img\carousel\nike-zoom-pegasus-turbo-2-hero.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Admin\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

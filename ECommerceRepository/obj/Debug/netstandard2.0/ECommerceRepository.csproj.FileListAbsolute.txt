@@ -10,3 +10,15 @@ C:\Users\danie\source\repos\ECommerceWebsite\ECommerceRepository\obj\Debug\netst
 C:\Users\danie\source\repos\ECommerceWebsite\ECommerceRepository\obj\Debug\netstandard2.0\ECommerceRepository.csproj.CopyComplete
 C:\Users\danie\source\repos\ECommerceWebsite\ECommerceRepository\obj\Debug\netstandard2.0\ECommerceRepository.dll
 C:\Users\danie\source\repos\ECommerceWebsite\ECommerceRepository\obj\Debug\netstandard2.0\ECommerceRepository.pdb
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceRepository\bin\Debug\netstandard2.0\ECommerceRepository.deps.json
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceRepository\bin\Debug\netstandard2.0\ECommerceRepository.dll
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceRepository\bin\Debug\netstandard2.0\ECommerceRepository.pdb
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceRepository\bin\Debug\netstandard2.0\ECommerceDatabase.dll
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceRepository\bin\Debug\netstandard2.0\ECommerceDatabase.pdb
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceRepository\obj\Debug\netstandard2.0\ECommerceRepository.csprojAssemblyReference.cache
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceRepository\obj\Debug\netstandard2.0\ECommerceRepository.AssemblyInfoInputs.cache
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceRepository\obj\Debug\netstandard2.0\ECommerceRepository.AssemblyInfo.cs
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceRepository\obj\Debug\netstandard2.0\ECommerceRepository.csproj.CoreCompileInputs.cache
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceRepository\obj\Debug\netstandard2.0\ECommerceRepository.csproj.CopyComplete
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceRepository\obj\Debug\netstandard2.0\ECommerceRepository.dll
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceRepository\obj\Debug\netstandard2.0\ECommerceRepository.pdb

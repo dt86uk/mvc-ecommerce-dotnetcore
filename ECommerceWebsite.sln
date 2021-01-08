@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerceWebsite", "ECommerceWebsite\ECommerceWebsite.csproj", "{C9D02A43-683C-4A3E-9C36-F31AAC927DB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommerceWebsite", "ECommerceWebsite\ECommerceWebsite.csproj", "{C9D02A43-683C-4A3E-9C36-F31AAC927DB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerceDatabase", "ECommerceDatabase\ECommerceDatabase.csproj", "{3B9675D1-002A-466C-843E-BD6E696F0FFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommerceDatabase", "ECommerceDatabase\ECommerceDatabase.csproj", "{3B9675D1-002A-466C-843E-BD6E696F0FFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerceService", "ECommerceService\ECommerceService.csproj", "{EB0EF51E-41A6-4100-B03A-B53190438EE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommerceService", "ECommerceService\ECommerceService.csproj", "{EB0EF51E-41A6-4100-B03A-B53190438EE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerceRepository", "ECommerceRepository\ECommerceRepository.csproj", "{0E7FDE8F-0FDE-4A26-A547-F9EE8DB72EB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommerceRepository", "ECommerceRepository\ECommerceRepository.csproj", "{0E7FDE8F-0FDE-4A26-A547-F9EE8DB72EB3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8A195E1E-9BC2-4C3C-82FC-E06BD472B1D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsECommerceDatabase", "Tests\TestsECommerceDatabase\TestsECommerceDatabase.csproj", "{84111EB2-F45E-4EC6-AF5B-5548C34BEF7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestsECommerceDatabase", "Tests\TestsECommerceDatabase\TestsECommerceDatabase.csproj", "{84111EB2-F45E-4EC6-AF5B-5548C34BEF7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsECommerceRepository", "TestsECommerceRepository\TestsECommerceRepository.csproj", "{0E34626E-E04E-47FD-A5B9-678361CA92F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestsECommerceRepository", "TestsECommerceRepository\TestsECommerceRepository.csproj", "{0E34626E-E04E-47FD-A5B9-678361CA92F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsECommerceService", "TestsECommerceService\TestsECommerceService.csproj", "{02C240D0-EAEC-4B3C-BB1A-08633991C0E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestsECommerceService", "TestsECommerceService\TestsECommerceService.csproj", "{02C240D0-EAEC-4B3C-BB1A-08633991C0E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

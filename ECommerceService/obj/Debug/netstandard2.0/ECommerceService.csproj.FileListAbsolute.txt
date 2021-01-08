@@ -12,3 +12,17 @@ C:\Users\danie\source\repos\ECommerceWebsite\ECommerceService\obj\Debug\netstand
 C:\Users\danie\source\repos\ECommerceWebsite\ECommerceService\obj\Debug\netstandard2.0\ECommerceService.csproj.CopyComplete
 C:\Users\danie\source\repos\ECommerceWebsite\ECommerceService\obj\Debug\netstandard2.0\ECommerceService.dll
 C:\Users\danie\source\repos\ECommerceWebsite\ECommerceService\obj\Debug\netstandard2.0\ECommerceService.pdb
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceService\bin\Debug\netstandard2.0\ECommerceService.deps.json
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceService\bin\Debug\netstandard2.0\ECommerceService.dll
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceService\bin\Debug\netstandard2.0\ECommerceService.pdb
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceService\bin\Debug\netstandard2.0\ECommerceDatabase.dll
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceService\bin\Debug\netstandard2.0\ECommerceRepository.dll
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceService\bin\Debug\netstandard2.0\ECommerceRepository.pdb
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceService\bin\Debug\netstandard2.0\ECommerceDatabase.pdb
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceService\obj\Debug\netstandard2.0\ECommerceService.csprojAssemblyReference.cache
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceService\obj\Debug\netstandard2.0\ECommerceService.AssemblyInfoInputs.cache
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceService\obj\Debug\netstandard2.0\ECommerceService.AssemblyInfo.cs
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceService\obj\Debug\netstandard2.0\ECommerceService.csproj.CoreCompileInputs.cache
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceService\obj\Debug\netstandard2.0\ECommerceService.csproj.CopyComplete
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceService\obj\Debug\netstandard2.0\ECommerceService.dll
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceService\obj\Debug\netstandard2.0\ECommerceService.pdb

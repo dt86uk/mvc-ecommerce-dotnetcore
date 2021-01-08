@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\danie\\source\\repos\\ECommerceWebsite\\ECommerceDatabase\\ECommerceDatabase.csproj": {}
+    "C:\\Users\\danie\\source\\repos\\mvc-ecommerce-dotnetcore\\ECommerceDatabase\\ECommerceDatabase.csproj": {}
   },
   "projects": {
-    "C:\\Users\\danie\\source\\repos\\ECommerceWebsite\\ECommerceDatabase\\ECommerceDatabase.csproj": {
+    "C:\\Users\\danie\\source\\repos\\mvc-ecommerce-dotnetcore\\ECommerceDatabase\\ECommerceDatabase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\danie\\source\\repos\\ECommerceWebsite\\ECommerceDatabase\\ECommerceDatabase.csproj",
+        "projectUniqueName": "C:\\Users\\danie\\source\\repos\\mvc-ecommerce-dotnetcore\\ECommerceDatabase\\ECommerceDatabase.csproj",
         "projectName": "ECommerceDatabase",
-        "projectPath": "C:\\Users\\danie\\source\\repos\\ECommerceWebsite\\ECommerceDatabase\\ECommerceDatabase.csproj",
+        "projectPath": "C:\\Users\\danie\\source\\repos\\mvc-ecommerce-dotnetcore\\ECommerceDatabase\\ECommerceDatabase.csproj",
         "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\danie\\source\\repos\\ECommerceWebsite\\ECommerceDatabase\\obj\\",
+        "outputPath": "C:\\Users\\danie\\source\\repos\\mvc-ecommerce-dotnetcore\\ECommerceDatabase\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dj8OMX/8i2NqgNqs+ZQLi10UKBd6xrm7LD5lrxeYkhbdHQ1j8UFMYew3ZdwpLcDVPyd8AEgMFmpgZ/X9S/H3kA==",
+  "dgSpecHash": "kLKmCjBgbpf0LQPt1vBz0XPKGPgOf5ILkesGxpv+DKzqXropR/l0odBii/+1HpzDsl6xSja3Vyxi64fMm9y04g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danie\\source\\repos\\ECommerceWebsite\\TestsECommerceService\\TestsECommerceService.csproj",
+  "projectFilePath": "C:\\Users\\danie\\source\\repos\\mvc-ecommerce-dotnetcore\\TestsECommerceService\\TestsECommerceService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danie\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\castle.core\\4.4.0\\castle.core.4.4.0.nupkg.sha512",

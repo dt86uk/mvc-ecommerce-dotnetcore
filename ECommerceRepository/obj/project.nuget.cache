@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "eE1E19Q1AWCfEZ3bPbHagvC7hL7MubqfMzUUzYwJLXPnJ3tgchVA09c9mNdIXSkDyfODBPziBljvNIyektmayA==",
+  "dgSpecHash": "0ImsdyCkhvWTMBJYowf5YMnQyN8nymUx+88KK8m1WyMBfBumylO/4tzXa6BBiwSgku0Zdo2aChz3NzJGTS++WQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danie\\source\\repos\\ECommerceWebsite\\ECommerceRepository\\ECommerceRepository.csproj",
+  "projectFilePath": "C:\\Users\\danie\\source\\repos\\mvc-ecommerce-dotnetcore\\ECommerceRepository\\ECommerceRepository.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danie\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",

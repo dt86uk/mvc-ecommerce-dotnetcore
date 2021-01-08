@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Moq;
+using ECommerceDatabase.Database.Entities;
+using ECommerceRepository.BusinessLogic;
 using ECommerceService.BusinessLogic;
-using ECommerceService.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestsECommerceService.BusinessLogic
@@ -10,13 +11,13 @@ namespace TestsECommerceService.BusinessLogic
     public class StockServiceTests
     {
         private StockService _stockService;
-        private Mock<IProductService> _mockProductService;
+        private Mock<IProductRepository> _mockProductRepository;
         
         [TestInitialize]
         public void Init()
         {
-            _mockProductService = new Mock<IProductService>();
-            _stockService = new StockService(_mockProductService.Object);
+            _mockProductRepository = new Mock<IProductRepository>();
+            _stockService = new StockService(_mockProductRepository.Object);
         }
 
         [TestMethod]
@@ -25,33 +26,29 @@ namespace TestsECommerceService.BusinessLogic
             //Arrange  
             int productId = 1;
             int sizeId = 1;
-            var productDto = new ProductDTO()
+            var product = new Product()
             {
                 Id = 1,
-                Brand = new BrandDTO()
+                Brand = new Brand()
                 {
                     Id = 1,
                     BrandName = "Nike"
                 },
-                Category = new CategoryDTO()
-                {
-                    Id = 1,
-                    CategoryName = "Men"
-                },
+                CategoryId = 1,
                 Description = "A description",
                 Gender = "Men's",
                 HeroTitle = "Hero Title",
                 HeroImage = null,
                 Images = null,
                 Price = 200.00m,
-                ProductType = new ProductTypeDTO()
+                ProductType = new ProductType()
                 {
                     Id = 1,
                     ProductTypeName = "Shoes"
                 },
-                Sizes = new List<ProductSizeDTO>()
+                Sizes = new List<ProductSize>()
                 {
-                    new ProductSizeDTO()
+                    new ProductSize()
                     {
                         Id = 1,
                         Quantity = 2,
@@ -61,9 +58,9 @@ namespace TestsECommerceService.BusinessLogic
                 Title = "Product Title 1"
             };
 
-            _mockProductService
+            _mockProductRepository
                 .Setup(x => x.GetProductById(It.IsAny<int>()))
-                .Returns(productDto);
+                .Returns(product);
 
             //Act
             var result = _stockService.IsStockAvailable(productId, sizeId);
@@ -78,37 +75,33 @@ namespace TestsECommerceService.BusinessLogic
             //Arrange  
             int productId = 1;
             int sizeId = 1;
-            var productDto = new ProductDTO()
+            var product = new Product()
             {
                 Id = 1,
-                Brand = new BrandDTO()
+                Brand = new Brand()
                 {
                     Id = 1,
                     BrandName = "Nike"
                 },
-                Category = new CategoryDTO()
-                {
-                    Id = 1,
-                    CategoryName = "Men"
-                },
+                CategoryId = 1,
                 Description = "A description",
                 Gender = "Men's",
                 HeroTitle = "Hero Title",
                 HeroImage = null,
                 Images = null,
                 Price = 200.00m,
-                ProductType = new ProductTypeDTO()
+                ProductType = new ProductType()
                 {
                     Id = 1,
                     ProductTypeName = "Shoes"
                 },
-                Sizes = new List<ProductSizeDTO>(),
+                Sizes = new List<ProductSize>(),
                 Title = "Product Title 1"
             };
 
-            _mockProductService
+            _mockProductRepository
                 .Setup(x => x.GetProductById(It.IsAny<int>()))
-                .Returns(productDto);
+                .Returns(product);
 
             //Act
             var result = _stockService.IsStockAvailable(productId, sizeId);
@@ -123,37 +116,33 @@ namespace TestsECommerceService.BusinessLogic
             //Arrange  
             int productId = 1;
             int sizeId = 12;
-            var productDto = new ProductDTO()
+            var product = new Product()
             {
                 Id = 1,
-                Brand = new BrandDTO()
+                Brand = new Brand()
                 {
                     Id = 1,
                     BrandName = "Nike"
                 },
-                Category = new CategoryDTO()
-                {
-                    Id = 1,
-                    CategoryName = "Men"
-                },
+                CategoryId = 1,
                 Description = "A description",
                 Gender = "Men's",
                 HeroTitle = "Hero Title",
                 HeroImage = null,
                 Images = null,
                 Price = 200.00m,
-                ProductType = new ProductTypeDTO()
+                ProductType = new ProductType()
                 {
                     Id = 1,
                     ProductTypeName = "Shoes"
                 },
-                Sizes = new List<ProductSizeDTO>(),
+                Sizes = new List<ProductSize>(),
                 Title = "Product Title 1"
             };
 
-            _mockProductService
+            _mockProductRepository
                 .Setup(x => x.GetProductById(It.IsAny<int>()))
-                .Returns(productDto);
+                .Returns(product);
 
             //Act
             var result = _stockService.IsStockAvailable(productId, sizeId);
