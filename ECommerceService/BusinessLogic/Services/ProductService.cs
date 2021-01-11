@@ -1,8 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using ECommerceDatabase.Database.Entities;
 using ECommerceRepository.BusinessLogic;
 using ECommerceService.Models;
-using System.Collections.Generic;
 
 namespace ECommerceService.BusinessLogic
 {
@@ -84,6 +84,21 @@ namespace ECommerceService.BusinessLogic
         public bool ReduceProductQuantity(int productId, int sizeId, int quantityToReduce)
         {
             return _productRepository.ReduceProductQuantity(productId, sizeId, quantityToReduce);
+        }
+
+        /// <summary>
+        /// Gets all products
+        /// </summary>
+        /// <returns></returns>
+        public List<ProductDTO> GetAllProducts()
+        {
+            var listProductsEntity = _productRepository.GetAllProducts();
+            return mapper.Map<List<Product>, List<ProductDTO>>(listProductsEntity);
+        }
+
+        public bool DeleteProduct(int productId)
+        {
+            return _productRepository.DeleteProduct(productId);
         }
     }
 }

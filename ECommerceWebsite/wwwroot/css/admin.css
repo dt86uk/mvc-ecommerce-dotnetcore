@@ -24,6 +24,46 @@ body {
     margin-bottom: 10px;
 }
 
+.tblBase {
+    border-collapse: collapse; 
+    width:100%;
+}
+
+.tblHeadBorder {
+    border-bottom: 1px solid #e5e5e5
+}
+
+.addNewText {
+    text-align: right;
+    padding-top: 25px;
+    float: right;
+    width: 48%;
+}
+
+.btnSubmit {
+    height: 35px;
+    width: 100%;
+    color: white;
+    padding: 4px 20px 20px 20px;
+    border: 1px solid #646464;
+    text-decoration: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.neutralGrad {
+    background: #ff3737;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.50) 3%, rgba(171,171,171,1) 81%);
+}
+
+.warningGrad {
+    background: #ff3737;
+    background: linear-gradient(90deg, #ff3737 3%, #ff9143 81%);
+}
+
+
 .textAlignRight {
     text-align: right;
 }
@@ -232,6 +272,10 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
 
 .width30perc {
     width: 30%;
+}
+
+.width48perc {
+    width: 48%;
 }
 
 .width56perc {

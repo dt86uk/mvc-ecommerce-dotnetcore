@@ -4,6 +4,6 @@ namespace ECommerceWebsite.BusinessLogic
 {
     public interface IAdminDashboardWebService
     {
-        AdminHomeViewModel GetDashboard();
+        AdminDashboardViewModel GetDashboard();
     }
 }

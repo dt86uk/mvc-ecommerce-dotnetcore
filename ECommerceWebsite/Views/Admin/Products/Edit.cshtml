@@ -1,0 +1,99 @@
+﻿@using ECommerceWebsite.Models.Admin;
+
+@model EditProductViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="titleHeader">Edit Product</div>
+
+@using (Html.BeginForm("Update", "products", Model, FormMethod.Post, false, new { @class = "displayInlineBlock" }))
+{
+    <div>
+        <div class="floatLeft width20perc">
+            @Html.HiddenFor(p => p.Brand.Id)
+            @Html.LabelFor(p => p.Brand.BrandName)
+        </div>
+        <div class="floatLeft width20perc">
+            @Html.TextBoxFor(p => p.Brand.BrandName)
+            @*TODO: @Html.DropDownListFor(p => p.ListBrands, )*@
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width20perc">
+            @Html.LabelFor(p => p.Title)
+        </div>
+        <div class="floatLeft width20perc">
+            @Html.TextBoxFor(p => p.Title)
+            @*TODO: @Html.DropDownListFor(p => p.ListBrands, )*@
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width20perc">
+            @Html.LabelFor(p => p.Price)
+        </div>
+        <div class="floatLeft width20perc">
+            @Html.TextBoxFor(p => p.Price)
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width20perc">
+            @Html.LabelFor(p => p.Description)
+        </div>
+        <div class="floatLeft width20perc">
+            @Html.TextAreaFor(p => p.Description, 5, 20, new { @class = "editTextArea" })  @*TODO: editTextArea*@
+            @*TODO: @Html.DropDownListFor(p => p.ListBrands, )*@
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width20perc">
+            @Html.LabelFor(p => p.Gender)
+        </div>
+        <div class="floatLeft width20perc">
+            @Html.TextBoxFor(p => p.Gender)
+            @*TODO: @foreach gender in ListGenders => <input type='checkbox' /> etc *@
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width20perc">
+            @Html.HiddenFor(p => p.Category.Id)
+            @Html.LabelFor(p => p.Category.CategoryName)
+        </div>
+        <div class="floatLeft width20perc">
+            @Html.TextBoxFor(p => p.Category.CategoryName)
+            @*TODO: @Html.DropDownListFor(p => p.ListBrands, )*@
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width20perc">
+            @Html.LabelFor(p => p.HeroImage)
+        </div>
+        <div class="floatLeft width20perc">
+            @*TODO: display hero image, small have 'delete' button under *@
+            @*TODO: include input to upload *@
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width20perc">
+            @Html.LabelFor(p => p.Images)
+        </div>
+        <div class="floatLeft width20perc">
+            @*TODO: @foreach image in Images => show and have delete button under *@
+            @*TODO: include input to upload *@
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+}

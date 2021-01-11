@@ -1,11 +1,12 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using ECommerceService.BusinessLogic;
 using ECommerceService.Models;
 using ECommerceWebsite.Helpers;
 using ECommerceWebsite.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using ECommerceWebsite.Models.Admin;
 
 namespace ECommerceWebsite.BusinessLogic
 {
@@ -15,6 +16,7 @@ namespace ECommerceWebsite.BusinessLogic
         private readonly IMapper mapper;
         private MapperConfiguration _config;
 
+        //TODO: Configure Mapper for EPVM, PsVM, PVM
         public ProductWebService(IProductService productService)
         {
             _productService = productService;
@@ -76,19 +78,7 @@ namespace ECommerceWebsite.BusinessLogic
             {
                 var productSizeViewModel = mapper.Map<ProductSizeDTO, ProductSizeViewModel>(size);
                 productViewModel.Sizes.Add(productSizeViewModel);
-
-                //productViewModel.Sizes.Add(new ProductSizeViewModel()
-                //{
-                //    Id = size.Id,
-                //    Quantity = size.Quantity,
-                //    Size = size.Size
-                //});
             }
-
-            //foreach (var category in product.Categories)
-            //{
-            //    productViewModel.Categories.Add();
-            //}
 
             return productViewModel;
         }
@@ -168,16 +158,60 @@ namespace ECommerceWebsite.BusinessLogic
                 });
             }
 
-            //foreach (var category in product.Categories)
-            //{
-            //    productViewModel.Categories.Add(new CategoryItemViewModel()
-            //    {
-            //        Id = category.Id,
-            //        CategoryName = category.CategoryName
-            //    });
-            //}
-
             return productViewModel;
+        }
+
+        public EditProductViewModel GetProductById(ProductsViewModel productsViewModel)
+        {
+            var product = _productService.GetProductById(productsViewModel.Id);
+            string genderDesc = ProductHelper.GetGenderDescription(product.Gender);
+
+            var editProductViewModel = new EditProductViewModel()
+            {
+                Id = productsViewModel.Id,
+                Title = product.Title,
+                Category = mapper.Map<CategoryDTO, CategoryItemViewModel>(product.Category),
+                Description = product.Description,
+                Gender = genderDesc,
+                HeroImage = product.HeroImage,
+                HeroTitle = product.HeroTitle,
+                Images = new List<ProductImageViewModel>(),
+                Brand = new BrandViewModel()
+                {
+                    Id = product.Brand.Id,
+                    BrandName = product.Brand.BrandName
+                },
+                Sizes = new List<ProductSizeViewModel>(),
+                ProductType = new ProductTypeViewModel()
+                {
+                    Id = product.ProductType.Id,
+                    ProductTypeName = product.ProductType.ProductTypeName
+                },
+                Price = product.Price
+            };
+
+            foreach (var image in product.Images)
+            {
+                var base64 = Convert.ToBase64String(image.Image);
+
+                editProductViewModel.Images.Add(new ProductImageViewModel()
+                {
+                    Id = image.Id,
+                    ImageSrc = $"data:image/jpeg;base64,{base64}"
+                });
+            }
+
+            foreach (var size in product.Sizes)
+            {
+                editProductViewModel.Sizes.Add(new ProductSizeViewModel()
+                {
+                    Id = size.Id,
+                    Quantity = size.Quantity,
+                    Size = size.Size
+                });
+            }
+
+            return editProductViewModel;
         }
 
         public bool ProductQuantityIsOk(int productId, int sizeId)
@@ -212,6 +246,22 @@ namespace ECommerceWebsite.BusinessLogic
             };
 
             return model;
+        }
+
+        public AdminProductsViewModel GetAllProducts()
+        {
+            var listProductsDto = _productService.GetAllProducts();
+            var listProdctsViewModel = mapper.Map<List<ProductDTO>, List<ProductsViewModel>>(listProductsDto);
+
+            return new AdminProductsViewModel() 
+            { 
+                AllProducts = listProdctsViewModel 
+            };
+        }
+
+        public bool DeleteProduct(int productId)
+        {
+            return _productService.DeleteProduct(productId);
         }
     }
 }

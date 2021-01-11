@@ -41,16 +41,17 @@ namespace ECommerceWebsite.Mapping
                 cfg.CreateMap<CategoryItemViewModel, CategoryDTO>().ReverseMap();
                 cfg.CreateMap<CategoryProductItemViewMoel, ProductDTO>().ReverseMap()
                     .ForMember(src => src.ImageSrc, opt => opt.MapFrom(dest => $"data:image/jpeg;base64,{Convert.ToBase64String(dest.Images[0].Image)}" ));
-                cfg.CreateMap<LatestTransactionsDTO, LatestTransactionsViewModel>()
-                    .ReverseMap();
-                cfg.CreateMap<LatestTransactionsDTO, LatestTransactionsViewModel>()
-                    .ReverseMap();
-                cfg.CreateMap<FinancialInformationDTO, FinancialInformationViewModel>()
-                    .ReverseMap();  
-                cfg.CreateMap<ProductStockDTO, ProductStockViewModel>()
-                    .ReverseMap();
-                cfg.CreateMap<NewUserDTO, NewUserViewModel>()
-                    .ReverseMap();
+                
+                //Admin
+                cfg.CreateMap<LatestTransactionsDTO, LatestTransactionsViewModel>().ReverseMap();
+                cfg.CreateMap<LatestTransactionsDTO, LatestTransactionsViewModel>().ReverseMap();
+                cfg.CreateMap<FinancialInformationDTO, FinancialInformationViewModel>().ReverseMap();  
+                cfg.CreateMap<ProductStockDTO, ProductStockViewModel>().ReverseMap();
+                cfg.CreateMap<NewUserDTO, NewUserViewModel>().ReverseMap();
+                cfg.CreateMap<ProductsViewModel, ProductDTO>()
+                    .ForPath(src => src.Brand.BrandName, opt => opt.MapFrom(dest => dest.Brand))
+                    .ForPath(src => src.ProductType.ProductTypeName, opt => opt.MapFrom(dest => dest.ProductType))
+                .ReverseMap();
             });
         }
     }

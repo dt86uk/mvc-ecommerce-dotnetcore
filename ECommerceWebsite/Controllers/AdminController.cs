@@ -1,6 +1,4 @@
 ﻿using ECommerceWebsite.BusinessLogic;
-using ECommerceWebsite.Models.Admin;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceWebsite.Controllers

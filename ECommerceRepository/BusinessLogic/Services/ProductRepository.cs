@@ -151,5 +151,40 @@ namespace ECommerceRepository.BusinessLogic
                     .Take(5).ToList();
             }
         }
+
+        public List<Product> GetAllProducts()
+        {
+            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
+            {
+                return context.Products.
+                    Include("Images").
+                    Include("Brand").
+                    Include("Sizes").
+                    Include("ProductType")
+                    .ToList();
+            }
+        }
+
+        public bool DeleteProduct(int productId)
+        {
+            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
+            {
+                var productEntity = context.Products.
+                    Include("Images").
+                    Include("Brand").
+                    Include("Sizes").
+                    Include("ProductType").
+                    SingleOrDefault(p => p.Id == productId);
+
+                if (productEntity != null)
+                {
+                    context.Products.Remove(productEntity);
+                    context.SaveChanges();
+                    return true;
+                }
+
+                return false;
+            }
+        }
     }
 }

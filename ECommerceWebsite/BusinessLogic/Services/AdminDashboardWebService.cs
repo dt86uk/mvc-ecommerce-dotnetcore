@@ -23,9 +23,9 @@ namespace ECommerceWebsite.BusinessLogic
             mapper = _config.CreateMapper();
         }
 
-        public AdminHomeViewModel GetDashboard()
+        public AdminDashboardViewModel GetDashboard()
         {
-            return new AdminHomeViewModel()
+            return new AdminDashboardViewModel()
             {
                 LatestTransactions = mapper.Map<List<LatestTransactionsDTO>, List<LatestTransactionsViewModel>>(_salesService.GetLatestTransactions()),
                 FinancialInformation = mapper.Map<List<FinancialInformationDTO>, List<FinancialInformationViewModel>>(_salesService.GetDailyTakings(5)),

@@ -15,5 +15,7 @@ namespace ECommerceRepository.BusinessLogic
         bool ReduceProductQuantity(int productId, int sizeId, int quantityToReduce);
         Product GetProductById(int productId);
         List<Product> GetFiveLowestStockProducts();
+        List<Product> GetAllProducts();
+        bool DeleteProduct(int productId);
     }
 }

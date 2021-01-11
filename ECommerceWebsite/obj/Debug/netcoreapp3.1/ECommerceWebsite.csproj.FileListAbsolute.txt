@@ -79,3 +79,4 @@ C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceWebsite\obj\Debug\
 C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceWebsite\obj\Debug\netcoreapp3.1\ECommerceWebsite.dll
 C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceWebsite\obj\Debug\netcoreapp3.1\ECommerceWebsite.pdb
 C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceWebsite\obj\Debug\netcoreapp3.1\ECommerceWebsite.genruntimeconfig.cache
+C:\Users\danie\source\repos\mvc-ecommerce-dotnetcore\ECommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Products\Edit.cshtml.g.cs

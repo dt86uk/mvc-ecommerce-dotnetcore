@@ -13,5 +13,7 @@ namespace ECommerceService.BusinessLogic
         List<ProductDTO> GetSuggestedProducts(int userId);
         ProductDTO GetProductById(int productId);
         bool ReduceProductQuantity(int productId, int sizeId, int quantityToReduce);
+        List<ProductDTO> GetAllProducts();
+        bool DeleteProduct(int productId);
     }
 }
