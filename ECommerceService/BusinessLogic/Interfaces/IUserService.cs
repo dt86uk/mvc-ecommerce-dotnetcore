@@ -11,5 +11,6 @@ namespace ECommerceService.BusinessLogic
         UserDTO GetUserById(int userId);
         bool UpdateUser(UserDTO user);
         List<NewUserDTO> GetLatestNewUsers(int numberOfUsers);
+        List<UserDetailsDTO> GetAllUsers();
     }
 }

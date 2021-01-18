@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
 using ECommerceDatabase.Database.Entities;
 using ECommerceRepository.BusinessLogic;
 using ECommerceService.Models;
@@ -9,12 +10,14 @@ namespace ECommerceService.BusinessLogic
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IRoleRepository _roleRepository;
         private readonly IMapper mapper;
         private MapperConfiguration _config;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IRoleRepository roleRepository)
         {
             _userRepository = userRepository;
+            _roleRepository = roleRepository;
             _config = new Mapping.AutoMapperService().Configuration;
             mapper = _config.CreateMapper();
         }
@@ -72,6 +75,21 @@ namespace ECommerceService.BusinessLogic
         public List<NewUserDTO> GetLatestNewUsers(int numberOfUsers)
         {
             return mapper.Map<List<User>, List<NewUserDTO>>(_userRepository.GetLatestNewUsers(numberOfUsers));
+        }
+
+        public List<UserDetailsDTO> GetAllUsers()
+        {
+            //TODO: Automapper to sort RoleName from RoleId => Google automapper assign propr based of value of another prop
+            var listUsersDetails = mapper.Map<List<User>, List<UserDetailsDTO>>(_userRepository.GetAllUsers());
+            var listRoles = mapper.Map<List<Role>, List<RoleDTO>>(_roleRepository.GetAllRoles());
+
+            foreach (var user in listUsersDetails)
+            {
+                var roleEntity = listRoles.SingleOrDefault(p => p.Id == user.RoleId);
+                user.RoleName = roleEntity != null ? roleEntity.RoleName : string.Empty;
+            }
+
+            return listUsersDetails;
         }
     }
 }

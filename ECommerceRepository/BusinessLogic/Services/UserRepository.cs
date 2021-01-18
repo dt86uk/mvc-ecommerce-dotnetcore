@@ -99,5 +99,13 @@ namespace ECommerceRepository.BusinessLogic
                     .Take(numberOfUsers).ToList();
             }
         }
+
+        public List<User> GetAllUsers()
+        {
+            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
+            {
+                return context.Users.ToList();
+            }
+        }
     }
 }

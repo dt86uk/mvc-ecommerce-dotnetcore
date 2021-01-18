@@ -63,6 +63,28 @@ body {
     background: linear-gradient(90deg, #ff3737 3%, #ff9143 81%);
 }
 
+.messageBox {
+    margin: auto;
+    width: 35%;
+    border: 1px solid lightgrey;
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+.confirmMessage {
+    text-align: center;
+    color: #3be23b;
+    font-weight: bold;
+}
+
+.messageImg {
+    display: inline-block;
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    margin-top: -4px;
+}
 
 .textAlignRight {
     text-align: right;

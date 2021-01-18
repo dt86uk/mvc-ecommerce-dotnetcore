@@ -43,6 +43,9 @@ namespace ECommerceService.Mapping
                 cfg.CreateMap<User, NewUserDTO>()
                     .ForMember(src => src.DateRegistered, opt => opt.MapFrom(dest => dest.CreatedDate))
                     .ReverseMap();
+                cfg.CreateMap<User, UserDetailsDTO>()
+                    .ForMember(src => src.DateRegistered, opt => opt.MapFrom(dest => dest.CreatedDate))
+                    .ReverseMap();
             });
         }
     }

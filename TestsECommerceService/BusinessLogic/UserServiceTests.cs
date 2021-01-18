@@ -13,12 +13,14 @@ namespace TestsECommerceService.BusinessLogic
     {
         private UserService _userService;
         private Mock<IUserRepository> _mockUserRepository;
+        private Mock<IRoleRepository> _mockRoleRepository;
 
         [TestInitialize]
         public void Init()
         {
             _mockUserRepository = new Mock<IUserRepository>();
-            _userService = new UserService(_mockUserRepository.Object);
+            _mockRoleRepository = new Mock<IRoleRepository>();
+            _userService = new UserService(_mockUserRepository.Object, _mockRoleRepository.Object);
         }
 
         [TestMethod]

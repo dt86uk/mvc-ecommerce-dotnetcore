@@ -1,5 +1,4 @@
 ﻿using ECommerceWebsite.BusinessLogic;
-using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Admin;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,15 +25,16 @@ namespace ECommerceWebsite.Controllers
         [Route("add")]
         public IActionResult Add()
         {
-            return View($"{ProductsViewFolder}/Index.cshtml");
+            //TODO: This  cshtml page
+            return View($"{ProductsViewFolder}/Add.cshtml");
         }
 
         [HttpPost]
         [Route("edit")]
         public IActionResult Edit(ProductsViewModel productModel)
         {
+            //TODO: HTML Controls / DropDownLists => Brands, Images etc
             EditProductViewModel editModel = _productWebService.GetProductById(productModel);
-
             return View($"{ProductsViewFolder}/Edit.cshtml", editModel);
         }
 
@@ -42,7 +42,7 @@ namespace ECommerceWebsite.Controllers
         [Route("delete")]
         public IActionResult Delete(ProductsViewModel productModel)
         {
-            TempData["ProductDeleted"] = _productWebService.DeleteProduct(productModel.Id);
+            TempData["ProductAction"] = _productWebService.DeleteProduct(productModel.Id);
             return RedirectToAction("Index", "products");
         }
 

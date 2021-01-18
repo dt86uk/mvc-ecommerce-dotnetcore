@@ -11,5 +11,6 @@ namespace ECommerceRepository.BusinessLogic
         User GetUserById(int userId);
         bool UpdateUser(User user);
         List<User> GetLatestNewUsers(int numberOfUsers);
+        List<User> GetAllUsers();
     }
 }

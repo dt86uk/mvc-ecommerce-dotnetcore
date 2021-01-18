@@ -2,24 +2,24 @@
 @model AdminProductsViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    bool productDeletedMessage = TempData["ProductDeleted"] != null;
+    bool productActionMessage = TempData["ProductAction"] != null;
 }
 <div>
     <div class="titleHeader floatLeft width48perc">Products</div>
     <div class="addNewText">
-        @Html.ActionLink("Add New Product", "Add", "AdminProduct")
+        <a href="~/admin/products/add">Add new Product</a> @*TODO : FIRST*@
     </div>
     <div class="clearBoth"></div>
 </div>
 
-@if (productDeletedMessage)
+@if (productActionMessage)
 {
-    @if (Convert.ToBoolean(TempData["ProductDeleted"]))
+    @if (Convert.ToBoolean(TempData["ProductAction"]))
     {
-        <div class="responseMessageBox">
-            <div class="successMessage">
+        <div class="messageBox">
+            <div class="confirmMessage">
                 Product deleted!
-                <img src="/img/icon-pack/png/icon-green-tick.png" class="imgMenuIcon">
+                <img src="/img/icon-pack/png/icon-green-tick.png" class="messageImg">
             </div>
         </div>
     }

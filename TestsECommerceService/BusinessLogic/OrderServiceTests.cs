@@ -78,7 +78,7 @@ namespace TestsECommerceService.BusinessLogic
                 PaymentDetails = returnedOrderDto.PaymentDetails
             };
 
-            _mockStockService
+            _mockStockService 
                 .Setup(x => x.IsStockAvailable(It.IsAny<int>(), It.IsAny<int>()))
                 .Returns(true);
 

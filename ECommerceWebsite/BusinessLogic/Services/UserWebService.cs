@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using ECommerceService.BusinessLogic;
 using ECommerceService.Models;
 using ECommerceWebsite.Models;
+using System.Collections.Generic;
+using ECommerceWebsite.Models.Admin;
 
 namespace ECommerceWebsite.BusinessLogic
 {
@@ -133,6 +135,21 @@ namespace ECommerceWebsite.BusinessLogic
         public int GetRoleByUserId(int userId)
         {
             return _userService.GetUserById(userId).RoleId;
+        }
+
+        public List<NewUserViewModel> GetLatestNewUsers(int numberOfUsers)
+        {
+            return mapper.Map<List<NewUserDTO>, List<NewUserViewModel>>(_userService.GetLatestNewUsers(numberOfUsers));
+        }
+
+        public AdminUsersViewModel GetAllUsers()
+        {
+            var listUserDetails = mapper.Map<List<UserDetailsDTO>, List<UsersViewModel>>(_userService.GetAllUsers());
+
+            return new AdminUsersViewModel()
+            {
+                AllUsers = listUserDetails
+            };
         }
     }
 }
