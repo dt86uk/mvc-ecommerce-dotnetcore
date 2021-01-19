@@ -4,9 +4,9 @@ namespace ECommerceWebsite.Models.Admin
 {
     public class EditProductViewModel : AdminBaseViewModel
     {
-        //TODO: Data Annotations added here
+        //TODO: Data Annotations added here / Copy AddProductViewModel
         public int Id { get; set; } 
-        public string Title { get; set; }
+        public string ProductName { get; set; }
         public CategoryItemViewModel Category { get; set; }
         public string Description { get; set; }
         public string Gender { get; set; }

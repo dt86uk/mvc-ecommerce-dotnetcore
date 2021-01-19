@@ -1,21 +1,54 @@
 ﻿@using ECommerceWebsite.Models.Admin;
 
-@model EditProductViewModel
+@model AddProductViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    bool productActionMessage = TempData["ProductAction"] != null;
 }
-<div class="titleHeader">Edit Product</div>
-
-@using (Html.BeginForm("Update", "products", Model, FormMethod.Post, false, new { @class = "displayInlineBlock" }))
+<div class="titleHeader">Add Product</div>
+@if (productActionMessage)
 {
+    @if (Convert.ToBoolean(TempData["ProductAction"]))
+    {
+    <div class="messageBox">
+        @if (Model.ActionResponse.ActionSuccessful)
+        {
+            <div class="confirmMessage">
+                Product successfully added.
+                <img src="/img/icon-pack/png/icon-green-tick.png" class="messageImg">
+            </div>
+        }
+        else
+        {
+            <div class="confirmMessage">
+                @Model.ActionResponse?.Error?.Message
+                @*TODO: We need a red cross icon similar type to green tick*@
+                @*<img src="/img/icon-pack/png/icon-green-tick.png" class="messageImg">*@
+            </div>
+        }
+    </div>
+    }
+    else
+    {
+        <div class="responseMessageBox">
+            <div class="errorMessage">
+                Product not found, unable to delete. We recommend a hard browser refresh (Ctrl + F5).
+                If this problem persists, please contact support.
+            </div>
+        </div>
+    }
+}
+
+@using (Html.BeginForm("AddProduct", "products", Model, FormMethod.Post, false, new { @class = "displayInlineBlock" }))
+{
+    @Html.ValidationSummary()
+
     <div>
         <div class="floatLeft width20perc">
-            @Html.HiddenFor(p => p.Brand.Id)
-            @Html.LabelFor(p => p.Brand.BrandName)
+            @Html.LabelFor(p => p.Brands)
         </div>
         <div class="floatLeft width20perc">
-            @Html.TextBoxFor(p => p.Brand.BrandName)
-            @*TODO: @Html.DropDownListFor(p => p.ListBrands, )*@
+            @Html.DropDownListFor(p => p.Brands, Model.Brands)
         </div>
         <div class="clearBoth"></div>
     </div>
@@ -26,7 +59,6 @@
         </div>
         <div class="floatLeft width20perc">
             @Html.TextBoxFor(p => p.ProductName)
-            @*TODO: @Html.DropDownListFor(p => p.ListBrands, )*@
         </div>
         <div class="clearBoth"></div>
     </div>
@@ -47,30 +79,26 @@
         </div>
         <div class="floatLeft width20perc">
             @Html.TextAreaFor(p => p.Description, 5, 20, new { @class = "editTextArea" })  @*TODO: editTextArea*@
-            @*TODO: @Html.DropDownListFor(p => p.ListBrands, )*@
         </div>
         <div class="clearBoth"></div>
     </div>
 
     <div>
         <div class="floatLeft width20perc">
-            @Html.LabelFor(p => p.Gender)
+            @Html.LabelFor(p => p.Genders)
         </div>
         <div class="floatLeft width20perc">
-            @Html.TextBoxFor(p => p.Gender)
-            @*TODO: @foreach gender in ListGenders => <input type='checkbox' /> etc *@
+            @Html.DropDownListFor(p => p.Genders, Model.Genders)
         </div>
         <div class="clearBoth"></div>
     </div>
 
     <div>
         <div class="floatLeft width20perc">
-            @Html.HiddenFor(p => p.Category.Id)
-            @Html.LabelFor(p => p.Category.CategoryName)
+            @Html.LabelFor(p => p.Categories)
         </div>
         <div class="floatLeft width20perc">
-            @Html.TextBoxFor(p => p.Category.CategoryName)
-            @*TODO: @Html.DropDownListFor(p => p.ListBrands, )*@
+            @Html.DropDownListFor(p => p.Categories, Model.Categories)
         </div>
         <div class="clearBoth"></div>
     </div>
@@ -80,8 +108,7 @@
             @Html.LabelFor(p => p.HeroImage)
         </div>
         <div class="floatLeft width20perc">
-            @*TODO: display hero image, small have 'delete' button under *@
-            @*TODO: include input to upload *@
+            @*TODO: https://www.c-sharpcorner.com/article/upload-files-in-asp-net-mvc-5/ *@
         </div>
         <div class="clearBoth"></div>
     </div>
@@ -91,8 +118,7 @@
             @Html.LabelFor(p => p.Images)
         </div>
         <div class="floatLeft width20perc">
-            @*TODO: @foreach image in Images => show and have delete button under *@
-            @*TODO: include input to upload *@
+            @*TODO: https://www.c-sharpcorner.com/article/upload-files-in-asp-net-mvc-5/ Four times. *@
         </div>
         <div class="clearBoth"></div>
     </div>

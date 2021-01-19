@@ -43,7 +43,7 @@ namespace ECommerceWebsite.Controllers
                     GetCart(), model.AddToCart));
 
             string productName = ProductHelper.BuildProductUrl(
-                _productWebService.GetProductById(model.AddToCart.ProductId).Title); 
+                _productWebService.GetProductById(model.AddToCart.ProductId).ProductName); 
         
             TempData["AddedToCart"] = true;
             return Redirect($"https://{HttpContext.Request.Host}{HttpContext.Request.Path}/{productName.ToLower()}");

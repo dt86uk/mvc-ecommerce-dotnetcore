@@ -6,7 +6,7 @@ namespace ECommerceWebsite.Models
 {
     public class ProductViewModel : BaseViewModel
     {
-        public string Title { get; set; }
+        public string ProductName { get; set; }
         public CategoryItemViewModel Category { get; set; }
         public string Description { get; set; }
         public string Gender { get; set; }

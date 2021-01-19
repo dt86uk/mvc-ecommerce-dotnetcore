@@ -62,7 +62,7 @@ namespace TestsECommerceService.BusinessLogic
                             Size = "US 8"
                         }
                     },
-                    Title = "Nike Air Max"
+                    ProductName = "Nike Air Max"
                 }
             };
             _mockMenuRepository
@@ -87,7 +87,7 @@ namespace TestsECommerceService.BusinessLogic
             Assert.AreEqual(result[0].ProductType.Id, listProducts[0].ProductType.Id);
             Assert.AreEqual(result[0].ProductType.ProductTypeName, listProducts[0].ProductType.ProductTypeName);
             Assert.AreEqual(result[0].Sizes.Count, listProducts[0].Sizes.Count);
-            Assert.AreEqual(result[0].Title, listProducts[0].Title);
+            Assert.AreEqual(result[0].ProductName, listProducts[0].ProductName);
         }
 
         [TestMethod]

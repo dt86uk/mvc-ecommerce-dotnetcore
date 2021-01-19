@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ECommerceService.BusinessLogic;
 using ECommerceService.Models;
 using ECommerceWebsite.Helpers;
@@ -38,7 +39,7 @@ namespace ECommerceWebsite.BusinessLogic
             //move to helper class to BuildViewModel => Use AutoMapper
             var productViewModel = new ProductViewModel()
             {
-                Title = product.Title,
+                ProductName = product.ProductName,
                 Category = mapper.Map<CategoryDTO, CategoryItemViewModel>(product.Category),
                 Description = product.Description,
                 Gender = genderDesc,
@@ -97,8 +98,8 @@ namespace ECommerceWebsite.BusinessLogic
                 {
                     Category = product.Category != null ? product.Category.CategoryName : "Featured",
                     ImageSrc = $"data:image/jpeg;base64,{base64}",
-                    ProductName = product.Title,
-                    Url = $"https://{httpContextHost}/product/{product.Title.ToLower().Trim().Replace(" ", "-")}"
+                    ProductName = product.ProductName,
+                    Url = $"https://{httpContextHost}/product/{product.ProductName.ToLower().Trim().Replace(" ", "-")}"
                 });
             }
 
@@ -112,7 +113,7 @@ namespace ECommerceWebsite.BusinessLogic
 
             var productViewModel = new ProductViewModel()
             {
-                Title = product.Title,
+                ProductName = product.ProductName,
                 Category = mapper.Map<CategoryDTO, CategoryItemViewModel>(product.Category),
                 Description = product.Description,
                 Gender = genderDesc,
@@ -169,7 +170,7 @@ namespace ECommerceWebsite.BusinessLogic
             var editProductViewModel = new EditProductViewModel()
             {
                 Id = productsViewModel.Id,
-                Title = product.Title,
+                ProductName = product.ProductName,
                 Category = mapper.Map<CategoryDTO, CategoryItemViewModel>(product.Category),
                 Description = product.Description,
                 Gender = genderDesc,
@@ -234,7 +235,7 @@ namespace ECommerceWebsite.BusinessLogic
 
             foreach (var product in listProductsDto)
             {
-                product.Url = $"https://{httpContextHost}/product/{product.Title.ToLower().Trim().Replace(" ", "-")}";
+                product.Url = $"https://{httpContextHost}/product/{product.ProductName.ToLower().Trim().Replace(" ", "-")}";
             }
 
             string formattedCategoryName = $"{char.ToUpper(categoryName[0])}{categoryName.Substring(1, categoryName.Length - 1)}";
@@ -262,6 +263,95 @@ namespace ECommerceWebsite.BusinessLogic
         public bool DeleteProduct(int productId)
         {
             return _productService.DeleteProduct(productId);
+        }
+
+        public AddProductViewModel GetAddProductsContents()
+        {
+            AddProductContentsDTO addProductDto = _productService.GetAddProductContents();
+            var model = new AddProductViewModel();
+
+            foreach (var brand in addProductDto.Brands)
+            {
+                model.Brands.Add(new SelectListItem()
+                {
+                    Value = brand.Id.ToString(),
+                    Text = brand.BrandName
+                });
+            }
+
+            foreach (var category in addProductDto.Categories)
+            {
+                model.Categories.Add(new SelectListItem()
+                {
+                    Value = category.Id.ToString(),
+                    Text = category.CategoryName
+                });
+            }
+
+            foreach (var genders in addProductDto.Genders)
+            {
+                model.Genders.Add(new SelectListItem()
+                {
+                    Value = genders.Id.ToString(),
+                    Text = genders.Name
+                });
+            }
+
+            foreach (var productType in addProductDto.ProductTypes)
+            {
+                model.ProductTypes.Add(new SelectListItem()
+                {
+                    Value = productType.Id.ToString(),
+                    Text = productType.ProductTypeName
+                });
+            }
+
+            foreach (var size in addProductDto.Sizes)
+            {
+                model.ProductTypes.Add(new SelectListItem()
+                {
+                    Value = size.Id.ToString(),
+                    Text = size.Size
+                });
+            }
+
+            return model;
+        }
+
+        public AddProductViewModel GetAddProductsContent()
+        {
+            return mapper.Map<AddProductContentsDTO, AddProductViewModel>(_productService.GetAddProductContents());
+        }
+
+        public BaseWebServiceResponse AddProduct(AddProductViewModel model)
+        {
+            var response = new BaseWebServiceResponse();
+            var productDto = mapper.Map<AddProductViewModel, ProductDTO>(model);
+
+            if (_productService.ProductNameExists(productDto.ProductName))
+            {
+                response.Error = new ErrorServiceResponseModel() 
+                { 
+                    Name = "Product Name", 
+                    Message = "Product Name exists" 
+                };
+
+                return response;
+            }
+
+            if (!_productService.AddProduct(productDto))
+            {
+                response.Error = new ErrorServiceResponseModel()
+                {
+                    Name = "Add Product",
+                    Message = "There was a problem while attempting to add the Product, please try again. If this problem persists, please contact support."
+                };
+
+                return response;
+            }
+
+            response.ActionSuccessful = true;
+            return response;
         }
     }
 }

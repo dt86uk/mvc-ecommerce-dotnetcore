@@ -9,11 +9,11 @@
 <div class="suggestedProductContainer">
     <div style="display:block; width: 100%; height: auto;">
         <a href="@product.Url">
-            <img class="suggestedProductImage" src="@product.ImageSrc" alt="@product.Title">
+            <img class="suggestedProductImage" src="@product.ImageSrc" alt="@product.ProductName">
         </a>
     </div>
     <div class="suggestedProductCategory">@product.BrandName</div>
-    <div class="suggestedProductName">@product.Title @product.Title</div>
+    <div class="suggestedProductName">@product.ProductName @product.ProductName</div>
     <div class="suggestedProductName">$@product.Price.ToString("N")</div>
     <div class="suggestedProductCategory">@Model.CategoryName</div>
 </div>

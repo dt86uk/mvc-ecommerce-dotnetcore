@@ -15,14 +15,14 @@ namespace ECommerceWebsite.Models
             Description = productViewModel.Description;
             Price = productViewModel.Price;
             ImageSrc = productViewModel.Images[0].ImageSrc;
-            Title = productViewModel.Title;
+            ProductName = productViewModel.ProductName;
             ProductId = productItemViewModel.ProductId;
             Gender = ProductHelper.GetGenderDescription(productViewModel.Gender);
             Size = new ProductSizeViewModel() { Id = productSizeViewModel.Id, Size = productSizeViewModel.Size, Quantity = productItemViewModel.Quantity };
         }
 
         public int ProductId { get; set; }
-        public string Title { get; set; }
+        public string ProductName { get; set; }
         public string Description { get; set; }
         public string Gender { get; set; }
         public string ImageSrc { get; set; }

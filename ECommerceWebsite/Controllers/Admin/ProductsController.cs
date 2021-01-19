@@ -1,4 +1,5 @@
 ﻿using ECommerceWebsite.BusinessLogic;
+using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Admin;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,11 +23,34 @@ namespace ECommerceWebsite.Controllers
             return View($"{ProductsViewFolder}/Index.cshtml", model);
         }
 
+        [HttpGet]
         [Route("add")]
         public IActionResult Add()
         {
-            //TODO: This  cshtml page
-            return View($"{ProductsViewFolder}/Add.cshtml");
+            AddProductViewModel model = _productWebService.GetAddProductsContent();
+            return View($"{ProductsViewFolder}/Add.cshtml", model);
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public IActionResult Add(AddProductViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["ProductAction"] = "There was a problem adding the Product. If this problem persists, please contact support";
+                return  View($"{ProductsViewFolder}/Add.cshtml", model);
+            }
+
+            BaseWebServiceResponse response = _productWebService.AddProduct(model);
+
+            if (!response.ActionSuccessful)
+            {
+                TempData["ProductAction"] = response.Error.Message;
+                return View($"{ProductsViewFolder}/Add.cshtml", model);
+            }
+
+            TempData["ProductAction"] = "Product added successfully!"; 
+            return View($"{ProductsViewFolder}/Add.cshtml", new AddProductViewModel(response));
         }
 
         [HttpPost]

@@ -55,7 +55,7 @@ namespace TestsECommerceService.BusinessLogic
                         Size = "US 8"
                     }
                 },
-                Title = "Product Title 1"
+                ProductName = "Product Title 1"
             };
 
             _mockProductRepository
@@ -96,7 +96,7 @@ namespace TestsECommerceService.BusinessLogic
                     ProductTypeName = "Shoes"
                 },
                 Sizes = new List<ProductSize>(),
-                Title = "Product Title 1"
+                ProductName = "Product Title 1"
             };
 
             _mockProductRepository
@@ -137,7 +137,7 @@ namespace TestsECommerceService.BusinessLogic
                     ProductTypeName = "Shoes"
                 },
                 Sizes = new List<ProductSize>(),
-                Title = "Product Title 1"
+                ProductName = "Product Title 1"
             };
 
             _mockProductRepository

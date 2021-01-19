@@ -46,7 +46,7 @@ namespace ECommerceService.BusinessLogic
                 var productStockDto = new ProductStockDTO()
                 {
                     ProductId = product.Id,
-                    ProductName = product.Title,
+                    ProductName = product.ProductName,
                     BrandName = product.Brand.BrandName,
                     Quantity = product.Sizes.Sum(p => p.Quantity)
                 };

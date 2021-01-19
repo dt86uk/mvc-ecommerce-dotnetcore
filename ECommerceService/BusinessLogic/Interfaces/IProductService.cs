@@ -15,5 +15,8 @@ namespace ECommerceService.BusinessLogic
         bool ReduceProductQuantity(int productId, int sizeId, int quantityToReduce);
         List<ProductDTO> GetAllProducts();
         bool DeleteProduct(int productId);
+        AddProductContentsDTO GetAddProductContents();
+        bool ProductNameExists(string productName);
+        bool AddProduct(ProductDTO addProductDto);
     }
 }

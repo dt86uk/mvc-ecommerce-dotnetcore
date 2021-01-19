@@ -11,10 +11,10 @@
         @foreach (var product in Model.Items)
         {
             <div class="floatLeft">
-                <img style="width: 150px;" src="@product.ImageSrc" alt="@product.Title">
+                <img style="width: 150px;" src="@product.ImageSrc" alt="@product.ProductName">
             </div>
             <div class="floatLeft">
-                <div class="cartProductTitle">@product.Title</div>
+                <div class="cartProductTitle">@product.ProductName</div>
                 <div class="cartProductSubtitle">@product.Gender @product.Size.Size</div>
                 <div class="cartProductSubtitle">
                     @Html.HiddenFor(p => product.Size)

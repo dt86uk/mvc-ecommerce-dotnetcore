@@ -1,7 +1,7 @@
 ﻿@using System.Linq;
 @model ProductViewModel
 @{
-    ViewData["Title"] = Model.Title;
+    ViewData["Title"] = Model.ProductName;
     string soldOutClass = Model.IsSoldOut ? "soldOut" : string.Empty;
     bool addedToCart = TempData["AddedToCart"] != null ? Convert.ToBoolean(TempData["AddedToCart"]) : false;
 }
@@ -51,7 +51,7 @@
         @Model.Gender $@Model.Price.ToString("N")
     </div>
     <div id="productName">
-        @Model.Title
+        @Model.ProductName
     </div>
     @if (!string.IsNullOrEmpty(soldOutClass))
     {

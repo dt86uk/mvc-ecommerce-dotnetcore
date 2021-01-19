@@ -44,7 +44,7 @@ namespace ECommerceRepository.BusinessLogic
                     Include("Sizes").
                     Include("ProductType").
                     SingleOrDefault(p =>
-                        string.Equals(p.Title, productName, StringComparison.InvariantCultureIgnoreCase));
+                        string.Equals(p.ProductName, productName, StringComparison.InvariantCultureIgnoreCase));
             }
         }
 
@@ -184,6 +184,32 @@ namespace ECommerceRepository.BusinessLogic
                 }
 
                 return false;
+            }
+        }
+
+        public bool ProductNameExists(string productName)
+        {
+            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
+            {
+                return context.Products
+                    .Any(p => string.Equals(p.ProductName, productName, StringComparison.InvariantCultureIgnoreCase));
+            }
+        }
+
+        public bool AddProduct(Product productEntity)
+        {
+            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
+            {
+                try
+                {
+                    context.Products.Add(productEntity);
+                    context.SaveChanges();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
     }

@@ -9,12 +9,23 @@ namespace ECommerceService.BusinessLogic
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
+        private readonly IBrandRepository _brandRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IProductSizeRepository _productSizeRepository;
+        private readonly IProductTypeRepository _productTypeRepository;
+
         private readonly IMapper mapper;
         private MapperConfiguration _config;
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository, IBrandRepository brandRepository,  ICategoryRepository categoryRepository,
+            IProductSizeRepository productSizeRepository, IProductTypeRepository productTypeRepository)
         {
             _productRepository = productRepository;
+            _brandRepository = brandRepository;
+            _categoryRepository = categoryRepository;
+            _productSizeRepository = productSizeRepository;
+            _productTypeRepository = productTypeRepository;
+
             _config = new Mapping.AutoMapperService().Configuration;
             mapper = _config.CreateMapper();
         }
@@ -99,6 +110,49 @@ namespace ECommerceService.BusinessLogic
         public bool DeleteProduct(int productId)
         {
             return _productRepository.DeleteProduct(productId);
+        }
+
+        public AddProductContentsDTO GetAddProductContents()
+        {
+            var listGendersDto = new List<GenderDTO>() {
+                new GenderDTO()
+                {
+                    Id = (int)GenderEnum.Female,
+                    Name = GenderEnum.Female.ToString()
+                },
+                new GenderDTO()
+                {
+                    Id = (int)GenderEnum.Male,
+                    Name = GenderEnum.Male.ToString()
+                },
+                new GenderDTO()
+                {
+                    Id = (int)GenderEnum.Unisex,
+                    Name = GenderEnum.Unisex.ToString()
+                }
+            };
+
+            var addProductDTO = new AddProductContentsDTO()
+            {
+                Brands = mapper.Map<List<Brand>, List<BrandDTO>>(_brandRepository.GetAllBrands()),
+                Categories = mapper.Map<List<Category>, List<CategoryDTO>>(_categoryRepository.GetAllCategories()),
+                Genders = listGendersDto,
+                ProductTypes = mapper.Map<List<ProductType>, List<ProductTypeDTO>>(_productTypeRepository.GetAllProductTypes()),
+                Sizes = mapper.Map<List<ProductSize>, List<ProductSizeDTO>>(_productSizeRepository.GetAllProductSizes())
+            };
+
+            return addProductDTO;
+        }
+
+        public bool ProductNameExists(string productName)
+        {
+            return _productRepository.ProductNameExists(productName);
+        }
+
+        public bool AddProduct(ProductDTO productDto)
+        {
+            var productEntity = mapper.Map<ProductDTO, Product>(productDto);
+            return _productRepository.AddProduct(productEntity);
         }
     }
 }

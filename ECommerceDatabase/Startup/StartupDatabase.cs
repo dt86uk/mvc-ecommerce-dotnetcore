@@ -108,13 +108,13 @@ namespace ECommerceDatabase
                     {
                         var listProducts = new List<Product>()
                         {
-                            new Product { Id = 1, Brand = context.Brands.SingleOrDefault(p => p.Id == 1), HeroImage = GetHeroImage(1), HeroTitle = "Nike Air Zoom Pegasus 37", Title = "Nike Air Zoom Pegasus 37", Description = GetDescription(1),
+                            new Product { Id = 1, Brand = context.Brands.SingleOrDefault(p => p.Id == 1), HeroImage = GetHeroImage(1), HeroTitle = "Nike Air Zoom Pegasus 37", ProductName = "Nike Air Zoom Pegasus 37", Description = GetDescription(1),
                                 CategoryId = 1, Gender = GenderEnum.Male.ToString(),
                                 Images = GetImages(1), ProductType = context.ProductTypes.SingleOrDefault(p => p.Id == 1), Sizes = GetProductSizes(1), Price = 200 },
-                            new Product { Id = 2, Brand = context.Brands.SingleOrDefault(p => p.Id == 1), HeroImage = GetHeroImage(2), HeroTitle = "Nike Mercurial Superfly 7 Elite MDS FG", Title = "Nike Mercurial Superfly 7 Elite MDS FG", Description = GetDescription(2),
+                            new Product { Id = 2, Brand = context.Brands.SingleOrDefault(p => p.Id == 1), HeroImage = GetHeroImage(2), HeroTitle = "Nike Mercurial Superfly 7 Elite MDS FG", ProductName = "Nike Mercurial Superfly 7 Elite MDS FG", Description = GetDescription(2),
                                 CategoryId = 2, Gender = GenderEnum.Male.ToString(),
                                 Images = GetImages(2), ProductType = context.ProductTypes.SingleOrDefault(p => p.Id == 1), Sizes = GetProductSizes(2), Price = 370 },
-                            new Product { Id = 3, Brand = context.Brands.SingleOrDefault(p => p.Id == 1), HeroImage = GetHeroImage(3), HeroTitle = "Nike Zoom Pegasus Turbo 2", Title = "Nike Zoom Pegasus Turbo 2", Description = GetDescription(3),
+                            new Product { Id = 3, Brand = context.Brands.SingleOrDefault(p => p.Id == 1), HeroImage = GetHeroImage(3), HeroTitle = "Nike Zoom Pegasus Turbo 2", ProductName = "Nike Zoom Pegasus Turbo 2", Description = GetDescription(3),
                                 CategoryId = 3, Gender = GenderEnum.Male.ToString(),
                                 Images = GetImages(3), ProductType = context.ProductTypes.SingleOrDefault(p => p.Id == 1), Sizes = GetProductSizes(3), Price = 260 },
 

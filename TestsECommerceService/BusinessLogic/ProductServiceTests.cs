@@ -14,13 +14,20 @@ namespace TestsECommerceService.BusinessLogic
 
         private ProductService _productService;
         private Mock<IProductRepository> _mockProductRepository;
+        private Mock<IBrandRepository> _mockBrandRepository;
+        private Mock<ICategoryRepository> _mockCategoryRepository;
+        private Mock<IProductSizeRepository> _mockProductSizeRepository;
+        private Mock<IProductTypeRepository> _mockProductTypeRepository;
         private List<Product> _listProducts;
 
         [TestInitialize]
         public void Init()
         {
             _mockProductRepository = new Mock<IProductRepository>();
-            _productService = new ProductService(_mockProductRepository.Object);
+            _mockBrandRepository = new Mock<IBrandRepository>();
+            _mockCategoryRepository = new Mock<ICategoryRepository>();
+            _productService = new ProductService(_mockProductRepository.Object, _mockBrandRepository.Object, _mockCategoryRepository.Object,
+                _mockProductSizeRepository.Object, _mockProductTypeRepository.Object);
 
             _listProducts = new List<Product>()
             {
@@ -53,7 +60,7 @@ namespace TestsECommerceService.BusinessLogic
                             Size = "US 8"
                         }
                     },
-                    Title = "Product Title 1"
+                    ProductName = "Product Title 1"
                 },
                 new Product()
                 {
@@ -84,7 +91,7 @@ namespace TestsECommerceService.BusinessLogic
                             Size = "US 9"
                         }
                     },
-                    Title = "Product Title 2"
+                    ProductName = "Product Title 2"
                 },
                 new Product()
                 {
@@ -115,7 +122,7 @@ namespace TestsECommerceService.BusinessLogic
                             Size = "US 10"
                         }
                     },
-                    Title = "Product Title 3"
+                    ProductName = "Product Title 3"
                 }
             };
         }
@@ -154,7 +161,7 @@ namespace TestsECommerceService.BusinessLogic
                         Size = "US 8"
                     }
                 },
-                Title = "Product Title"
+                ProductName = "Product Title"
             };
 
             _mockProductRepository
@@ -176,7 +183,7 @@ namespace TestsECommerceService.BusinessLogic
             Assert.AreEqual(result.ProductType.Id, productEntity.ProductType.Id);
             Assert.AreEqual(result.ProductType.ProductTypeName, productEntity.ProductType.ProductTypeName);
             Assert.AreEqual(result.Sizes.Count, productEntity.Sizes.Count);
-            Assert.AreEqual(result.Title, productEntity.Title);
+            Assert.AreEqual(result.ProductName, productEntity.ProductName);
         }
 
         [TestMethod]
@@ -229,7 +236,7 @@ namespace TestsECommerceService.BusinessLogic
                         Size = "US 8"
                     }
                 },
-                Title = "Product Title"
+                ProductName = "Product Title"
             };
 
             _mockProductRepository
@@ -237,7 +244,7 @@ namespace TestsECommerceService.BusinessLogic
                 .Returns(productEntity);
 
             //Act
-            var result = _productService.GetProductByProductName(productEntity.Title);
+            var result = _productService.GetProductByProductName(productEntity.ProductName);
 
             //Assert
             Assert.IsNotNull(result);
@@ -251,7 +258,7 @@ namespace TestsECommerceService.BusinessLogic
             Assert.AreEqual(result.ProductType.Id, productEntity.ProductType.Id);
             Assert.AreEqual(result.ProductType.ProductTypeName, productEntity.ProductType.ProductTypeName);
             Assert.AreEqual(result.Sizes.Count, productEntity.Sizes.Count);
-            Assert.AreEqual(result.Title, productEntity.Title);
+            Assert.AreEqual(result.ProductName, productEntity.ProductName);
         }
 
         [TestMethod]
@@ -287,7 +294,7 @@ namespace TestsECommerceService.BusinessLogic
                         Size = "US 8"
                     }
                 },
-                Title = "Product Title"
+                ProductName = "Product Title"
             };
 
             _mockProductRepository
@@ -295,7 +302,7 @@ namespace TestsECommerceService.BusinessLogic
                 .Returns((Product)null);
 
             //Act
-            var result = _productService.GetProductByProductName(productEntity.Title);
+            var result = _productService.GetProductByProductName(productEntity.ProductName);
 
             //Assert
             Assert.IsNull(result);
@@ -337,7 +344,7 @@ namespace TestsECommerceService.BusinessLogic
                             Size = "US 8"
                         }
                     },
-                    Title = "Product Title"
+                    ProductName = "Product Title"
                 }
             };
 
@@ -388,19 +395,19 @@ namespace TestsECommerceService.BusinessLogic
             Assert.AreEqual(_listProducts[0].Brand.BrandName, result[0].Brand.BrandName);
             Assert.AreEqual(_listProducts[0].Description, result[0].Description);
             Assert.AreEqual(_listProducts[0].Price, result[0].Price);
-            Assert.AreEqual(_listProducts[0].Title, result[0].Title);
+            Assert.AreEqual(_listProducts[0].ProductName, result[0].ProductName);
 
             Assert.IsTrue(result[1].Id == 2);
             Assert.AreEqual(_listProducts[1].Brand.BrandName, result[1].Brand.BrandName);
             Assert.AreEqual(_listProducts[1].Description, result[1].Description);
             Assert.AreEqual(_listProducts[1].Price, result[1].Price);
-            Assert.AreEqual(_listProducts[1].Title, result[1].Title);
+            Assert.AreEqual(_listProducts[1].ProductName, result[1].ProductName);
 
             Assert.IsTrue(result[2].Id == 3);
             Assert.AreEqual(_listProducts[2].Brand.BrandName, result[2].Brand.BrandName);
             Assert.AreEqual(_listProducts[2].Description, result[2].Description);
             Assert.AreEqual(_listProducts[2].Price, result[2].Price);
-            Assert.AreEqual(_listProducts[2].Title, result[2].Title);
+            Assert.AreEqual(_listProducts[2].ProductName, result[2].ProductName);
                             
             _mockProductRepository.Verify(x => x.GetSuggestedProductsByUser(It.IsAny<int>()));
         }
@@ -424,19 +431,19 @@ namespace TestsECommerceService.BusinessLogic
             Assert.AreEqual(_listProducts[0].Brand.BrandName, result[0].Brand.BrandName);
             Assert.AreEqual(_listProducts[0].Description, result[0].Description);
             Assert.AreEqual(_listProducts[0].Price, result[0].Price);
-            Assert.AreEqual(_listProducts[0].Title, result[0].Title);
+            Assert.AreEqual(_listProducts[0].ProductName, result[0].ProductName);
 
             Assert.IsTrue(result[1].Id == 2);
             Assert.AreEqual(_listProducts[1].Brand.BrandName, result[1].Brand.BrandName);
             Assert.AreEqual(_listProducts[1].Description, result[1].Description);
             Assert.AreEqual(_listProducts[1].Price, result[1].Price);
-            Assert.AreEqual(_listProducts[1].Title, result[1].Title);
+            Assert.AreEqual(_listProducts[1].ProductName, result[1].ProductName);
 
             Assert.IsTrue(result[2].Id == 3);
             Assert.AreEqual(_listProducts[2].Brand.BrandName, result[2].Brand.BrandName);
             Assert.AreEqual(_listProducts[2].Description, result[2].Description);
             Assert.AreEqual(_listProducts[2].Price, result[2].Price);
-            Assert.AreEqual(_listProducts[2].Title, result[2].Title);
+            Assert.AreEqual(_listProducts[2].ProductName, result[2].ProductName);
 
             _mockProductRepository.Verify(x => x.GetRandomProducts(It.IsAny<int>()));
         }

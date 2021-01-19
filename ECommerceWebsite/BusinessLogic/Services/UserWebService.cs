@@ -24,9 +24,9 @@ namespace ECommerceWebsite.BusinessLogic
             mapper = _config.CreateMapper();
         }
 
-        public BaseUserWebServiceResponse CreateUser(RegisterViewModel model)
+        public BaseWebServiceResponse CreateUser(RegisterViewModel model)
         {
-            var response = new BaseUserWebServiceResponse();
+            var response = new BaseWebServiceResponse();
 
             if (!_userValidationService.IsDateOfBirthValid(model.DateOfBirthDay,model.DateOfBirthMonth,model.DateOfBirthYear))
             {
