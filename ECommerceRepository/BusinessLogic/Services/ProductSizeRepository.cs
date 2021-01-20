@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using ECommerceDatabase.Database.Entities;
 using ECommerceDatabase.Database.EntityFramework;
 
-namespace ECommerceRepository.BusinessLogic.Services
+namespace ECommerceRepository.BusinessLogic
 {
     public class ProductSizeRepository : IProductSizeRepository
     {

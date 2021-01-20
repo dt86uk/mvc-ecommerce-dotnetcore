@@ -39,86 +39,97 @@
     }
 }
 
-@using (Html.BeginForm("AddProduct", "products", Model, FormMethod.Post, false, new { @class = "displayInlineBlock" }))
+@using (Html.BeginForm("AddProduct", "products", Model, FormMethod.Post, false, new { @class = "form" }))
 {
     @Html.ValidationSummary()
 
     <div>
-        <div class="floatLeft width20perc">
+        <div class="floatLeft width30perc">
             @Html.LabelFor(p => p.Brands)
         </div>
-        <div class="floatLeft width20perc">
-            @Html.DropDownListFor(p => p.Brands, Model.Brands)
+        <div class="floatLeft">
+            @Html.DropDownListFor(p => p.Brands, Model.Brands, new { @class = "width200px" })
         </div>
         <div class="clearBoth"></div>
     </div>
 
     <div>
-        <div class="floatLeft width20perc">
+        <div class="floatLeft width30perc">
             @Html.LabelFor(p => p.ProductName)
         </div>
-        <div class="floatLeft width20perc">
-            @Html.TextBoxFor(p => p.ProductName)
+        <div class="floatLeft">
+            @Html.TextBoxFor(p => p.ProductName, new { @class = "width200px" })
         </div>
         <div class="clearBoth"></div>
     </div>
 
     <div>
-        <div class="floatLeft width20perc">
-            @Html.LabelFor(p => p.Price)
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.Price, new { placeholder = "200.00" }) ($)
         </div>
-        <div class="floatLeft width20perc">
-            @Html.TextBoxFor(p => p.Price)
+        <div class="floatLeft">
+            @Html.TextBoxFor(p => p.Price, new { @class = "width200px" })
         </div>
         <div class="clearBoth"></div>
     </div>
 
     <div>
-        <div class="floatLeft width20perc">
+        <div class="floatLeft width30perc">
             @Html.LabelFor(p => p.Description)
         </div>
-        <div class="floatLeft width20perc">
-            @Html.TextAreaFor(p => p.Description, 5, 20, new { @class = "editTextArea" })  @*TODO: editTextArea*@
+        <div class="floatLeft">
+            @Html.TextAreaFor(p => p.Description, new { @class = "textArea" })
         </div>
         <div class="clearBoth"></div>
     </div>
 
     <div>
-        <div class="floatLeft width20perc">
+        <div class="floatLeft width30perc">
             @Html.LabelFor(p => p.Genders)
         </div>
-        <div class="floatLeft width20perc">
-            @Html.DropDownListFor(p => p.Genders, Model.Genders)
+        <div class="floatLeft">
+            @Html.DropDownListFor(p => p.Genders, Model.Genders, new { @class = "width200px" })
         </div>
         <div class="clearBoth"></div>
     </div>
 
     <div>
-        <div class="floatLeft width20perc">
+        <div class="floatLeft width30perc">
             @Html.LabelFor(p => p.Categories)
         </div>
-        <div class="floatLeft width20perc">
-            @Html.DropDownListFor(p => p.Categories, Model.Categories)
+        <div class="floatLeft">
+            @Html.DropDownListFor(p => p.Categories, Model.Categories, new { @class = "width200px" })
         </div>
         <div class="clearBoth"></div>
     </div>
 
     <div>
-        <div class="floatLeft width20perc">
+        <div class="floatLeft width30perc">
             @Html.LabelFor(p => p.HeroImage)
         </div>
-        <div class="floatLeft width20perc">
+        <div class="floatLeft">
+             <input type="file" />
             @*TODO: https://www.c-sharpcorner.com/article/upload-files-in-asp-net-mvc-5/ *@
         </div>
         <div class="clearBoth"></div>
     </div>
 
     <div>
-        <div class="floatLeft width20perc">
+        <div class="floatLeft width30perc">
             @Html.LabelFor(p => p.Images)
         </div>
-        <div class="floatLeft width20perc">
+        <div class="floatLeft">
+            <input type="file" />
             @*TODO: https://www.c-sharpcorner.com/article/upload-files-in-asp-net-mvc-5/ Four times. *@
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width30perc">
+        </div>
+        <div class="width50 floatLeft">
+            <input id="btnSubmit" value="Add Product" type="submit" class="btnSubmit redOrangeGrad" />
         </div>
         <div class="clearBoth"></div>
     </div>

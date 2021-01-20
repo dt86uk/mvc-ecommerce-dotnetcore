@@ -67,6 +67,11 @@ namespace ECommerceWebsite
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ILoginRepository, LoginRepository>();
             services.AddTransient<IRoleRepository, RoleRepository>();
+            services.AddTransient<IBrandRepository, BrandRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IProductSizeRepository, ProductSizeRepository>();
+            services.AddTransient<IProductTypeRepository, ProductTypeRepository>();
+
 
             //database
             services.AddTransient<IPasswordEncryptionService, PasswordEncryptionService>();

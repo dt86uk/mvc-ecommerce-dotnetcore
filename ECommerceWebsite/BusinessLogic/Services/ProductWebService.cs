@@ -320,7 +320,56 @@ namespace ECommerceWebsite.BusinessLogic
 
         public AddProductViewModel GetAddProductsContent()
         {
-            return mapper.Map<AddProductContentsDTO, AddProductViewModel>(_productService.GetAddProductContents());
+            var model = new AddProductViewModel();
+            var addProductContents = _productService.GetAddProductContents();
+
+            foreach (var brand in addProductContents.Brands)
+            {
+                model.Brands.Add(new SelectListItem()
+                {
+                    Value = brand.Id.ToString(),
+                    Text = brand.BrandName
+                });
+            }
+
+            foreach (var category in addProductContents.Categories)
+            {
+                model.Categories.Add(new SelectListItem()
+                {
+                    Value = category.Id.ToString(),
+                    Text = category.CategoryName
+                });
+            }
+
+            foreach (var gender in addProductContents.Genders)
+            {
+                model.Genders.Add(new SelectListItem()
+                {
+                    Value = gender.Id.ToString(),
+                    Text = gender.Name
+                });
+            }
+
+            foreach (var productType in addProductContents.ProductTypes)
+            {
+                model.ProductTypes.Add(new SelectListItem()
+                {
+                    Value = productType.Id.ToString(),
+                    Text = productType.ProductTypeName
+                });
+            }
+
+            foreach (var size in addProductContents.Sizes)
+            {
+                model.Sizes.Add(new ProductSizeViewModel()
+                {
+                    Id = size.Id,
+                    Size = size.Size,
+                    Quantity = 0
+                });
+            }
+
+            return model;
         }
 
         public BaseWebServiceResponse AddProduct(AddProductViewModel model)

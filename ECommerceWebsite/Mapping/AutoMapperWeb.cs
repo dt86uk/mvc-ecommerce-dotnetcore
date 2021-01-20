@@ -52,7 +52,7 @@ namespace ECommerceWebsite.Mapping
                     .ForPath(src => src.Brand.BrandName, opt => opt.MapFrom(dest => dest.Brand))
                     .ForPath(src => src.ProductType.ProductTypeName, opt => opt.MapFrom(dest => dest.ProductType))
                 .ReverseMap();
-                cfg.CreateMap<UserDetailsDTO, UsersViewModel>();
+                cfg.CreateMap<UserDetailsDTO, UsersViewModel>().ReverseMap();
             });
         }
     }

@@ -4,11 +4,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ECommerceWebsite.Models.Admin
 {
-    public class AddProductViewModel
+    public class AddProductViewModel : AdminBaseViewModel
     {
         public BaseWebServiceResponse ActionResponse { get; set; }
         
-        public AddProductViewModel() { }
+        public AddProductViewModel() 
+        {
+            Brands = new List<SelectListItem>();
+            Categories = new List<SelectListItem>();
+            Genders = new List<SelectListItem>();
+            Images = new List<ProductImageViewModel>();
+            Sizes = new List<ProductSizeViewModel>();
+            ProductTypes = new List<SelectListItem>();
+        }
 
         /// <summary>
         /// Initializes the ActionResponse with the response parameter object
@@ -17,10 +25,16 @@ namespace ECommerceWebsite.Models.Admin
         public AddProductViewModel(BaseWebServiceResponse response) 
         {
             ActionResponse = response;
+            Brands = new List<SelectListItem>();
+            Categories = new List<SelectListItem>();
+            Genders = new List<SelectListItem>();
+            Images = new List<ProductImageViewModel>();
+            Sizes = new List<ProductSizeViewModel>();
+            ProductTypes = new List<SelectListItem>();
         }
 
-        [Required(ErrorMessage = "Title required")]
-        [Display(Name = "Title")]
+        [Required(ErrorMessage = "Product Name required")]
+        [Display(Name = "Product Name")]
         [MinLength(3)]
         public string ProductName { get; set; }
 
