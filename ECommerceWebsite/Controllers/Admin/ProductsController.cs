@@ -1,7 +1,10 @@
-﻿using ECommerceWebsite.BusinessLogic;
+﻿using System.Linq;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using ECommerceWebsite.BusinessLogic;
 using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Admin;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceWebsite.Controllers
 {
@@ -33,11 +36,11 @@ namespace ECommerceWebsite.Controllers
 
         [HttpPost]
         [Route("add")]
-        public IActionResult Add(AddProductViewModel model)
+        public IActionResult AddProduct(AddProductViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                TempData["ProductAction"] = "There was a problem adding the Product. If this problem persists, please contact support";
+                model = _productWebService.GetAddProductsContent(model);
                 return  View($"{ProductsViewFolder}/Add.cshtml", model);
             }
 
@@ -49,15 +52,18 @@ namespace ECommerceWebsite.Controllers
                 return View($"{ProductsViewFolder}/Add.cshtml", model);
             }
 
-            TempData["ProductAction"] = "Product added successfully!"; 
-            return View($"{ProductsViewFolder}/Add.cshtml", new AddProductViewModel(response));
+            AdminProductsViewModel returnModel = _productWebService.GetAllProducts();
+            returnModel.ActionResponse = response;
+
+            //TODO: Url does not change/update to admin/products
+            TempData["ProductAction"] = "Product added successfully!";
+            return View($"{ProductsViewFolder}/Index.cshtml", returnModel);
         }
 
         [HttpPost]
         [Route("edit")]
         public IActionResult Edit(ProductsViewModel productModel)
         {
-            //TODO: HTML Controls / DropDownLists => Brands, Images etc
             EditProductViewModel editModel = _productWebService.GetProductById(productModel);
             return View($"{ProductsViewFolder}/Edit.cshtml", editModel);
         }

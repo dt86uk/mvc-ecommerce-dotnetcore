@@ -2,36 +2,35 @@
 @model AdminProductsViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    bool productActionMessage = TempData["ProductAction"] != null;
+    string productActionMessage = TempData["ProductAction"] != null ? TempData["ProductAction"].ToString() : string.Empty;
 }
 <div>
     <div class="titleHeader floatLeft width48perc">Products</div>
     <div class="addNewText">
-        <a href="~/admin/products/add">Add new Product</a> @*TODO : FIRST*@
+        <a href="~/admin/products/add">Add new Product</a>
     </div>
     <div class="clearBoth"></div>
 </div>
 
-@if (productActionMessage)
+@if (!string.IsNullOrEmpty(productActionMessage))
 {
-    @if (Convert.ToBoolean(TempData["ProductAction"]))
-    {
-        <div class="messageBox">
+    <div class="messageBox">
+        @if (Model.ActionResponse.ActionSuccessful)
+        {
             <div class="confirmMessage">
-                Product deleted!
+                Product successfully added.
                 <img src="/img/icon-pack/png/icon-green-tick.png" class="messageImg">
             </div>
-        </div>
-    }
-    else
-    {
-        <div class="responseMessageBox">
-            <div class="errorMessage">
-                Product not found, unable to delete. We recommend a hard browser refresh (Ctrl + F5). 
-                If this problem persists, please contact support.
+        }
+        else
+        {
+            <div class="confirmMessage">
+                @Model.ActionResponse?.Error?.Message
+                @*TODO: We need a red cross icon similar type to green tick*@
+                @*<img src="/img/icon-pack/png/icon-green-tick.png" class="messageImg">*@
             </div>
-        </div>
-    }
+        }
+    </div>
 }
 
 <table class="tblBase">
@@ -40,8 +39,8 @@
             <td class="textAlignCenter" width="20%" style="padding-bottom: 5px;">Brand</td>
             <td class="textAlignCenter" width="35%" style="padding-bottom: 5px;">Product Name</td>
             <td class="textAlignCenter" width="20%" style="padding-bottom: 5px;">Product Type</td>
-            <td class="textAlignCenter" width="10%"  style="padding-bottom: 5px;">Price ($)</td>
-            <td class="textAlignCenter" width="10%"  style="padding-bottom: 5px;">Actions</td>
+            <td class="textAlignCenter" width="10%" style="padding-bottom: 5px;">Price ($)</td>
+            <td class="textAlignCenter" width="10%" style="padding-bottom: 5px;">Actions</td>
         </tr>
     </thead>
     <tbody>

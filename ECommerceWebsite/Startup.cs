@@ -37,7 +37,7 @@ namespace ECommerceWebsite
             });
 
             services.AddControllersWithViews();
-            services.AddMvc().AddSessionStateTempDataProvider();
+            services.AddMvc().AddRazorRuntimeCompilation();
             services.AddSession();
 
             //web
@@ -48,6 +48,7 @@ namespace ECommerceWebsite
             services.AddTransient<IOrderWebService, OrderWebService>();
             services.AddTransient<IUserWebService, UserWebService>();
             services.AddTransient<IUserValidationService, UserValidationService>();
+            services.AddTransient<IFileValidationWebService, FileValidationWebService>();
 
             //service
             services.AddTransient<IMenuService, MenuService>();
@@ -58,6 +59,10 @@ namespace ECommerceWebsite
             services.AddTransient<ILoginService, LoginService>();
             services.AddTransient<IStockService, StockService>();
             services.AddTransient<ISalesService, SalesService>();
+            services.AddTransient<IBrandService, BrandService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IProductTypeService, ProductTypeService>();
+            services.AddTransient<IGenderService, GenderService>();
 
             //repo
             services.AddTransient<IMenuRepository, MenuRepository>();
@@ -71,7 +76,7 @@ namespace ECommerceWebsite
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IProductSizeRepository, ProductSizeRepository>();
             services.AddTransient<IProductTypeRepository, ProductTypeRepository>();
-
+            services.AddTransient<IGenderRepository, GenderRepository>();
 
             //database
             services.AddTransient<IPasswordEncryptionService, PasswordEncryptionService>();

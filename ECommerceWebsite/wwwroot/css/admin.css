@@ -24,6 +24,11 @@ body {
     margin-bottom: 10px;
 }
 
+.required {
+    color: red;
+    display: inline-block;
+}
+
 .tblBase {
     border-collapse: collapse; 
     width:100%;
@@ -69,6 +74,7 @@ body {
 
 .messageBox {
     margin: auto;
+    margin-bottom: 20px;
     width: 35%;
     border: 1px solid lightgrey;
     padding: 10px;
@@ -125,6 +131,10 @@ body {
 .textArea {
     width: 200px;
     height: 100px;
+}
+
+.checkbox {
+    display: inline-block !important;
 }
 
 /* Layout page */

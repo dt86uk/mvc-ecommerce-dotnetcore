@@ -3,13 +3,12 @@
 @model AddProductViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    bool productActionMessage = TempData["ProductAction"] != null;
+    string productActionMessage = TempData["ProductAction"] != null ? TempData["ProductAction"].ToString() : string.Empty;
 }
 <div class="titleHeader">Add Product</div>
-@if (productActionMessage)
+
+@if (!string.IsNullOrEmpty(productActionMessage))
 {
-    @if (Convert.ToBoolean(TempData["ProductAction"]))
-    {
     <div class="messageBox">
         @if (Model.ActionResponse.ActionSuccessful)
         {
@@ -27,28 +26,18 @@
             </div>
         }
     </div>
-    }
-    else
-    {
-        <div class="responseMessageBox">
-            <div class="errorMessage">
-                Product not found, unable to delete. We recommend a hard browser refresh (Ctrl + F5).
-                If this problem persists, please contact support.
-            </div>
-        </div>
-    }
 }
 
-@using (Html.BeginForm("AddProduct", "products", Model, FormMethod.Post, false, new { @class = "form" }))
+@using (Html.BeginForm("AddProduct", "products", Model, FormMethod.Post, false, new { enctype = "multipart/form-data", @class = "form" }))
 {
-    @Html.ValidationSummary()
+    @Html.ValidationSummary(false, string.Empty, new { @class = "required" })
 
     <div>
         <div class="floatLeft width30perc">
             @Html.LabelFor(p => p.Brands)
         </div>
         <div class="floatLeft">
-            @Html.DropDownListFor(p => p.Brands, Model.Brands, new { @class = "width200px" })
+            @Html.DropDownListFor(p => p.SelectedBrand, Model.Brands, "Select Brand", new { @class = "width200px" })
         </div>
         <div class="clearBoth"></div>
     </div>
@@ -88,7 +77,7 @@
             @Html.LabelFor(p => p.Genders)
         </div>
         <div class="floatLeft">
-            @Html.DropDownListFor(p => p.Genders, Model.Genders, new { @class = "width200px" })
+            @Html.DropDownListFor(p => p.SelectedGender, Model.Genders, "Select Gender", new { @class = "width200px" })
         </div>
         <div class="clearBoth"></div>
     </div>
@@ -98,37 +87,79 @@
             @Html.LabelFor(p => p.Categories)
         </div>
         <div class="floatLeft">
-            @Html.DropDownListFor(p => p.Categories, Model.Categories, new { @class = "width200px" })
+            @Html.DropDownListFor(p => p.SelectedCategory, Model.Categories, "Select Category", new { @class = "width200px" })
         </div>
         <div class="clearBoth"></div>
     </div>
+
+    <div>
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.ProductTypes)
+        </div>
+        <div class="floatLeft">
+            @Html.DropDownListFor(p => p.SelectedProductType, Model.ProductTypes, "Select Product Type", new { @class = "width200px" })
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    @*<div>
+            <div class="floatLeft width30perc">
+                @Html.LabelFor(p => p.Sizes)
+            </div>
+            <div class="floatLeft">
+                @foreach (var size in Model.Sizes)
+                {
+                    <div>
+                        <input id="@size.Value"
+                               class="checkbox"
+                               type="checkbox"
+                               name="SelectedSizes"
+                               value="@size.Value"/> @size.Text
+                    </div>
+                }
+            </div>
+            <div class="clearBoth"></div>
+        </div>*@
 
     <div>
         <div class="floatLeft width30perc">
             @Html.LabelFor(p => p.HeroImage)
         </div>
         <div class="floatLeft">
-             <input type="file" />
-            @*TODO: https://www.c-sharpcorner.com/article/upload-files-in-asp-net-mvc-5/ *@
+            @Html.TextBoxFor(p => p.HeroImage, new { type = "file" })
         </div>
         <div class="clearBoth"></div>
     </div>
 
     <div>
         <div class="floatLeft width30perc">
-            @Html.LabelFor(p => p.Images)
+            @Html.LabelFor(p => p.Image1)
         </div>
         <div class="floatLeft">
-            <input type="file" />
-            @*TODO: https://www.c-sharpcorner.com/article/upload-files-in-asp-net-mvc-5/ Four times. *@
+            <div>
+                @Html.TextBoxFor(p => p.Image1, new { type = "file" })
+            </div>
+
+            <div>
+                @Html.TextBoxFor(p => p.Image2, new { type = "file" })
+            </div>
+
+            <div>
+                @Html.TextBoxFor(p => p.Image3, new { type = "file" })
+            </div>
+
+            <div>
+                @Html.TextBoxFor(p => p.Image4, new { type = "file" })
+            </div>
         </div>
         <div class="clearBoth"></div>
     </div>
 
-    <div>
+    <div class="marginTop10">
         <div class="floatLeft width30perc">
+            &nbsp;&nbsp;
         </div>
-        <div class="width50 floatLeft">
+        <div class="floatLeft">
             <input id="btnSubmit" value="Add Product" type="submit" class="btnSubmit redOrangeGrad" />
         </div>
         <div class="clearBoth"></div>

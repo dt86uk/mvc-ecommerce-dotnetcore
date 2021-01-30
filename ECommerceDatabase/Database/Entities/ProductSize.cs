@@ -5,10 +5,12 @@ namespace ECommerceDatabase.Database.Entities
 {
     public class ProductSize
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Size { get; set; }
         public int Quantity { get; set; }
+
+        public virtual Product Product { get; set; }
     }
 }

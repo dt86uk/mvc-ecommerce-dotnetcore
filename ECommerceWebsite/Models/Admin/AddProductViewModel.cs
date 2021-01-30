@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Http;
 
 namespace ECommerceWebsite.Models.Admin
 {
@@ -13,8 +14,7 @@ namespace ECommerceWebsite.Models.Admin
             Brands = new List<SelectListItem>();
             Categories = new List<SelectListItem>();
             Genders = new List<SelectListItem>();
-            Images = new List<ProductImageViewModel>();
-            Sizes = new List<ProductSizeViewModel>();
+            Sizes = new List<SelectListItem>();
             ProductTypes = new List<SelectListItem>();
         }
 
@@ -28,8 +28,7 @@ namespace ECommerceWebsite.Models.Admin
             Brands = new List<SelectListItem>();
             Categories = new List<SelectListItem>();
             Genders = new List<SelectListItem>();
-            Images = new List<ProductImageViewModel>();
-            Sizes = new List<ProductSizeViewModel>();
+            Sizes = new List<SelectListItem>();
             ProductTypes = new List<SelectListItem>();
         }
 
@@ -38,46 +37,54 @@ namespace ECommerceWebsite.Models.Admin
         [MinLength(3)]
         public string ProductName { get; set; }
 
-        [Required(ErrorMessage = "Category required")]
         [Display(Name = "Category")]
         public List<SelectListItem> Categories { get; set; }
+
+        [Required(ErrorMessage = "Category required")]
+        public string SelectedCategory { get; set; }
 
         [Required(ErrorMessage = "Description required")]
         [Display(Name = "Description")]
         [MinLength(3)]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "Gender required")]
         [Display(Name = "Gender")]
         public List<SelectListItem> Genders { get; set; }
-
-        [Required(ErrorMessage = "Hero Image required")]
-        [Display(Name = "Hero Image")]
-        public byte[] HeroImage { get; set; }
-
+        
         [Required(ErrorMessage = "Gender required")]
-        [Display(Name = "Gender")]
+        public string SelectedGender { get; set; }
+
+        [Display(Name = "Hero Image")]
+        public IFormFile HeroImage { get; set; }
+
+        [Display(Name = "Hero Title")]
         public string HeroTitle { get; set; }
 
-        [Required(ErrorMessage = "Images required")]
         [Display(Name = "Images")]
-        public List<ProductImageViewModel> Images { get; set; }
+        public IFormFile Image1 { get; set; }
+        public IFormFile Image2 { get; set; }
+        public IFormFile Image3 { get; set; }
+        public IFormFile Image4 { get; set; }
 
-        [Required(ErrorMessage = "Brand required")]
         [Display(Name = "Brand")]
         public List<SelectListItem> Brands { get; set; }
+        
+        [Required(ErrorMessage = "Brand required")]
+        public string SelectedBrand { get; set; }
 
         [Required(ErrorMessage = "Sizes required")]
         [Display(Name = "Sizes")]
-        public List<ProductSizeViewModel> Sizes { get; set; }
+        public List<SelectListItem> Sizes { get; set; }
 
-        [Required(ErrorMessage = "Product Type required")]
         [Display(Name = "Product Type")]
         public List<SelectListItem> ProductTypes { get; set; }
+
+        [Required(ErrorMessage = "Product Type required")]
+        public string SelectedProductType { get; set; }
 
         [Required(ErrorMessage = "Price required")]
         [Display(Name = "Price Type")]
         [MinLength(1)]
-        public decimal Price { get; set; }
+        public string Price { get; set; }
     }
 }

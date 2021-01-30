@@ -14,5 +14,13 @@ namespace ECommerceRepository.BusinessLogic
                 return context.Brands.ToList();
             }
         }
+
+        public Brand GetBrandById(int brandId)
+        {
+            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
+            {
+                return context.Brands.Single(p => p.Id == brandId);
+            }
+        }
     }
 }

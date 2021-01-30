@@ -36,7 +36,22 @@ namespace ECommerceDatabase.Database.EntityFramework
                 .HasMany<ProductImage>(p => p.Images);
 
             modelBuilder.Entity<Product>()
+                .HasOne(p => p.Brand)
+                .WithMany(p => p.Products)
+                .HasForeignKey(p => p.BrandId);
+
+            modelBuilder.Entity<Product>()
                 .HasMany<ProductSize>(p => p.Sizes);
+
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.ProductType)
+                .WithMany(p => p.Products)
+                .HasForeignKey(p => p.ProductTypeId);
+
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Category)
+                .WithMany(p => p.Products)
+                .HasForeignKey(p => p.CategoryId);
 
             modelBuilder.Entity<ProductImage>()
                 .HasKey(p => p.Id);

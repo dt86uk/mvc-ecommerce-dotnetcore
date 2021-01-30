@@ -8,19 +8,33 @@ using ECommerceService.Models;
 using ECommerceWebsite.Helpers;
 using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Admin;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace ECommerceWebsite.BusinessLogic
 {
     public class ProductWebService : IProductWebService
     {
         private readonly IProductService _productService;
+        private readonly IBrandService _brandService;
+        private readonly ICategoryService _categoryService;
+        private readonly IProductTypeService _productTypeService;
+        private readonly IGenderService _genderService;
+        private readonly IFileValidationWebService _fileValidationWebService;
         private readonly IMapper mapper;
         private MapperConfiguration _config;
 
         //TODO: Configure Mapper for EPVM, PsVM, PVM
-        public ProductWebService(IProductService productService)
+        public ProductWebService(IProductService productService, IBrandService brandService, ICategoryService categoryService, 
+            IProductTypeService productTypeService, IGenderService genderService, IFileValidationWebService fileValidationWebService)
         {
             _productService = productService;
+            _brandService = brandService;
+            _categoryService = categoryService;
+            _productTypeService = productTypeService;
+            _genderService = genderService;
+            _fileValidationWebService = fileValidationWebService;
+
             _config = new Mapping.AutoMapperWeb().Configuration;
             mapper = _config.CreateMapper();
         }
@@ -318,9 +332,13 @@ namespace ECommerceWebsite.BusinessLogic
             return model;
         }
 
-        public AddProductViewModel GetAddProductsContent()
+        public AddProductViewModel GetAddProductsContent(AddProductViewModel model = null)
         {
-            var model = new AddProductViewModel();
+            if (model == null)
+            {
+                model = new AddProductViewModel();
+            }
+            
             var addProductContents = _productService.GetAddProductContents();
 
             foreach (var brand in addProductContents.Brands)
@@ -361,11 +379,10 @@ namespace ECommerceWebsite.BusinessLogic
 
             foreach (var size in addProductContents.Sizes)
             {
-                model.Sizes.Add(new ProductSizeViewModel()
+                model.Sizes.Add(new SelectListItem()
                 {
-                    Id = size.Id,
-                    Size = size.Size,
-                    Quantity = 0
+                    Value = size.Id.ToString(),
+                    Text = size.Size
                 });
             }
 
@@ -375,26 +392,65 @@ namespace ECommerceWebsite.BusinessLogic
         public BaseWebServiceResponse AddProduct(AddProductViewModel model)
         {
             var response = new BaseWebServiceResponse();
-            var productDto = mapper.Map<AddProductViewModel, ProductDTO>(model);
 
-            if (_productService.ProductNameExists(productDto.ProductName))
+            if (_productService.ProductNameExists(model.ProductName))
             {
-                response.Error = new ErrorServiceResponseModel() 
-                { 
-                    Name = "Product Name", 
-                    Message = "Product Name exists" 
-                };
+
+                response.Error.Name = "Product Name";
+                response.Error.Message = "Product Name exists";
 
                 return response;
             }
 
+            decimal price;
+            if (!decimal.TryParse(model.Price, out price))
+            {
+                response.ActionSuccessful = false;
+                response.Error.Name = "Price";
+                response.Error.Message = "Price must be a decimal value e.g. 100.00";
+
+                return response;
+            }
+
+            List<IFormFile> listFiles = new List<IFormFile>()
+            {
+                model.Image1,
+                model.Image2,
+                model.Image3,
+                model.Image4,
+            };
+
+            bool fileExists = _fileValidationWebService.FileExists(listFiles);
+            if (!fileExists)
+            {
+                response.Error.Name = "Images";
+                response.Error.Message = "At least one Image must be uploaded.";
+
+                return response;
+            }
+
+            bool filesAreJpg = _fileValidationWebService.IsFileFormatJpg(listFiles);
+            if (!filesAreJpg)
+            {
+                response.Error.Name = "Images";
+                response.Error.Message = "Files must be jpg file format.";
+
+                return response;
+            }
+
+            var productDto = mapper.Map<AddProductViewModel, ProductDTO>(model);
+            productDto.Gender = _genderService.GetGenderById(Convert.ToInt32(model.SelectedGender));
+            productDto.Price = price;
+            productDto.HeroImage = ProductHelper.WriteImageToBytes(model.HeroImage);
+            productDto.Images.Add(new ProductImageDTO() { Image = ProductHelper.WriteImageToBytes(model.Image1) });
+            productDto.Images.Add(new ProductImageDTO() { Image = ProductHelper.WriteImageToBytes(model.Image2) });
+            productDto.Images.Add(new ProductImageDTO() { Image = ProductHelper.WriteImageToBytes(model.Image3) });
+            productDto.Images.Add(new ProductImageDTO() { Image = ProductHelper.WriteImageToBytes(model.Image4) });
+
             if (!_productService.AddProduct(productDto))
             {
-                response.Error = new ErrorServiceResponseModel()
-                {
-                    Name = "Add Product",
-                    Message = "There was a problem while attempting to add the Product, please try again. If this problem persists, please contact support."
-                };
+                response.Error.Name = "Add Product";
+                response.Error.Message = "There was a problem while attempting to add the Product, please try again. If this problem persists, please contact support.";
 
                 return response;
             }

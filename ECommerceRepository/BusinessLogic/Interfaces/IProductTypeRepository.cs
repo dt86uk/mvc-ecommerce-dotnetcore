@@ -6,5 +6,6 @@ namespace ECommerceRepository.BusinessLogic
     public interface IProductTypeRepository
     {
         List<ProductType> GetAllProductTypes();
+        ProductType GetProductTypeById(int productTypeId);
     }
 }

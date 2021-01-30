@@ -20,7 +20,11 @@ namespace ECommerceService.Mapping
                 cfg.CreateMap<ProductImage, ProductImageDTO>().ReverseMap();
                 cfg.CreateMap<ProductSize, ProductSizeDTO>().ReverseMap();
                 cfg.CreateMap<ProductType, ProductTypeDTO>().ReverseMap();
-                cfg.CreateMap<Product, ProductDTO>().ReverseMap();
+                cfg.CreateMap<Product, ProductDTO>()
+                    //.ForMember(src => src.Category, opt => opt.Ignore())
+                    //.ForMember(src => src.Brand, opt => opt.Ignore())
+                    //.ForMember(src => src.ProductType, opt => opt.Ignore())
+                    .ReverseMap();
                 cfg.CreateMap<DeliveryInformation, DeliveryInformationDTO>()
                     .ReverseMap();
                 cfg.CreateMap<Order, OrderDTO>()

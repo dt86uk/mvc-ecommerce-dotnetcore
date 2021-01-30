@@ -19,8 +19,8 @@ namespace ECommerceWebsite.Mapping
                     .ForMember(src => src.DateOfBirth, opt => opt.MapFrom(dest =>
                         new DateTime(
                             Convert.ToInt32(dest.DateOfBirthYear),
-                           Convert.ToInt32(dest.DateOfBirthMonth),
-                           Convert.ToInt32(dest.DateOfBirthDay))))
+                            Convert.ToInt32(dest.DateOfBirthMonth),
+                            Convert.ToInt32(dest.DateOfBirthDay))))
                     .ForMember(src => src.IsSubscribed, opt => opt.MapFrom(dest => dest.IsSubscribed))
                     .ForMember(src => src.Password, opt => opt.Ignore())
                     .ReverseMap();
@@ -53,6 +53,20 @@ namespace ECommerceWebsite.Mapping
                     .ForPath(src => src.ProductType.ProductTypeName, opt => opt.MapFrom(dest => dest.ProductType))
                 .ReverseMap();
                 cfg.CreateMap<UserDetailsDTO, UsersViewModel>().ReverseMap();
+                cfg.CreateMap<AddProductViewModel, ProductDTO>()
+                    .ForMember(src => src.BrandId, opt => opt.MapFrom(dest => Convert.ToInt32(dest.SelectedBrand)))
+                    .ForMember(src => src.CategoryId, opt => opt.MapFrom(dest => Convert.ToInt32(dest.SelectedCategory)))
+                    .ForMember(src => src.ProductTypeId, opt => opt.MapFrom(dest => Convert.ToInt32(dest.SelectedProductType)))
+                    .ForMember(src => src.Brand, opt => opt.Ignore())
+                    .ForMember(src => src.Category, opt => opt.Ignore())
+                    .ForMember(src => src.ProductType, opt => opt.Ignore())
+                    .ForMember(src => src.Gender, opt => opt.Ignore())
+                    .ForMember(src => src.Images, opt => opt.Ignore())
+                    .ForMember(src => src.HeroImage, opt => opt.Ignore())
+                    .ForMember(src => src.Price, opt => opt.Ignore())
+                    .ForMember(src => src.Sizes, opt => opt.Ignore())
+                    .ForMember(src => src.Url, opt => opt.Ignore())
+                    .ReverseMap();
             });
         }
     }

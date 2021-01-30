@@ -15,7 +15,7 @@ namespace ECommerceWebsite.BusinessLogic
         bool ReduceProductQuantity(int productId, int sizeId, int quantityToReduce);
         AdminProductsViewModel GetAllProducts();
         bool DeleteProduct(int productId);
-        AddProductViewModel GetAddProductsContent();
+        AddProductViewModel GetAddProductsContent(AddProductViewModel model = null);
         BaseWebServiceResponse AddProduct(AddProductViewModel model);
     }
 }
