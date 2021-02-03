@@ -118,17 +118,17 @@ namespace ECommerceService.BusinessLogic
                 new GenderDTO()
                 {
                     Id = (int)GenderEnum.Female,
-                    Name = GenderEnum.Female.ToString()
+                    GenderName = GenderEnum.Female.ToString()
                 },
                 new GenderDTO()
                 {
                     Id = (int)GenderEnum.Male,
-                    Name = GenderEnum.Male.ToString()
+                    GenderName = GenderEnum.Male.ToString()
                 },
                 new GenderDTO()
                 {
                     Id = (int)GenderEnum.Unisex,
-                    Name = GenderEnum.Unisex.ToString()
+                    GenderName = GenderEnum.Unisex.ToString()
                 }
             };
 

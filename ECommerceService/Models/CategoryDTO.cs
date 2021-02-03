@@ -1,8 +1,8 @@
 ﻿namespace ECommerceService.Models
 {
-    public class CategoryDTO
+    public class CategoryDTO : EntityDTO
     {
-        public int Id { get; set; }
+        public override string Value => CategoryName;
         public string CategoryName { get; set; }
         public bool IsGender => CategoryName != "New Releases";
     }

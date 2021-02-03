@@ -98,7 +98,7 @@ namespace ECommerceRepository.BusinessLogic
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 var product = context.Products.
-                    Include("Sizes")
+                    Include("ProductType")
                     .SingleOrDefault(p => p.Id == productId);
 
                 if (product == null)
@@ -106,7 +106,8 @@ namespace ECommerceRepository.BusinessLogic
                     return false;
                 }
 
-                var size = product.Sizes.Single(p => p.Id == sizeId);
+                var productSizes = context.ProductSizes.SingleOrDefault(p => p.ProductTypeId == product.ProductTypeId);
+                var size = context.ProductSizes.SingleOrDefault(p => p.Id == sizeId);
 
                 if (size == null)
                 {
@@ -144,10 +145,18 @@ namespace ECommerceRepository.BusinessLogic
                 var listProducts = context.Products
                     .Include("Sizes")
                     .Include("Brand")
+                    .Include("ProductType")
                     .ToList();
 
-                return listProducts.
-                    OrderBy(x => x.Sizes.Sum(p => p.Quantity))
+                foreach (var product in listProducts)
+                {
+                    product.Sizes = context
+                        .ProductSizes
+                        .Where(p => p.ProductTypeId == product.ProductTypeId).ToList();
+                }
+                
+                return listProducts
+                    .OrderBy(x => x.Sizes.Sum(p => p.Quantity))
                     .Take(5).ToList();
             }
         }

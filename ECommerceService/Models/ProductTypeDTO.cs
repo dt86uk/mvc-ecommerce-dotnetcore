@@ -1,8 +1,8 @@
 ﻿namespace ECommerceService.Models
 {
-    public class ProductTypeDTO
+    public class ProductTypeDTO : EntityDTO
     {
-        public int Id { get; set; }
+        public override string Value => ProductTypeName;
         public string ProductTypeName { get; set; }
     }
 }

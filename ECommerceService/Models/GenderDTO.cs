@@ -1,8 +1,8 @@
 ﻿namespace ECommerceService.Models
 {
-    public class GenderDTO
+    public class GenderDTO : EntityDTO
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public override string Value => GenderName;
+        public string GenderName { get; set; }
     }
 }

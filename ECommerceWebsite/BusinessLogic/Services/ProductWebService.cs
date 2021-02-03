@@ -8,7 +8,6 @@ using ECommerceService.Models;
 using ECommerceWebsite.Helpers;
 using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Admin;
-using System.IO;
 using Microsoft.AspNetCore.Http;
 
 namespace ECommerceWebsite.BusinessLogic
@@ -307,7 +306,7 @@ namespace ECommerceWebsite.BusinessLogic
                 model.Genders.Add(new SelectListItem()
                 {
                     Value = genders.Id.ToString(),
-                    Text = genders.Name
+                    Text = genders.GenderName
                 });
             }
 
@@ -334,57 +333,25 @@ namespace ECommerceWebsite.BusinessLogic
 
         public AddProductViewModel GetAddProductsContent(AddProductViewModel model = null)
         {
-            if (model == null)
-            {
-                model = new AddProductViewModel();
-            }
-            
             var addProductContents = _productService.GetAddProductContents();
 
-            foreach (var brand in addProductContents.Brands)
+            if (model == null)
             {
-                model.Brands.Add(new SelectListItem()
+                return new AddProductViewModel()
                 {
-                    Value = brand.Id.ToString(),
-                    Text = brand.BrandName
-                });
-            }
-
-            foreach (var category in addProductContents.Categories)
-            {
-                model.Categories.Add(new SelectListItem()
-                {
-                    Value = category.Id.ToString(),
-                    Text = category.CategoryName
-                });
-            }
-
-            foreach (var gender in addProductContents.Genders)
-            {
-                model.Genders.Add(new SelectListItem()
-                {
-                    Value = gender.Id.ToString(),
-                    Text = gender.Name
-                });
-            }
-
-            foreach (var productType in addProductContents.ProductTypes)
-            {
-                model.ProductTypes.Add(new SelectListItem()
-                {
-                    Value = productType.Id.ToString(),
-                    Text = productType.ProductTypeName
-                });
-            }
-
-            foreach (var size in addProductContents.Sizes)
-            {
-                model.Sizes.Add(new SelectListItem()
-                {
-                    Value = size.Id.ToString(),
-                    Text = size.Size
-                });
-            }
+                    Brands = SelectListItemHelper.BuildDropDownList(addProductContents.Brands),
+                    Categories = SelectListItemHelper.BuildDropDownList(addProductContents.Categories),
+                    Genders = SelectListItemHelper.BuildDropDownList(addProductContents.Genders),
+                    ProductTypes = SelectListItemHelper.BuildDropDownList(addProductContents.ProductTypes),
+                    Sizes = SelectListItemHelper.BuildDropDownList(addProductContents.Sizes)
+                };
+            }      
+            
+            model.Brands = SelectListItemHelper.BuildDropDownList(addProductContents.Brands);
+            model.Categories = SelectListItemHelper.BuildDropDownList(addProductContents.Categories);
+            model.Genders = SelectListItemHelper.BuildDropDownList(addProductContents.Genders);
+            model.ProductTypes = SelectListItemHelper.BuildDropDownList(addProductContents.ProductTypes);
+            model.Sizes = SelectListItemHelper.BuildDropDownList(addProductContents.Sizes);
 
             return model;
         }

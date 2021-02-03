@@ -22,7 +22,12 @@ namespace ECommerceWebsite.BusinessLogic
         {
             foreach (var file in listFiles)
             {
-                if(!IsFileFormatJpg(file))
+                if (file == null)
+                {
+                    continue;
+                }
+
+                if (!IsFileFormatJpg(file))
                 {
                     return false;
                 }

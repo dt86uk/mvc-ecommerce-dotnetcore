@@ -1,8 +1,8 @@
 ﻿namespace ECommerceService.Models
 {
-    public class BrandDTO
+    public class BrandDTO : EntityDTO
     {
-        public int Id { get; set; }
+        public override string Value => BrandName;
         public string BrandName { get; set; }
     }
 }

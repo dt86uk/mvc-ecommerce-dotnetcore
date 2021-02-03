@@ -25,7 +25,11 @@ namespace ECommerceDatabase.Database.Entities
         public int BrandId { get; set; }
         public virtual Brand Brand { get; set; }
 
+        [NotMapped]
+        public int[] SizeIds { get; set; }
+
         public virtual List<ProductSize> Sizes { get; set; }
+
 
         [ForeignKey("Id")]
         public int ProductTypeId { get; set; }

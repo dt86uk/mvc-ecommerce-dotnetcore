@@ -23,6 +23,15 @@ namespace ECommerceWebsite.Controllers
         public IActionResult Index()
         {
             AdminProductsViewModel model = _productWebService.GetAllProducts();
+            
+            if (TempData["ProductAction"] != null)
+            {
+                model.ActionResponse = new BaseWebServiceResponse()
+                {
+                    ActionSuccessful = true
+                };
+            }
+
             return View($"{ProductsViewFolder}/Index.cshtml", model);
         }
 
@@ -72,7 +81,10 @@ namespace ECommerceWebsite.Controllers
         [Route("delete")]
         public IActionResult Delete(ProductsViewModel productModel)
         {
-            TempData["ProductAction"] = _productWebService.DeleteProduct(productModel.Id);
+            TempData["ProductAction"] = _productWebService.DeleteProduct(productModel.Id) ?
+                    "Product Deleted!" :
+                    "There was a problem deleting !";
+
             return RedirectToAction("Index", "products");
         }
 
