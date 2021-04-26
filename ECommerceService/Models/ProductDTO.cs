@@ -36,5 +36,6 @@ namespace ECommerceService.Models
 
         public decimal Price { get; set; }
         public string Url { get; set; }
+        public bool IsActive { get; set; }
     }
 }

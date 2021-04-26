@@ -38,7 +38,7 @@
         <tr>
             <td class="textAlignCenter" width="20%" style="padding-bottom: 5px;">Brand</td>
             <td class="textAlignCenter" width="35%" style="padding-bottom: 5px;">Product Name</td>
-            <td class="textAlignCenter" width="20%" style="padding-bottom: 5px;">Product Type</td>
+            <td class="textAlignCenter" width="20%" style="padding-bottom: 5px;">Is Live?</td>
             <td class="textAlignCenter" width="10%" style="padding-bottom: 5px;">Price ($)</td>
             <td class="textAlignCenter" width="10%" style="padding-bottom: 5px;">Actions</td>
         </tr>
@@ -52,7 +52,7 @@
                     @product.Brand
                 </td>
                 <td>@product.ProductName</td>
-                <td class="textAlignCenter">@product.ProductType</td>
+                <td class="textAlignCenter">@product.IsActive</td>
                 <td class="textAlignCenter">@product.Price.ToString("F")</td>
                 <td style="padding: 5px;"> 
                     <a href="@Url.Action("edit", "products", new { product.Id })">
