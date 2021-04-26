@@ -54,12 +54,12 @@
                 <td>@product.ProductName</td>
                 <td class="textAlignCenter">@product.ProductType</td>
                 <td class="textAlignCenter">@product.Price.ToString("F")</td>
-                <td style="padding: 5px;">
-                    @using (Html.BeginForm("Edit", "products", product, FormMethod.Post, false, new { @class = "displayInlineBlock" }))
-                    {
+                <td style="padding: 5px;"> 
+                    <a href="@Url.Action("edit", "products", new { product.Id })">
                         <input type="image" alt="Edit" src="~/img/icon-pack/png/074-pen.png" width="25" />
-                    }
+                    </a>
 
+                    @*TODO: Change anti forgery false to true => this is related to account authorization *@
                     @using (Html.BeginForm("Delete", "products", product, FormMethod.Post, false, new { @class = "displayInlineBlock" }))
                     {
                         <input type="image" alt="Delete" src="~/img/icon-pack/png/190-trash.png" width="25" onclick="return confirm('are you sure you want to delete this product?');" />

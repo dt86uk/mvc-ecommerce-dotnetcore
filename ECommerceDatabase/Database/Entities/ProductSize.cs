@@ -13,5 +13,7 @@ namespace ECommerceDatabase.Database.Entities
         [ForeignKey("Id")]
         public int ProductTypeId { get; set; }
         public virtual ProductType ProductType { get; set; }
+
+        public int ProductId { get; set; }
     }
 }

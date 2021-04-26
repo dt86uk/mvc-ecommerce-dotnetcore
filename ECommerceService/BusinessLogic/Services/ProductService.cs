@@ -13,18 +13,20 @@ namespace ECommerceService.BusinessLogic
         private readonly ICategoryRepository _categoryRepository;
         private readonly IProductSizeRepository _productSizeRepository;
         private readonly IProductTypeRepository _productTypeRepository;
+        private readonly IGenderService _genderService;
 
         private readonly IMapper mapper;
         private MapperConfiguration _config;
 
         public ProductService(IProductRepository productRepository, IBrandRepository brandRepository,  ICategoryRepository categoryRepository,
-            IProductSizeRepository productSizeRepository, IProductTypeRepository productTypeRepository)
+            IProductSizeRepository productSizeRepository, IProductTypeRepository productTypeRepository, IGenderService genderService)
         {
             _productRepository = productRepository;
             _brandRepository = brandRepository;
             _categoryRepository = categoryRepository;
             _productSizeRepository = productSizeRepository;
             _productTypeRepository = productTypeRepository;
+            _genderService = genderService;
 
             _config = new Mapping.AutoMapperService().Configuration;
             mapper = _config.CreateMapper();
@@ -114,23 +116,7 @@ namespace ECommerceService.BusinessLogic
 
         public AddProductContentsDTO GetAddProductContents()
         {
-            var listGendersDto = new List<GenderDTO>() {
-                new GenderDTO()
-                {
-                    Id = (int)GenderEnum.Female,
-                    GenderName = GenderEnum.Female.ToString()
-                },
-                new GenderDTO()
-                {
-                    Id = (int)GenderEnum.Male,
-                    GenderName = GenderEnum.Male.ToString()
-                },
-                new GenderDTO()
-                {
-                    Id = (int)GenderEnum.Unisex,
-                    GenderName = GenderEnum.Unisex.ToString()
-                }
-            };
+            var listGendersDto = _genderService.GetAllGenders();
 
             var addProductDTO = new AddProductContentsDTO()
             {
@@ -144,15 +130,22 @@ namespace ECommerceService.BusinessLogic
             return addProductDTO;
         }
 
-        public bool ProductNameExists(string productName)
+        public bool ProductNameExists(string productName, int? productId)
         {
-            return _productRepository.ProductNameExists(productName);
+            return _productRepository.ProductNameExists(productName, productId);
         }
 
         public bool AddProduct(ProductDTO productDto)
         {
             var productEntity = mapper.Map<ProductDTO, Product>(productDto);
+            productEntity.IsActive = false;
             return _productRepository.AddProduct(productEntity);
+        }
+
+        public bool UpdateProduct(ProductDTO productDto)
+        {
+            var productEntity = mapper.Map<ProductDTO, Product>(productDto);
+            return _productRepository.UpdateProduct(productEntity);
         }
     }
 }

@@ -2,5 +2,6 @@
 {
     public class AdminBaseViewModel
     {
+        public BaseWebServiceResponse ActionResponse { get; set; }
     }
 }

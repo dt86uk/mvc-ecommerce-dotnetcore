@@ -1,14 +1,4 @@
-﻿//jQuery.(document).ready(function () {
-//    $("#searchBanner").bind("focusout", function () {
-//        $("#inputSearchSite").focusout(1000, function () { });
-
-//        //TODO: Make this fade out
-//        $("#inputSearchSite").placeholder = "";
-//    }); 
-//    });
-//});
-
-//Common Names - Input
+﻿//Common Names - Input
 var btnSubmit = "#btnSubmit";
 
 //Layout Page

@@ -109,13 +109,13 @@ namespace ECommerceDatabase
                         var listProducts = new List<Product>()
                         {
                             new Product { Id = 1, Brand = context.Brands.SingleOrDefault(p => p.Id == 1), HeroImage = GetHeroImage(1), HeroTitle = "Nike Air Zoom Pegasus 37", ProductName = "Nike Air Zoom Pegasus 37", Description = GetDescription(1),
-                                CategoryId = 1, Gender = GenderEnum.Male.ToString(),
+                                CategoryId = 1, Gender = GenderEnum.Male.ToString(), Sizes = GetProductSizes(1),
                                 Images = GetImages(1), ProductType = context.ProductTypes.SingleOrDefault(p => p.Id == 1), SizeIds = new int[1], Price = 200 },
                             new Product { Id = 2, Brand = context.Brands.SingleOrDefault(p => p.Id == 1), HeroImage = GetHeroImage(2), HeroTitle = "Nike Mercurial Superfly 7 Elite MDS FG", ProductName = "Nike Mercurial Superfly 7 Elite MDS FG", Description = GetDescription(2),
-                                CategoryId = 2, Gender = GenderEnum.Male.ToString(),
+                                CategoryId = 2, Gender = GenderEnum.Male.ToString(), Sizes = GetProductSizes(2),
                                 Images = GetImages(2), ProductType = context.ProductTypes.SingleOrDefault(p => p.Id == 1), SizeIds = new int[2], Price = 370 },
                             new Product { Id = 3, Brand = context.Brands.SingleOrDefault(p => p.Id == 1), HeroImage = GetHeroImage(3), HeroTitle = "Nike Zoom Pegasus Turbo 2", ProductName = "Nike Zoom Pegasus Turbo 2", Description = GetDescription(3),
-                                CategoryId = 3, Gender = GenderEnum.Male.ToString(),
+                                CategoryId = 3, Gender = GenderEnum.Male.ToString(), Sizes = GetProductSizes(3),
                                 Images = GetImages(3), ProductType = context.ProductTypes.SingleOrDefault(p => p.Id == 1), SizeIds = new int[3], Price = 260 },
 
                             //TODO : Add these later - let's just get the site up and running with data
@@ -284,23 +284,23 @@ namespace ECommerceDatabase
             switch (productId)
             {
                 case 1:
-                    listProductTypes.Add(new ProductSize { Id = 1, Size = "US 8", Quantity = 5 });
-                    listProductTypes.Add(new ProductSize { Id = 2, Size = "US 9", Quantity = 5 });
-                    listProductTypes.Add(new ProductSize { Id = 3, Size = "US 10", Quantity = 5 });
+                    listProductTypes.Add(new ProductSize { Id = 1, Size = "US 8", Quantity = 5, ProductId = 1,  });
+                    listProductTypes.Add(new ProductSize { Id = 2, Size = "US 9", Quantity = 5, ProductId = 1 });
+                    listProductTypes.Add(new ProductSize { Id = 3, Size = "US 10", Quantity = 5, ProductId = 1 });
                     break;
                 case 2:
-                    listProductTypes.Add(new ProductSize { Id = 9, Size = "US 6", Quantity = 8 });
-                    listProductTypes.Add(new ProductSize { Id = 10, Size = "US 7", Quantity = 7 });
-                    listProductTypes.Add(new ProductSize { Id = 11, Size = "US 8", Quantity = 3 });
-                    listProductTypes.Add(new ProductSize { Id = 12, Size = "US 9", Quantity = 2 });
-                    listProductTypes.Add(new ProductSize { Id = 13, Size = "US 10", Quantity = 1 });
+                    listProductTypes.Add(new ProductSize { Id = 9, Size = "US 6", Quantity = 8, ProductId = 2 });
+                    listProductTypes.Add(new ProductSize { Id = 10, Size = "US 7", Quantity = 7, ProductId = 2 });
+                    listProductTypes.Add(new ProductSize { Id = 11, Size = "US 8", Quantity = 3, ProductId = 2 });
+                    listProductTypes.Add(new ProductSize { Id = 12, Size = "US 9", Quantity = 2, ProductId = 2 });
+                    listProductTypes.Add(new ProductSize { Id = 13, Size = "US 10", Quantity = 1, ProductId = 2 });
                     break;
                 case 3:
-                    listProductTypes.Add(new ProductSize { Id = 4, Size = "US Men's 5 / Women's 7", Quantity = 5 });
-                    listProductTypes.Add(new ProductSize { Id = 5, Size = "US Men's 6 / Women's 8", Quantity = 5 });
-                    listProductTypes.Add(new ProductSize { Id = 6, Size = "US Men's 7 / Women's 9", Quantity = 5 });
-                    listProductTypes.Add(new ProductSize { Id = 7, Size = "US Men's 8 / Women's 10", Quantity = 2 });
-                    listProductTypes.Add(new ProductSize { Id = 8, Size = "US Men's 9 / Women's 11", Quantity = 0 });
+                    listProductTypes.Add(new ProductSize { Id = 4, Size = "US Men's 5 / Women's 7", Quantity = 5, ProductId = 3 });
+                    listProductTypes.Add(new ProductSize { Id = 5, Size = "US Men's 6 / Women's 8", Quantity = 5, ProductId = 3 });
+                    listProductTypes.Add(new ProductSize { Id = 6, Size = "US Men's 7 / Women's 9", Quantity = 5, ProductId = 3 });
+                    listProductTypes.Add(new ProductSize { Id = 7, Size = "US Men's 8 / Women's 10", Quantity = 2, ProductId = 3 });
+                    listProductTypes.Add(new ProductSize { Id = 8, Size = "US Men's 9 / Women's 11", Quantity = 0, ProductId = 3 });
                     break;
                 case 4:
                     break;

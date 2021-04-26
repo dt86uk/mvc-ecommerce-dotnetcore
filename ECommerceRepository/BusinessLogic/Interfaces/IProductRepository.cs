@@ -17,7 +17,8 @@ namespace ECommerceRepository.BusinessLogic
         List<Product> GetFiveLowestStockProducts();
         List<Product> GetAllProducts();
         bool DeleteProduct(int productId);
-        bool ProductNameExists(string productName);
+        bool ProductNameExists(string productName, int? productId);
         bool AddProduct(Product productEntity);
+        bool UpdateProduct(Product productEntity);
     }
 }

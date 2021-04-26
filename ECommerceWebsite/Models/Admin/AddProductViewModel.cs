@@ -6,15 +6,12 @@ using Microsoft.AspNetCore.Http;
 namespace ECommerceWebsite.Models.Admin
 {
     public class AddProductViewModel : AdminBaseViewModel
-    {
-        public BaseWebServiceResponse ActionResponse { get; set; }
-        
+    { 
         public AddProductViewModel() 
         {
             Brands = new List<SelectListItem>();
             Categories = new List<SelectListItem>();
             Genders = new List<SelectListItem>();
-            Sizes = new List<SelectListItem>();
             ProductTypes = new List<SelectListItem>();
         }
 
@@ -28,7 +25,6 @@ namespace ECommerceWebsite.Models.Admin
             Brands = new List<SelectListItem>();
             Categories = new List<SelectListItem>();
             Genders = new List<SelectListItem>();
-            Sizes = new List<SelectListItem>();
             ProductTypes = new List<SelectListItem>();
         }
 
@@ -74,7 +70,7 @@ namespace ECommerceWebsite.Models.Admin
 
         [Required(ErrorMessage = "Sizes required")]
         [Display(Name = "Sizes")]
-        public List<SelectListItem> Sizes { get; set; }
+        public string SizesJson { get; set; }
 
         [Display(Name = "Product Type")]
         public List<SelectListItem> ProductTypes { get; set; }
@@ -86,5 +82,7 @@ namespace ECommerceWebsite.Models.Admin
         [Display(Name = "Price Type")]
         [MinLength(1)]
         public string Price { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

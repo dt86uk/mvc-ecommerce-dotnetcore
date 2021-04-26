@@ -124,8 +124,32 @@ body {
     width: 50%;
 }
 
+.width50px {
+    width: 50px;
+}
+
+.width40px {
+    width: 40px;
+}
+
 .width200px {
     width: 200px;
+}
+
+.marginBot10 {
+    margin-bottom: 10px;
+}
+
+.marginTop10 {
+    margin-top: 10px;
+}
+
+.paddingTopBot10 {
+    padding: 10px 0 10px 0;
+}
+
+.paddingTopBot5 {
+    padding: 5px 0 5px 0;
 }
 
 .textArea {
@@ -215,11 +239,11 @@ body {
             text-decoration: none;
         }
 
-input[type="checkbox"]:checked ~ #sidebarMenu {
+.openSidebarMenu input[type="checkbox"]:checked ~ #sidebarMenu {
     transform: translateX(0);
 }
 
-input[type=checkbox] {
+.openSidebarMenu input[type=checkbox] {
     transition: all 0.3s;
     box-sizing: border-box;
     display: none;
@@ -341,4 +365,38 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
 
 .displayInlineBlock {
     display: inline-block;
+}
+
+.cbProductIsActive input[type=checkbox] {
+    display: block;
+}
+
+.isProductLiveCheckbox input[type='checkbox'] {
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    background: white;
+    border: 1px solid #767676;
+}
+
+    .isProductLiveCheckbox input[type='checkbox']:checked {
+        background: linear-gradient(180deg, #ff3737 0%, #ff9143 100%);
+        background: #ff3737;
+        background: linear-gradient(90deg, rgb(255, 55, 55) 3%, rgba(255,145,67,1) 81%);
+    }
+
+.helpText {
+    font-size: 11px;
+    font-weight:bold;
+    color: #ff1700;
+}
+
+/* Add Product Page */
+.vertAlignMid {
+    vertical-align: middle;
+}
+
+.productThumbnail {
+    width: 100px;
+    height: 100px;
 }

@@ -58,6 +58,7 @@ namespace ECommerceWebsite.Controllers
             if (!response.ActionSuccessful)
             {
                 TempData["ProductAction"] = response.Error.Message;
+                model.ActionResponse = response;
                 return View($"{ProductsViewFolder}/Add.cshtml", model);
             }
 
@@ -69,13 +70,37 @@ namespace ECommerceWebsite.Controllers
             return View($"{ProductsViewFolder}/Index.cshtml", returnModel);
         }
 
-        [HttpPost]
-        [Route("edit")]
-        public IActionResult Edit(ProductsViewModel productModel)
+        //TODO: Make all "edit" pages with e.g. site/area/id-here => Post puts all values in URL
+        [HttpGet]
+        [Route("edit/{productId:int}")]
+        public IActionResult Edit(int productId)
         {
-            EditProductViewModel editModel = _productWebService.GetProductById(productModel);
+            EditProductViewModel editModel = _productWebService.GetEditProductById(productId);
             return View($"{ProductsViewFolder}/Edit.cshtml", editModel);
         }
+
+        [HttpPost]
+        [Route("update")]
+        public IActionResult Update(EditProductViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model = _productWebService.GetEditProductById(model.Id);
+                return View($"{ProductsViewFolder}/Edit/{model.Id}", model);
+            }
+
+            BaseWebServiceResponse response = _productWebService.UpdateProduct(model);
+
+            if (!response.ActionSuccessful)
+            {
+                TempData["ProductAction"] = response.Error.Message;
+                return View($"{ProductsViewFolder}/Edit.cshtml", model);
+            }
+
+            TempData["ProductAction"] = "Product successfully updated";
+            return LocalRedirect("~/admin/products");
+        }
+
 
         [HttpPost]
         [Route("delete")]
@@ -86,13 +111,6 @@ namespace ECommerceWebsite.Controllers
                     "There was a problem deleting !";
 
             return RedirectToAction("Index", "products");
-        }
-
-        [HttpPost]
-        [Route("update")]
-        public IActionResult UpdateProduct()
-        {
-            return View($"{ProductsViewFolder}/Index.cshtml");
         }
     }
 }

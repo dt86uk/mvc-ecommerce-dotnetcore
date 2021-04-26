@@ -102,24 +102,23 @@
         <div class="clearBoth"></div>
     </div>
 
-    @*<div>
-            <div class="floatLeft width30perc">
-                @Html.LabelFor(p => p.Sizes)
+    <div>
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.SizesJson)
+        </div>
+        <div class="floatLeft">
+            @Html.HiddenFor(p => p.SizesJson)
+            <div id="divSizesJson" class="marginBot10">
+                <div id="divSize0" class="addSizeContainer paddingTopBot5">
+                    Size Name: <input id="sizes0_SizeName" type="text" class="inlineBlock sizeCtrl" value="" onkeyup="canEnableAddSizeButton();" />
+                    Quantity: <input id="sizes0_Quantity" class="width40px inlineBlock sizeCtrl" type="text" value="" onkeyup="canEnableAddSizeButton();" />
+                </div>
             </div>
-            <div class="floatLeft">
-                @foreach (var size in Model.Sizes)
-                {
-                    <div>
-                        <input id="@size.Value"
-                               class="checkbox"
-                               type="checkbox"
-                               name="SelectedSizes"
-                               value="@size.Value"/> @size.Text
-                    </div>
-                }
-            </div>
-            <div class="clearBoth"></div>
-        </div>*@
+
+            <input id="btnAddSize" disabled onclick="addNewSize();" type="button" value="Add Another Size" />
+        </div>
+        <div class="clearBoth"></div>
+    </div>
 
     <div>
         <div class="floatLeft width30perc">
@@ -155,12 +154,22 @@
         <div class="clearBoth"></div>
     </div>
 
-    <div class="marginTop10">
+    <div>
+        <div class="floatLeft width30perc">
+            Is Product Live? <br />
+            <span class="helpText">* This will make the product available to customers immediately.</span>
+        </div>
+        <div class="floatLeft isProductLiveCheckbox">
+            @Html.CheckBoxFor(p => Model.IsActive)
+        </div>
+    </div>
+
+    <div class="paddingTopBot10">
         <div class="floatLeft width30perc">
             &nbsp;&nbsp;
         </div>
         <div class="floatLeft">
-            <input id="btnSubmit" value="Add Product" type="submit" class="btnSubmit redOrangeGrad" />
+            <input id="btnSubmit" value="Add Product" type="submit" onclick="serializeSizes();" class="btnSubmit redOrangeGrad" />
         </div>
         <div class="clearBoth"></div>
     </div>

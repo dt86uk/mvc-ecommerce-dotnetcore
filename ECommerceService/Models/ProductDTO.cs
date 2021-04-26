@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 
 namespace ECommerceService.Models
 {
+    [Serializable]
     public class ProductDTO
     {
         public ProductDTO()
@@ -25,6 +28,7 @@ namespace ECommerceService.Models
         public int BrandId { get; set; }
         public virtual BrandDTO Brand { get; set; }
 
+        [JsonProperty("sizes")]
         public virtual List<ProductSizeDTO> Sizes { get; set; }
 
         public int ProductTypeId { get; set; }

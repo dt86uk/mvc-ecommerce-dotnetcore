@@ -86,7 +86,6 @@ namespace ECommerceRepository.BusinessLogic
             }
         }
 
-        //TODO: Possibly rename this method?
         /// <summary>
         /// Decreases the quantity of a Product by 1.
         /// </summary>
@@ -130,11 +129,16 @@ namespace ECommerceRepository.BusinessLogic
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
-                return context.Products.
+                var product = context.Products.
                     Include("Images").
                     Include("Brand").
                     Include("Sizes").
                     Include("ProductType").Single(p => p.Id == productId);
+
+                product.Sizes = context.ProductSizes
+                    .Where(p => p.ProductId == product.Id).ToList();
+
+                return product;
             }
         }
 
@@ -187,7 +191,8 @@ namespace ECommerceRepository.BusinessLogic
 
                 if (productEntity != null)
                 {
-                    context.Products.Remove(productEntity);
+                    productEntity.IsActive = false;
+                    context.Products.Update(productEntity);
                     context.SaveChanges();
                     return true;
                 }
@@ -196,12 +201,16 @@ namespace ECommerceRepository.BusinessLogic
             }
         }
 
-        public bool ProductNameExists(string productName)
+        public bool ProductNameExists(string productName, int? productId)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
-                return context.Products
-                    .Any(p => string.Equals(p.ProductName, productName, StringComparison.InvariantCultureIgnoreCase));
+                return productId != null ? 
+                    context.Products
+                        .Any(p => string.Equals(p.ProductName, productName, StringComparison.InvariantCultureIgnoreCase) 
+                                && p.Id != productId.Value) :
+                    context.Products
+                        .Any(p => string.Equals(p.ProductName, productName, StringComparison.InvariantCultureIgnoreCase));
             }
         }
 
@@ -212,6 +221,49 @@ namespace ECommerceRepository.BusinessLogic
                 try
                 {
                     context.Products.Add(productEntity);
+                    context.SaveChanges();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool UpdateProduct(Product productEntity)
+        {
+            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
+            {
+                try
+                {
+                    var product = context.Products.
+                        Include("Images").
+                        Include("Brand").
+                        Include("Sizes").
+                        Include("ProductType").
+                        SingleOrDefault(p => p.Id == productEntity.Id);
+
+                    if (product == null)
+                    {
+                        return false;
+                    }
+
+                    product.BrandId = productEntity.BrandId;
+                    product.CategoryId = productEntity.CategoryId;
+                    product.Description = productEntity.Description;
+                    product.Gender = productEntity.Gender;
+                    product.HeroImage = productEntity.HeroImage;
+                    product.HeroTitle = productEntity.HeroTitle;
+                    product.Images = productEntity.Images;
+                    product.Price = productEntity.Price;
+                    product.ProductName = productEntity.ProductName;
+                    product.ProductTypeId = productEntity.ProductTypeId;
+                    product.SizeIds = productEntity.Sizes.Select(p => p.Id).ToArray();
+                    product.Sizes = productEntity.Sizes;
+                    product.IsActive = productEntity.IsActive;
+
+                    context.Products.Update(product);
                     context.SaveChanges();
                     return true;
                 }

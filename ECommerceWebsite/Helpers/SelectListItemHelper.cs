@@ -35,5 +35,21 @@ namespace ECommerceWebsite.Helpers
 
             return listSelectListItem;
         }
+
+        public static List<SelectListItem> BuildGendersDropDownList(List<GenderDTO> listGenders)
+        {
+            var listSelectListItem = new List<SelectListItem>();
+
+            foreach (var gender in listGenders)
+            {
+                listSelectListItem.Add(new SelectListItem()
+                {
+                    Value = gender.Id.ToString(),
+                    Text = gender.Value
+                });
+            }
+
+            return listSelectListItem;
+        }
     }
 }

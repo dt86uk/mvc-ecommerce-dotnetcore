@@ -9,6 +9,7 @@ using ECommerceWebsite.Helpers;
 using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Admin;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace ECommerceWebsite.BusinessLogic
 {
@@ -24,6 +25,8 @@ namespace ECommerceWebsite.BusinessLogic
         private MapperConfiguration _config;
 
         //TODO: Configure Mapper for EPVM, PsVM, PVM
+        //TODO: Consider the responsibility of the class, this is doing a lot of leg work, maybe pass to to "Service" layer...
+        //TODO: ...cont. And/Or a ValidationService/Helpers/Mappers
         public ProductWebService(IProductService productService, IBrandService brandService, ICategoryService categoryService, 
             IProductTypeService productTypeService, IGenderService genderService, IFileValidationWebService fileValidationWebService)
         {
@@ -175,54 +178,123 @@ namespace ECommerceWebsite.BusinessLogic
             return productViewModel;
         }
 
-        public EditProductViewModel GetProductById(ProductsViewModel productsViewModel)
+        //TODO: Consider renaming the methods to better reflect their purpose e.g. GetProductById => GetEditProductViewModel(id);
+        public EditProductViewModel GetEditProductById(int productId)
         {
-            var product = _productService.GetProductById(productsViewModel.Id);
-            string genderDesc = ProductHelper.GetGenderDescription(product.Gender);
-
+            var product = _productService.GetProductById(productId);
+            
             var editProductViewModel = new EditProductViewModel()
             {
-                Id = productsViewModel.Id,
+                Id = productId,
                 ProductName = product.ProductName,
-                Category = mapper.Map<CategoryDTO, CategoryItemViewModel>(product.Category),
                 Description = product.Description,
-                Gender = genderDesc,
-                HeroImage = product.HeroImage,
+                Genders = SelectListItemHelper.BuildGendersDropDownList(_genderService.GetAllGenders()),
+                HeroImageCurrent = product.HeroImage,
                 HeroTitle = product.HeroTitle,
-                Images = new List<ProductImageViewModel>(),
-                Brand = new BrandViewModel()
-                {
-                    Id = product.Brand.Id,
-                    BrandName = product.Brand.BrandName
-                },
-                Sizes = new List<ProductSizeViewModel>(),
-                ProductType = new ProductTypeViewModel()
-                {
-                    Id = product.ProductType.Id,
-                    ProductTypeName = product.ProductType.ProductTypeName
-                },
-                Price = product.Price
+                Brands = SelectListItemHelper.BuildDropDownList(_brandService.GetAllBrands()),
+                Price = product.Price.ToString(),
+                Sizes = mapper.Map<List<ProductSizeDTO>, List<ProductSizeViewModel>>(product.Sizes),
+                SizesJson = JsonConvert.SerializeObject(product.Sizes)
             };
 
-            foreach (var image in product.Images)
+            foreach (var gender in editProductViewModel.Genders)
             {
-                var base64 = Convert.ToBase64String(image.Image);
-
-                editProductViewModel.Images.Add(new ProductImageViewModel()
+                if (gender.Text == product.Gender)
                 {
-                    Id = image.Id,
-                    ImageSrc = $"data:image/jpeg;base64,{base64}"
+                    gender.Selected = true;
+                }
+            }
+
+            var listProductTypes = _productTypeService.GetAllProductTypes();
+            foreach (var productType in listProductTypes)
+            {
+                editProductViewModel.ProductTypes.Add(new SelectListItem()
+                {
+                    Value = productType.Id.ToString(),
+                    Text = productType.Value,
+                    Selected = productType.Id == product.CategoryId
                 });
             }
 
-            foreach (var size in product.Sizes)
+            foreach (var image in product.Images)
             {
-                editProductViewModel.Sizes.Add(new ProductSizeViewModel()
+                //TODO: Try put this in mapper
+                if (image.Image.Length > 1)
                 {
-                    Id = size.Id,
-                    Quantity = size.Quantity,
-                    Size = size.Size
+                    editProductViewModel.ImagesSrc.Add($"data:image/jpeg;base64,{Convert.ToBase64String(image.Image)}");
+                    editProductViewModel.ImagesBytes.Add(image.Image);
+                }
+            }
+
+            var listCategories = _categoryService.GetAllCategories();
+            foreach (var category in listCategories)
+            {
+                editProductViewModel.Categories.Add(new SelectListItem()
+                {
+                    Value = category.Id.ToString(),
+                    Text = category.Value,
+                    Selected = category.Id == product.CategoryId
+                }); ;
+            }
+
+            return editProductViewModel;
+        }
+
+        //TODO: Refactor this
+        public EditProductViewModel GetProductById(EditProductViewModel editProductsViewModel)
+        {
+            var product = _productService.GetProductById(editProductsViewModel.Id);
+
+            var editProductViewModel = new EditProductViewModel()
+            {
+                Id = editProductsViewModel.Id,
+                ProductName = product.ProductName,
+                Description = product.Description,
+                Genders = SelectListItemHelper.BuildGendersDropDownList(_genderService.GetAllGenders()),
+                HeroImageCurrent = product.HeroImage,
+                HeroTitle = product.HeroTitle,
+                Brands = SelectListItemHelper.BuildDropDownList(_brandService.GetAllBrands()),
+                Price = product.Price.ToString(),
+                Sizes = mapper.Map<List<ProductSizeDTO>, List<ProductSizeViewModel>>(product.Sizes)
+            };
+            //TODO: Refactor this - Helper
+            foreach (var gender in editProductViewModel.Genders)
+            {
+                if (gender.Text == product.Gender)
+                {
+                    gender.Selected = true;
+                }
+            }
+
+            var listProductTypes = _productTypeService.GetAllProductTypes();
+            foreach (var productType in listProductTypes)
+            {
+                editProductViewModel.ProductTypes.Add(new SelectListItem()
+                {
+                    Value = productType.Id.ToString(),
+                    Text = productType.Value,
+                    Selected = productType.Id == product.CategoryId
                 });
+            }
+            //TODO: Refactor this - Helper
+            foreach (var image in product.Images)
+            {
+                //TODO: Try put this in mapper
+                if (image.Image.Length > 1)
+                {
+                    editProductViewModel.ImagesSrc.Add($"data:image/jpeg;base64,{Convert.ToBase64String(image.Image)}");
+                }
+            }
+            //TODO: Refactor this - Helper
+            var listCategories = _categoryService.GetAllCategories();
+            foreach (var category in listCategories)
+            {
+                editProductViewModel.Categories.Add(new SelectListItem()
+                {
+                    Value = category.Id.ToString(),
+                    Text = category.Value,
+                    Selected = category.Id == product.CategoryId
+                }); ;
             }
 
             return editProductViewModel;
@@ -282,7 +354,7 @@ namespace ECommerceWebsite.BusinessLogic
         {
             AddProductContentsDTO addProductDto = _productService.GetAddProductContents();
             var model = new AddProductViewModel();
-
+            //TODO: Refactor this - Helper
             foreach (var brand in addProductDto.Brands)
             {
                 model.Brands.Add(new SelectListItem()
@@ -291,7 +363,7 @@ namespace ECommerceWebsite.BusinessLogic
                     Text = brand.BrandName
                 });
             }
-
+            //TODO: Refactor this - Helper
             foreach (var category in addProductDto.Categories)
             {
                 model.Categories.Add(new SelectListItem()
@@ -300,7 +372,7 @@ namespace ECommerceWebsite.BusinessLogic
                     Text = category.CategoryName
                 });
             }
-
+            //TODO: Refactor this - Helper
             foreach (var genders in addProductDto.Genders)
             {
                 model.Genders.Add(new SelectListItem()
@@ -309,7 +381,7 @@ namespace ECommerceWebsite.BusinessLogic
                     Text = genders.GenderName
                 });
             }
-
+            //TODO: Refactor this - Helper
             foreach (var productType in addProductDto.ProductTypes)
             {
                 model.ProductTypes.Add(new SelectListItem()
@@ -318,7 +390,7 @@ namespace ECommerceWebsite.BusinessLogic
                     Text = productType.ProductTypeName
                 });
             }
-
+            //TODO: Refactor this - Helper
             foreach (var size in addProductDto.Sizes)
             {
                 model.ProductTypes.Add(new SelectListItem()
@@ -342,16 +414,14 @@ namespace ECommerceWebsite.BusinessLogic
                     Brands = SelectListItemHelper.BuildDropDownList(addProductContents.Brands),
                     Categories = SelectListItemHelper.BuildDropDownList(addProductContents.Categories),
                     Genders = SelectListItemHelper.BuildDropDownList(addProductContents.Genders),
-                    ProductTypes = SelectListItemHelper.BuildDropDownList(addProductContents.ProductTypes),
-                    Sizes = SelectListItemHelper.BuildDropDownList(addProductContents.Sizes)
+                    ProductTypes = SelectListItemHelper.BuildDropDownList(addProductContents.ProductTypes)
                 };
-            }      
-            
+            }
+            //TODO: Refactor this - mapper
             model.Brands = SelectListItemHelper.BuildDropDownList(addProductContents.Brands);
             model.Categories = SelectListItemHelper.BuildDropDownList(addProductContents.Categories);
             model.Genders = SelectListItemHelper.BuildDropDownList(addProductContents.Genders);
             model.ProductTypes = SelectListItemHelper.BuildDropDownList(addProductContents.ProductTypes);
-            model.Sizes = SelectListItemHelper.BuildDropDownList(addProductContents.Sizes);
 
             return model;
         }
@@ -362,7 +432,6 @@ namespace ECommerceWebsite.BusinessLogic
 
             if (_productService.ProductNameExists(model.ProductName))
             {
-
                 response.Error.Name = "Product Name";
                 response.Error.Message = "Product Name exists";
 
@@ -404,7 +473,8 @@ namespace ECommerceWebsite.BusinessLogic
 
                 return response;
             }
-
+            
+            //TODO: Refactor this - Mapper or Helper
             var productDto = mapper.Map<AddProductViewModel, ProductDTO>(model);
             productDto.Gender = _genderService.GetGenderById(Convert.ToInt32(model.SelectedGender));
             productDto.Price = price;
@@ -413,8 +483,110 @@ namespace ECommerceWebsite.BusinessLogic
             productDto.Images.Add(new ProductImageDTO() { Image = ProductHelper.WriteImageToBytes(model.Image2) });
             productDto.Images.Add(new ProductImageDTO() { Image = ProductHelper.WriteImageToBytes(model.Image3) });
             productDto.Images.Add(new ProductImageDTO() { Image = ProductHelper.WriteImageToBytes(model.Image4) });
+            productDto.Sizes = JsonConvert.DeserializeObject<List<ProductSizeDTO>>(model.SizesJson);
 
             if (!_productService.AddProduct(productDto))
+            {
+                response.Error.Name = "Add Product";
+                response.Error.Message = "There was a problem while attempting to add the Product, please try again. If this problem persists, please contact support.";
+
+                return response;
+            }
+
+            response.ActionSuccessful = true;
+            return response;
+        }
+
+        public BaseWebServiceResponse UpdateProduct(EditProductViewModel model)
+        {
+            var response = new BaseWebServiceResponse();
+
+            //TODO: Refactor this - Move this check to a new service => ProductValidationService?
+            if (_productService.ProductNameExists(model.ProductName, model.Id))
+            {
+                response.Error.Name = "Product Name";
+                response.Error.Message = "Product Name exists";
+
+                return response;
+            }
+
+            decimal price;
+            if (!decimal.TryParse(model.Price, out price))
+            {
+                response.ActionSuccessful = false;
+                response.Error.Name = "Price";
+                response.Error.Message = "Price must be a decimal value e.g. 100.00";
+
+                return response;
+            }
+
+            List<IFormFile> listFiles = new List<IFormFile>()
+            {
+                model.Image1,
+                model.Image2,
+                model.Image3,
+                model.Image4,
+            };
+
+            var productDto = mapper.Map<EditProductViewModel, ProductDTO>(model);
+
+            bool fileExists = _fileValidationWebService.FileExists(listFiles);
+            if (fileExists)
+            {
+                bool filesAreJpg = _fileValidationWebService.IsFileFormatJpg(listFiles);
+                if (!filesAreJpg)
+                {
+                    response.Error.Name = "Images";
+                    response.Error.Message = "Files must be jpg file format.";
+
+                    return response;
+                }
+            }
+            else 
+            {
+                //TODO: Refactor this => Duplicated below
+                productDto.Images.Add(new ProductImageDTO() { Image = model.ImagesBytes[0] });
+                productDto.Images.Add(new ProductImageDTO() { Image = model.ImagesBytes[1] });
+                productDto.Images.Add(new ProductImageDTO() { Image = model.ImagesBytes[2] });
+                productDto.Images.Add(new ProductImageDTO() { Image = model.ImagesBytes[3] });
+            }
+
+            //TODO: Refactor this - move Mapper or Helper
+            productDto.Gender = _genderService.GetGenderById(Convert.ToInt32(model.SelectedGender));
+            productDto.Price = price;
+
+            //TODO: Refactor this - move Mapper or Helper
+            if (model.HeroImage != null)
+            {
+                productDto.HeroImage = ProductHelper.WriteImageToBytes(model.HeroImage);
+            }
+
+            //TODO: Refactor this - move to Helper - refactor e.g. model.Image1,2,3 => .Add to list return list
+            if (fileExists)
+            {
+                if (model.Image1 != null)
+                {
+                    productDto.Images.Add(new ProductImageDTO() { Image = ProductHelper.WriteImageToBytes(model.Image1) });
+                }
+
+                if (model.Image2 != null)
+                {
+                    productDto.Images.Add(new ProductImageDTO() { Image = ProductHelper.WriteImageToBytes(model.Image2) });
+                }
+
+                if (model.Image3 != null)
+                {
+                    productDto.Images.Add(new ProductImageDTO() { Image = ProductHelper.WriteImageToBytes(model.Image3) });
+                }
+
+                if (model.Image4 != null)
+                {
+                    productDto.Images.Add(new ProductImageDTO() { Image = ProductHelper.WriteImageToBytes(model.Image4) });
+                }
+            }
+            productDto.Sizes = JsonConvert.DeserializeObject<List<ProductSizeDTO>>(model.SizesJson);
+
+            if (!_productService.UpdateProduct(productDto))
             {
                 response.Error.Name = "Add Product";
                 response.Error.Message = "There was a problem while attempting to add the Product, please try again. If this problem persists, please contact support.";

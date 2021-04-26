@@ -112,6 +112,12 @@ namespace ECommerceWebsite
                 );
 
                 endpoints.MapControllerRoute(
+                    name: "products",
+                    pattern: "admin/{controller}/{action}/{id?}",
+                    defaults: new { controller = "Products", action = "Index" }
+                );
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });

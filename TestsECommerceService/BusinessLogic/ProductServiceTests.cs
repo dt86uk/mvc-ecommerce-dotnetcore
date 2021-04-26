@@ -18,6 +18,7 @@ namespace TestsECommerceService.BusinessLogic
         private Mock<ICategoryRepository> _mockCategoryRepository;
         private Mock<IProductSizeRepository> _mockProductSizeRepository;
         private Mock<IProductTypeRepository> _mockProductTypeRepository;
+        private Mock<IGenderService> _mockGenderService;
         private List<Product> _listProducts;
 
         [TestInitialize]
@@ -26,8 +27,10 @@ namespace TestsECommerceService.BusinessLogic
             _mockProductRepository = new Mock<IProductRepository>();
             _mockBrandRepository = new Mock<IBrandRepository>();
             _mockCategoryRepository = new Mock<ICategoryRepository>();
+            _mockProductSizeRepository = new Mock<IProductSizeRepository>();
+            _mockProductTypeRepository = new Mock<IProductTypeRepository>();
             _productService = new ProductService(_mockProductRepository.Object, _mockBrandRepository.Object, _mockCategoryRepository.Object,
-                _mockProductSizeRepository.Object, _mockProductTypeRepository.Object);
+                _mockProductSizeRepository.Object, _mockProductTypeRepository.Object, _mockGenderService.Object);
 
             _listProducts = new List<Product>()
             {

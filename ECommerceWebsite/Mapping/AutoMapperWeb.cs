@@ -67,6 +67,12 @@ namespace ECommerceWebsite.Mapping
                     .ForMember(src => src.Sizes, opt => opt.Ignore())
                     .ForMember(src => src.Url, opt => opt.Ignore())
                     .ReverseMap();
+                cfg.CreateMap<EditProductViewModel, ProductDTO>()
+                    .ForMember(src => src.BrandId, opt => opt.MapFrom(src => Convert.ToInt32(src.SelectedBrand)))
+                    .ForMember(src => src.CategoryId, opt => opt.MapFrom(src => Convert.ToInt32(src.SelectedCategory)))
+                    .ForMember(src => src.ProductTypeId, opt => opt.MapFrom(src => Convert.ToInt32(src.SelectedProductType)))
+                    .ForMember(src => src.ProductTypeId, opt => opt.MapFrom(src => Convert.ToInt32(src.SelectedProductType)))
+                    .ReverseMap();
             });
         }
     }

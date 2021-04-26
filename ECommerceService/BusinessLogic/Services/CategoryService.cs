@@ -2,6 +2,7 @@
 using ECommerceDatabase.Database.Entities;
 using ECommerceRepository.BusinessLogic;
 using ECommerceService.Models;
+using System.Collections.Generic;
 
 namespace ECommerceService.BusinessLogic
 {
@@ -18,6 +19,11 @@ namespace ECommerceService.BusinessLogic
 
             _config = new Mapping.AutoMapperService().Configuration;
             mapper = _config.CreateMapper();
+        }
+
+        public List<CategoryDTO> GetAllCategories()
+        {
+            return mapper.Map<List<Category>, List<CategoryDTO>>(_categoryRepository.GetAllCategories());
         }
 
         public CategoryDTO GetCategoryById(int categoryId)

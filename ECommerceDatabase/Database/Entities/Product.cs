@@ -20,7 +20,7 @@ namespace ECommerceDatabase.Database.Entities
         public byte[] HeroImage { get; set; }
         public string HeroTitle { get; set; }
         public virtual List<ProductImage> Images { get; set; }
-        
+
         [ForeignKey("Id")]
         public int BrandId { get; set; }
         public virtual Brand Brand { get; set; }
@@ -35,5 +35,6 @@ namespace ECommerceDatabase.Database.Entities
         public int ProductTypeId { get; set; }
         public virtual ProductType ProductType { get; set; }
         public decimal Price { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

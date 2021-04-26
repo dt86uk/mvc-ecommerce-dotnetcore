@@ -6,93 +6,188 @@
 }
 <div class="titleHeader">Edit Product</div>
 
-@using (Html.BeginForm("Update", "products", Model, FormMethod.Post, false, new { @class = "form" }))
+@using (Html.BeginForm("Update", "Products", FormMethod.Post))@*, false, new { enctype = "multipart/form-data", @class = "form" }))*@
 {
+    @Html.ValidationSummary(false, string.Empty, new { @class = "required" })
+
     <div>
-        <div class="floatLeft width20perc">
-            @Html.HiddenFor(p => p.Brand.Id)
-            @Html.LabelFor(p => p.Brand.BrandName)
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.Brands)
         </div>
-        <div class="floatLeft width20perc">
-            @Html.TextBoxFor(p => p.Brand.BrandName)
-            @*TODO: @Html.DropDownListFor(p => p.ListBrands, )*@
+        <div class="floatLeft width30perc">
+            @Html.DropDownListFor(p => p.SelectedBrand, Model.Brands, new { @class = "width200px" })
         </div>
         <div class="clearBoth"></div>
     </div>
 
     <div>
-        <div class="floatLeft width20perc">
+        <div class="floatLeft width30perc">
             @Html.LabelFor(p => p.ProductName)
         </div>
-        <div class="floatLeft width20perc">
+        <div class="floatLeft">
             @Html.TextBoxFor(p => p.ProductName)
-            @*TODO: @Html.DropDownListFor(p => p.ListBrands, )*@
         </div>
         <div class="clearBoth"></div>
     </div>
 
     <div>
-        <div class="floatLeft width20perc">
+        <div class="floatLeft width30perc">
             @Html.LabelFor(p => p.Price)
         </div>
-        <div class="floatLeft width20perc">
+        <div class="floatLeft">
             @Html.TextBoxFor(p => p.Price)
         </div>
         <div class="clearBoth"></div>
     </div>
 
     <div>
-        <div class="floatLeft width20perc">
+        <div class="floatLeft width30perc">
             @Html.LabelFor(p => p.Description)
         </div>
-        <div class="floatLeft width20perc">
-            @Html.TextAreaFor(p => p.Description, 5, 20, new { @class = "editTextArea" })  @*TODO: editTextArea*@
-            @*TODO: @Html.DropDownListFor(p => p.ListBrands, )*@
+        <div class="floatLeft">
+            @Html.TextAreaFor(p => p.Description, 5, 20, new { @class = "width200px" })
         </div>
         <div class="clearBoth"></div>
     </div>
 
     <div>
-        <div class="floatLeft width20perc">
-            @Html.LabelFor(p => p.Gender)
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.Genders)
         </div>
-        <div class="floatLeft width20perc">
-            @Html.TextBoxFor(p => p.Gender)
-            @*TODO: @foreach gender in ListGenders => <input type='checkbox' /> etc *@
-        </div>
-        <div class="clearBoth"></div>
-    </div>
-
-    <div>
-        <div class="floatLeft width20perc">
-            @Html.HiddenFor(p => p.Category.Id)
-            @Html.LabelFor(p => p.Category.CategoryName)
-        </div>
-        <div class="floatLeft width20perc">
-            @Html.TextBoxFor(p => p.Category.CategoryName)
-            @*TODO: @Html.DropDownListFor(p => p.ListBrands, )*@
+        <div class="floatLeft">
+            @Html.DropDownListFor(p => p.SelectedGender, Model.Genders)
         </div>
         <div class="clearBoth"></div>
     </div>
 
     <div>
-        <div class="floatLeft width20perc">
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.Categories)
+        </div>
+        <div class="floatLeft">
+            @Html.DropDownListFor(p => p.SelectedCategory, Model.Categories, new { @class = "width200px" })
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.ProductTypes)
+        </div>
+        <div class="floatLeft">
+            @Html.DropDownListFor(p => p.SelectedProductType, Model.ProductTypes, "Select Product Type", new { @class = "width200px" })
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width30perc">
             @Html.LabelFor(p => p.HeroImage)
         </div>
-        <div class="floatLeft width20perc">
-            @*TODO: display hero image, small have 'delete' button under *@
-            @*TODO: include input to upload *@
+        <div class="floatLeft">
+            @Html.TextBoxFor(p => p.HeroImage, new { type = "file" })
+            @if (Model.HeroImageCurrent?.Length > 1)
+            {
+                <img class="productThumbnail" alt="Hero Image" src="@Model.HeroImageCurrent">
+            }
         </div>
         <div class="clearBoth"></div>
     </div>
 
     <div>
-        <div class="floatLeft width20perc">
-            @Html.LabelFor(p => p.Images)
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.Image1)
         </div>
-        <div class="floatLeft width20perc">
-            @*TODO: @foreach image in Images => show and have delete button under *@
-            @*TODO: include input to upload *@
+        <div class="floatLeft">
+            <div>
+                @Html.TextBoxFor(p => p.Image1, new { type = "file" })
+                <div>
+                    <img class="productThumbnail" alt="Hero Image" src="@Model.ImagesSrc?[0]">
+
+                    @if (Model.ImagesBytes.Count > 0)
+                    {
+                        @Html.HiddenFor(p => p.ImagesBytes[0])
+                    }
+                </div>
+            </div>
+
+            <div>
+                @Html.TextBoxFor(p => p.Image2, new { type = "file" })
+                <div>
+                    <img class="productThumbnail" alt="Hero Image" src="@Model.ImagesSrc?[1]">
+
+                    @if (Model.ImagesBytes.Count > 1)
+                    {
+                        @Html.HiddenFor(p => p.ImagesBytes[1])
+                    }
+                </div>
+            </div>
+
+            <div>
+                @Html.TextBoxFor(p => p.Image3, new { type = "file" })
+                <div>
+                    <img class="productThumbnail" alt="Hero Image" src="@Model.ImagesSrc?[2]">
+
+                    @if (Model.ImagesBytes.Count > 2)
+                    {
+                        @Html.HiddenFor(p => p.ImagesBytes[2])
+                    }
+                </div>
+            </div>
+
+            <div>
+                @Html.TextBoxFor(p => p.Image4, new { type = "file" })
+                <div>
+                    <img class="productThumbnail" alt="Hero Image" src="@Model.ImagesSrc?[3]">
+
+                    @if (Model.ImagesBytes.Count > 3)
+                    {
+                        @Html.HiddenFor(p => p.ImagesBytes[3])
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div class="marginBot10">
+        <div id="divSizesJson" class="marginBot10" onload="loadSizes(@Model.Sizes == null ? 0 : @Model.Sizes.Count);">
+            @Html.HiddenFor(p => p.SizesJson)
+
+            @*TODO: YOU ARE HERE => We're mixing functionality keep it seperate for now. *@
+            @for (int i = 0; i < Model.Sizes.Count; i++)
+            {
+                var divId = $"divSize{i}";
+                var divSizeId = $"sizes{i}_SizeName";
+                var divQuantityId = $"sizes{i}_Quantity";
+                <div id="@divId" class="addSizeContainer paddingTopBot5">
+                    Size Name: <input id="@divSizeId" type="text" class="inlineBlock sizeCtrl" value="@Model.Sizes[i].Size" onkeyup="canEnableAddSizeButton();" />
+                    Quantity: <input id="@divQuantityId" class="width40px inlineBlock sizeCtrl" type="text" value="@Model.Sizes[i].Quantity.ToString()" onkeyup="canEnableAddSizeButton();" />
+
+                    <input id='sizes0_Remove' type='image' class='vertAlignMid' alt='Delete' src='~/img/icon-pack/png/190-trash.png' width='25' onclick='removeSize(countId);' />
+                </div>
+            }
+        </div>
+        <input id="btnAddSize" onclick="editNewSize();" type="button" value="Add Another Size" />
+    </div>
+
+    <div class="cbProductIsActive">
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.IsActive) <br/>
+            <span class="helpText">* This will make the product available to customers immediately.</span>
+        </div>
+        <div class="floatLeft isProductLiveCheckbox">
+            @Html.CheckBoxFor(p => Model.IsActive)
+        </div>
+    </div>
+
+    <div class="paddingTopBot10">
+        <div class="floatLeft width30perc">
+            &nbsp;&nbsp;
+        </div>
+        <div class="floatLeft">
+            @Html.HiddenFor(p => Model.Id)
+            <input id="btnSubmit" value="Update Product" type="submit" onclick="serializeSizes();" class="btnSubmit redOrangeGrad" />
         </div>
         <div class="clearBoth"></div>
     </div>
