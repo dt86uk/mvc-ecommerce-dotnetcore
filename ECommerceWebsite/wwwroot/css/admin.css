@@ -239,11 +239,11 @@ body {
             text-decoration: none;
         }
 
-.openSidebarMenu input[type="checkbox"]:checked ~ #sidebarMenu {
+input[type="checkbox"]:checked ~ #sidebarMenu {
     transform: translateX(0);
 }
 
-.openSidebarMenu input[type=checkbox] {
+input[type=checkbox] {
     transition: all 0.3s;
     box-sizing: border-box;
     display: none;
@@ -399,4 +399,22 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
 .productThumbnail {
     width: 100px;
     height: 100px;
+}
+
+/*Add User PAge*/
+.dobInputSmall {
+    width: 50px;
+}
+
+.dobInputMedium {
+    width: 73px;
+}
+
+.subscribeInfo {
+    background-color: #e5e5e5;
+    font-size: 12px;
+    color: black;
+    border: 1px dashed #4e4e4e;
+    width: 100%;
+    padding: 10px;
 }

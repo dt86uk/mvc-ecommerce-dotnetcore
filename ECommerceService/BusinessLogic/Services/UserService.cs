@@ -91,5 +91,10 @@ namespace ECommerceService.BusinessLogic
 
             return listUsersDetails;
         }
+
+        public List<RoleDTO> GetAllUserRoles()
+        {
+            return mapper.Map<List<Role>, List<RoleDTO>>(_roleRepository.GetAllRoles());
+        }
     }
 }

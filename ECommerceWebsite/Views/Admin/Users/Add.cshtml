@@ -1,0 +1,127 @@
+﻿@using ECommerceWebsite.Models.Admin
+@model AddUserViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    string userActionMessage = TempData["UserAction"] != null ? TempData["UserAction"].ToString() : string.Empty;
+}
+
+<div class="titleHeader">Add User</div>
+
+@if (!string.IsNullOrEmpty(userActionMessage))
+{
+    <div class="messageBox">
+        @if (Model.ActionResponse.ActionSuccessful)
+        {
+            <div class="confirmMessage">
+                Product successfully added.
+                <img src="/img/icon-pack/png/icon-green-tick.png" class="messageImg">
+            </div>
+        }
+        else
+        {
+            <div class="confirmMessage">
+                @Model.ActionResponse?.Error?.Message
+                @*TODO: We need a red cross icon similar type to green tick*@
+                @*<img src="/img/icon-pack/png/icon-green-tick.png" class="messageImg">*@
+            </div>
+        }
+    </div>
+}
+
+@using (Html.BeginForm("AddUser", "users", Model, FormMethod.Post, false, new { enctype = "multipart/form-data", @class = "form" }))
+{
+    @Html.ValidationSummary(false, string.Empty, new { @class = "required" })
+
+    <div>
+        <div class="floatLeft width48perc">
+            @Html.LabelFor(p => p.FirstName)
+        </div>
+        <div class="floatLeft">
+            @Html.TextBoxFor(p => p.FirstName, new { @class = "width200px" })
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width48perc">
+            @Html.LabelFor(p => p.LastName)
+        </div>
+        <div class="floatLeft">
+            @Html.TextBoxFor(p => p.LastName, new { @class = "width200px" })
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width48perc">
+            @Html.LabelFor(p => p.Email)
+        </div>
+        <div class="floatLeft">
+            @Html.TextBoxFor(p => p.Email, new { @class = "width200px" })
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width48perc">
+            @Html.LabelFor(m => m.DateOfBirthDay)<span class="required">*</span>
+        </div>
+        <div class="floatLeft">
+            @Html.TextBoxFor(m => m.DateOfBirthDay, new { @class = "inlineBlock dobInputSmall", @maxlength = "2", @placeholder = "DD", @required = "required", onkeyup = "moveToMonth();", id = "dobDay" })
+            @Html.TextBoxFor(m => m.DateOfBirthMonth, new { @class = "inlineBlock dobInputSmall", @maxlength = "2", @placeholder = "MM", @required = "required", onkeyup = "moveToYear();", id = "dobMonth" })
+            @Html.TextBoxFor(m => m.DateOfBirthYear, new { @class = "inlineBlock dobInputMedium", @maxlength = "4", @placeholder = "YYYY", @required = "required", id = "dobYear" })
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width48perc">
+            @Html.LabelFor(p => p.Roles)
+        </div>
+        <div class="floatLeft">
+            @Html.DropDownListFor(p => p.SelectedRole, Model.Roles, "Select Role", new { @class = "width200px" })
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width48perc">
+            @Html.LabelFor(m => m.Password)<span class="required">*</span>
+        </div>
+        <div class="floatLeft">
+            @Html.TextBoxFor(m => m.Password, new { @type = "password", @required = "required" })
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width48perc">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @type = "password" })<span class="required">*</span>
+        </div>
+        <div class="floatLeft">
+            @Html.TextBoxFor(m => m.ConfirmPassword, new { @type = "password", @required = "required" })
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width48perc">
+            @Html.LabelFor(m => m.IsSubscribed)
+        </div>
+        <div class="floatLeft subscribeCheckbox">
+            @Html.CheckBoxFor(m => m.IsSubscribed)
+        </div>
+        <div class="clearBoth"></div>
+
+        <div class="subscribeInfo marginBot10">
+            Subscribing the user will send emails with our latest updates
+        </div>
+    </div>
+
+    <div>
+        <div class="width50perc floatRight">
+            <input id="btnSubmit" class="disabledButton" disabled value="Sign up" type="submit" />
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+}

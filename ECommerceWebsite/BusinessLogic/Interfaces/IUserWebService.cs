@@ -1,5 +1,6 @@
 ﻿using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Admin;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
 namespace ECommerceWebsite.BusinessLogic
@@ -12,5 +13,6 @@ namespace ECommerceWebsite.BusinessLogic
         int GetRoleByUserId(int userId);
         List<NewUserViewModel> GetLatestNewUsers(int numberOfUsers);
         AdminUsersViewModel GetAllUsers();
+        AddUserViewModel GetAddUserModel();
     }
 }

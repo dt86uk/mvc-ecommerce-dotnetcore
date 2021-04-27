@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using Newtonsoft.Json;
 using ECommerceService.BusinessLogic;
 using ECommerceService.Models;
 using ECommerceWebsite.Models;
-using System.Collections.Generic;
 using ECommerceWebsite.Models.Admin;
+using ECommerceWebsite.Helpers;
 
 namespace ECommerceWebsite.BusinessLogic
 {
@@ -149,6 +150,14 @@ namespace ECommerceWebsite.BusinessLogic
             return new AdminUsersViewModel()
             {
                 AllUsers = listUserDetails
+            };
+        }
+
+        public AddUserViewModel GetAddUserModel()
+        {
+            return new AddUserViewModel()
+            {
+                Roles = SelectListItemHelper.BuildDropDownList(_userService.GetAllUserRoles())
             };
         }
     }

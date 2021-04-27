@@ -24,8 +24,8 @@ namespace ECommerceWebsite.Controllers
         [Route("add")]
         public IActionResult Add()
         {
-            //TODO: Create AddModel
-            return View($"{UsersViewFolder}/Add.cshtml");
+            AddUserViewModel model = _userWebService.GetAddUserModel();
+            return View($"{UsersViewFolder}/Add.cshtml", model);
         }
 
         [Route("edit")]

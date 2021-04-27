@@ -204,3 +204,5 @@ _Pvt_Extensions
 *.orig
 
 # Custom
+*.dtcache.v2
+*.suo

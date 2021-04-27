@@ -50,7 +50,6 @@ namespace ECommerceWebsite.Mapping
                 cfg.CreateMap<NewUserDTO, NewUserViewModel>().ReverseMap();
                 cfg.CreateMap<ProductsViewModel, ProductDTO>()
                     .ForPath(src => src.Brand.BrandName, opt => opt.MapFrom(dest => dest.Brand))
-                    .ForPath(src => src.ProductType.ProductTypeName, opt => opt.MapFrom(dest => dest.ProductType))
                 .ReverseMap();
                 cfg.CreateMap<UserDetailsDTO, UsersViewModel>().ReverseMap();
                 cfg.CreateMap<AddProductViewModel, ProductDTO>()
