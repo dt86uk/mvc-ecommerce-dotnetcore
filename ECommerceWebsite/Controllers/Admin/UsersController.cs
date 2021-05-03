@@ -1,4 +1,5 @@
 ﻿using ECommerceWebsite.BusinessLogic;
+using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Admin;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,8 @@ namespace ECommerceWebsite.Controllers
     public class UsersController : Controller
     {
         private const string UsersViewFolder = "~/Views/admin/users";
+        private const string UserActionName = "UserAction";
+
         private readonly IUserWebService _userWebService;
 
         public UsersController(IUserWebService userWebService)
@@ -28,20 +31,70 @@ namespace ECommerceWebsite.Controllers
             return View($"{UsersViewFolder}/Add.cshtml", model);
         }
 
-        [Route("edit")]
-        public IActionResult Edit()
+        [HttpPost]
+        [Route("add")]
+        public IActionResult AddUser(AddUserViewModel model)
         {
-            //EditProductViewModel editModel = _productWebService.GetProductById(productModel);
-            //return View($"{ProductsViewFolder}/Edit.cshtml", editModel);
-            return View();
+            if (!ModelState.IsValid)
+            {
+                model = _userWebService.GetAddUserModel();
+                return View($"{UsersViewFolder}/Add.cshtml", model);
+            }
+
+            BaseWebServiceResponse response = _userWebService.CreateUser(model);
+
+            if (!response.ActionSuccessful)
+            {
+                TempData[UserActionName] = response.Error.Message;
+                model.ActionResponse = response;
+                return View($"{UsersViewFolder}/Add.cshtml", model);
+            }
+
+            AdminUsersViewModel returnModel = _userWebService.GetAllUsers();
+            returnModel.ActionResponse = response;
+
+            TempData[UserActionName] = "User added successfully!";
+            return LocalRedirect("~/admin/users");
+        }
+
+        [HttpGet]
+        [Route("edit/{productId:int}")]
+        public IActionResult Edit(int userId)
+        {
+            EditUserViewModel model = _userWebService.GetEditUserModel(userId);
+            return View($"{UsersViewFolder}/Edit/{model.Id}", model);
+        }
+
+        [HttpPost]
+        [Route("update")]
+        public IActionResult Update(EditUserViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model = _userWebService.GetEditUserModel(model.Id);
+                return View($"{UsersViewFolder}/Edit/{model.Id}", model);
+            }
+
+            BaseWebServiceResponse response = _userWebService.UpdateUser(model);
+
+            if (!response.ActionSuccessful)
+            {
+                TempData[UserActionName] = response.Error.Message;
+                return View($"{UsersViewFolder}/Edit/{model.Id}", model);
+            }
+
+            TempData[UserActionName] = "User successfully updated";
+            return LocalRedirect("~/admin/users");
         }
 
         [Route("delete")]
-        public IActionResult Delete()
+        public IActionResult Delete(UsersViewModel model)
         {
-            //TempData["ProductAction"] = _productWebService.DeleteProduct(productModel.Id);
-            //return RedirectToAction("Index", "products");
-            return View();
+            TempData[UserActionName] = _userWebService.DeleteUser(model.Id) ?
+                    "User Deleted!" :
+                    "There was a problem deleting the user!";
+
+            return RedirectToAction("Index", "products");
         }
     }
 }

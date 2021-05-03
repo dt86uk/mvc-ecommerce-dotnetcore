@@ -34,7 +34,7 @@ namespace ECommerceRepository.BusinessLogic
             }
         }
 
-        public void DeleteUser(int userId)
+        public bool DeleteUser(int userId)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
@@ -44,7 +44,10 @@ namespace ECommerceRepository.BusinessLogic
                 {
                     context.Users.Remove(user);
                     context.SaveChanges();
+                    return true;
                 }
+
+                return false;
             }
         }
 

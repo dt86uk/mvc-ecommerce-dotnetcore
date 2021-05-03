@@ -7,7 +7,7 @@ namespace ECommerceRepository.BusinessLogic
     {
         User CreateUser(User user);
         bool IsEmailInUse(string emailAddress);
-        void DeleteUser(int userId);
+        bool DeleteUser(int userId);
         User GetUserById(int userId);
         bool UpdateUser(User user);
         List<User> GetLatestNewUsers(int numberOfUsers);

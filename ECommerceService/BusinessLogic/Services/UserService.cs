@@ -96,5 +96,10 @@ namespace ECommerceService.BusinessLogic
         {
             return mapper.Map<List<Role>, List<RoleDTO>>(_roleRepository.GetAllRoles());
         }
+
+        public bool DeleteUser(int userId)
+        {
+            return _userRepository.DeleteUser(userId);
+        }
     }
 }

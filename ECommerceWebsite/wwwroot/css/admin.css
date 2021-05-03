@@ -87,6 +87,12 @@ body {
     font-weight: bold;
 }
 
+.errorMessage {
+    text-align: center;
+    color: #3be23b;
+    font-weight: bold;
+}
+
 .messageImg {
     display: inline-block;
     margin-left: 10px;

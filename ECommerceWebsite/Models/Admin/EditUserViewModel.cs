@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using ECommerceWebsite.Models.Admin;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace ECommerceWebsite.Models.Admin
+namespace ECommerceWebsite.Models
 {
-    public class AddUserViewModel : AdminBaseViewModel
+    public class EditUserViewModel : AdminBaseViewModel
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Email Address required")]
         [Display(Name = "Email Address")]
         [MinLength(3)]
@@ -31,7 +34,7 @@ namespace ECommerceWebsite.Models.Admin
         [Required(ErrorMessage = "Date of Birth Year required")]
         [MaxLength(4, ErrorMessage = "Date of Birth Year can not be more than 4 characters.")]
         public string DateOfBirthYear { get; set; }
-                
+
         [Display(Name = "Roles")]
         public List<SelectListItem> Roles { get; set; }
         public string SelectedRole { get; set; }

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ECommerceWebsite.BusinessLogic;
 using ECommerceWebsite.Models;
@@ -12,6 +10,7 @@ namespace ECommerceWebsite.Controllers
     public class ProductsController : Controller//BaseAdminController
     {
         private const string ProductsViewFolder = "~/Views/admin/products";
+        private const string ProductActionName = "ProductAction";
 
         private readonly IProductWebService _productWebService;
 
@@ -24,7 +23,7 @@ namespace ECommerceWebsite.Controllers
         {
             AdminProductsViewModel model = _productWebService.GetAllProducts();
             
-            if (TempData["ProductAction"] != null)
+            if (TempData[ProductActionName] != null)
             {
                 model.ActionResponse = new BaseWebServiceResponse()
                 {
@@ -57,7 +56,7 @@ namespace ECommerceWebsite.Controllers
 
             if (!response.ActionSuccessful)
             {
-                TempData["ProductAction"] = response.Error.Message;
+                TempData[ProductActionName] = response.Error.Message;
                 model.ActionResponse = response;
                 return View($"{ProductsViewFolder}/Add.cshtml", model);
             }
@@ -66,8 +65,8 @@ namespace ECommerceWebsite.Controllers
             returnModel.ActionResponse = response;
 
             //TODO: Url does not change/update to admin/products
-            TempData["ProductAction"] = "Product added successfully!";
-            return View($"{ProductsViewFolder}/Index.cshtml", returnModel);
+            TempData[ProductActionName] = "Product added successfully!";
+            return LocalRedirect("~/admin/products");
         }
 
         //TODO: Make all "edit" pages with e.g. site/area/id-here => Post puts all values in URL
@@ -75,8 +74,8 @@ namespace ECommerceWebsite.Controllers
         [Route("edit/{productId:int}")]
         public IActionResult Edit(int productId)
         {
-            EditProductViewModel editModel = _productWebService.GetEditProductById(productId);
-            return View($"{ProductsViewFolder}/Edit.cshtml", editModel);
+            EditProductViewModel model = _productWebService.GetEditProductById(productId);
+            return View($"{ProductsViewFolder}/Edit/{model.Id}", model);
         }
 
         [HttpPost]
@@ -93,20 +92,20 @@ namespace ECommerceWebsite.Controllers
 
             if (!response.ActionSuccessful)
             {
-                TempData["ProductAction"] = response.Error.Message;
+                TempData[ProductActionName] = response.Error.Message;
                 return View($"{ProductsViewFolder}/Edit.cshtml", model);
             }
 
-            TempData["ProductAction"] = "Product successfully updated";
+            TempData[ProductActionName] = "Product successfully updated";
             return LocalRedirect("~/admin/products");
         }
 
 
         [HttpPost]
         [Route("delete")]
-        public IActionResult Delete(ProductsViewModel productModel)
+        public IActionResult Delete(ProductsViewModel model)
         {
-            TempData["ProductAction"] = _productWebService.DeleteProduct(productModel.Id) ?
+            TempData[ProductActionName] = _productWebService.DeleteProduct(model.Id) ?
                     "Product Deleted!" :
                     "There was a problem deleting !";
 

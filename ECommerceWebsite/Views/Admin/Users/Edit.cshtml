@@ -1,27 +1,10 @@
-﻿@using ECommerceWebsite.Models.Admin
-@model AddUserViewModel
+﻿@model EditUserViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    string userActionMessage = TempData["UserAction"] != null ? TempData["UserAction"].ToString() : string.Empty;
 }
+<div class="titleHeader">Edit User</div>
 
-<div class="titleHeader">Add User</div>
-
-@if (!string.IsNullOrEmpty(userActionMessage))
-{
-    <div class="messageBox">
-        @if (!Model.ActionResponse.ActionSuccessful)
-        {
-            <div class="errorMessage">
-                @Model.ActionResponse?.Error?.Message
-                @*TODO: We need a red cross icon similar type to green tick*@
-                @*<img src="/img/icon-pack/png/icon-green-tick.png" class="messageImg">*@
-            </div>   
-        }
-    </div>
-}
-
-@using (Html.BeginForm("AddUser", "users", Model, FormMethod.Post, false, new { enctype = "multipart/form-data", @class = "form" }))
+@using (Html.BeginForm("Update", "Users", FormMethod.Post))
 {
     @Html.ValidationSummary(false, string.Empty, new { @class = "required" })
 
@@ -102,6 +85,7 @@
             &nbsp;&nbsp;
         </div>
         <div class="floatLeft">
+            @Html.HiddenFor(p => p.Id)
             <input id="btnSubmit" value="Add User" type="submit" class="btnSubmit redOrangeGrad" />
         </div>
         <div class="clearBoth"></div>

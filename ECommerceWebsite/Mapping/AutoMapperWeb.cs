@@ -12,16 +12,20 @@ namespace ECommerceWebsite.Mapping
         public AutoMapperWeb()
         {
             Configuration = new MapperConfiguration(cfg => {
+                cfg.CreateMap<EditUserViewModel, UserDTO>()
+                    .ForMember(src => src.DateOfBirth, opt => opt.MapFrom(dest =>
+                            new DateTime(
+                                Convert.ToInt32(dest.DateOfBirthYear),
+                                Convert.ToInt32(dest.DateOfBirthMonth),
+                                Convert.ToInt32(dest.DateOfBirthDay))))
+                    .ForMember(src => src.Password, opt => opt.Ignore())
+                    .ReverseMap();
                 cfg.CreateMap<AccountViewModel, UserDTO>()
-                    .ForMember(src => src.FirstName, opt => opt.MapFrom(dest => dest.FirstName))
-                    .ForMember(src => src.LastName, opt => opt.MapFrom(dest => dest.LastName))
-                    .ForMember(src => src.Email, opt => opt.MapFrom(dest => dest.Email))
                     .ForMember(src => src.DateOfBirth, opt => opt.MapFrom(dest =>
                         new DateTime(
                             Convert.ToInt32(dest.DateOfBirthYear),
                             Convert.ToInt32(dest.DateOfBirthMonth),
                             Convert.ToInt32(dest.DateOfBirthDay))))
-                    .ForMember(src => src.IsSubscribed, opt => opt.MapFrom(dest => dest.IsSubscribed))
                     .ForMember(src => src.Password, opt => opt.Ignore())
                     .ReverseMap();
                 cfg.CreateMap<UserViewModel, UserDTO>().ReverseMap();

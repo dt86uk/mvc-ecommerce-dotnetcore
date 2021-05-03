@@ -2,7 +2,7 @@
 @model AdminUsersViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    bool userActionMessage = TempData["UserAction"] != null;
+    string userActionMessage = TempData["UserAction"] != null ? TempData["UserAction"].ToString() : string.Empty;
 }
 <div>
     <div class="titleHeader floatLeft width48perc">Users</div>
@@ -12,26 +12,26 @@
     <div class="clearBoth"></div>
 </div>
 
-@if (userActionMessage)
+@if (!string.IsNullOrEmpty(userActionMessage))
 {
-    @if (Convert.ToBoolean(TempData["ProductAction"]))
-    {
-        <div class="messageBox">
+    <div class="messageBox">
+        @if (Model.ActionResponse.ActionSuccessful)
+        {
             <div class="confirmMessage">
-                User deleted!
+                @userActionMessage
                 <img src="/img/icon-pack/png/icon-green-tick.png" class="messageImg">
             </div>
-        </div>
-    }
-    else
-    {
-        <div class="responseMessageBox">
-            <div class="errorMessage">
-                User not found, unable to delete. We recommend a hard browser refresh (Ctrl + F5) or clearing recent history.
-                If this problem persists, please contact support.
+        }
+        else
+        {
+            <div class="responseMessageBox">
+                <div class="errorMessage">
+                    User not found, unable to delete. We recommend a hard browser refresh (Ctrl + F5) or clearing recent history.
+                    If this problem persists, please contact support.
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 }
 
 <table class="tblBase">

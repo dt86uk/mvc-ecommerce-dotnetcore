@@ -1,4 +1,4 @@
-﻿@using ECommerceWebsite.Models.Admin;
+﻿@using ECommerceWebsite.Models.Admin
 
 @model EditProductViewModel
 @{
@@ -6,7 +6,7 @@
 }
 <div class="titleHeader">Edit Product</div>
 
-@using (Html.BeginForm("Update", "Products", FormMethod.Post))@*, false, new { enctype = "multipart/form-data", @class = "form" }))*@
+@using (Html.BeginForm("Update", "Products", FormMethod.Post))
 {
     @Html.ValidationSummary(false, string.Empty, new { @class = "required" })
 
