@@ -4,6 +4,7 @@ using System.Linq;
 using ECommerceDatabase.BusinessLogic;
 using ECommerceDatabase.Database.Entities;
 using ECommerceDatabase.Database.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceRepository.BusinessLogic
 {
@@ -28,6 +29,7 @@ namespace ECommerceRepository.BusinessLogic
 
                 user.Password = _passwordEncryptionService.SetPassword(user.Password);
                 var createdUser = context.Users.Add(user).Entity;
+                context.Entry(createdUser).State = EntityState.Added;
                 context.SaveChanges();
 
                 return context.Users.Single(p => p.Id == createdUser.Id);
@@ -43,6 +45,7 @@ namespace ECommerceRepository.BusinessLogic
                 if (user != null)
                 {
                     context.Users.Remove(user);
+                    context.Entry(user).State = EntityState.Deleted;
                     context.SaveChanges();
                     return true;
                 }
@@ -95,6 +98,7 @@ namespace ECommerceRepository.BusinessLogic
                         user.Password = _passwordEncryptionService.SetPassword(user.Password);
                     }
 
+                    context.Entry(userEntity).State = EntityState.Modified;
                     context.Users.Update(userEntity);
                     context.SaveChanges();
                     return true;

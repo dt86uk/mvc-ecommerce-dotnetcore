@@ -37,8 +37,9 @@
 <table class="tblBase">
     <thead class="tblHeadBorder">
         <tr>
-            <td class="textAlignCenter" width="35%" style="padding-bottom: 5px;">Full Name</td>
-            <td class="textAlignCenter" width="30%" style="padding-bottom: 5px;">Role</td>
+            <td class="textAlignCenter" width="25%" style="padding-bottom: 5px;">Full Name</td>
+            <td class="textAlignCenter" width="20%" style="padding-bottom: 5px;">Role</td>
+            <td class="textAlignCenter" width="20%" style="padding-bottom: 5px;">Date of Birth</td>
             <td class="textAlignCenter" width="20%" style="padding-bottom: 5px;">Date Registered</td>
             <td class="textAlignCenter" width="10%" style="padding-bottom: 5px;">Actions</td>
         </tr>
@@ -46,25 +47,26 @@
     <tbody>
         @foreach (var user in Model.AllUsers)
         {
-            <tr>
-                <td>
-                    @Html.HiddenFor(p => user.Id)
-                    @user.FirstName @user.LastName
-                </td>
-                <td class="textAlignCenter">@user.RoleName</td>
-                <td class="textAlignCenter">@user.DateRegistered</td>
-                <td style="padding: 5px;">
-                    @using (Html.BeginForm("Edit", "users", user, FormMethod.Post, false, new { @class = "displayInlineBlock" }))
-                    {
-                        <input type="image" alt="Edit" src="~/img/icon-pack/png/074-pen.png" width="25" />
-                    }
+        <tr>
+            <td>
+                @Html.HiddenFor(p => user.Id)
+                @user.FirstName @user.LastName
+            </td>
+            <td class="textAlignCenter">@user.RoleName</td>
+            <td class="textAlignCenter">@user.DateRegistered</td>
+            <td class="textAlignCenter">@user.DateOfBirth.ToShortDateString()</td>
+            <td style="padding: 5px;">
+                @using (Html.BeginForm("Edit", "users", user, FormMethod.Post, false, new { @class = "displayInlineBlock" }))
+                {
+                    <input type="image" alt="Edit" src="~/img/icon-pack/png/074-pen.png" width="25" />
+                }
 
-                    @using (Html.BeginForm("Delete", "users", user, FormMethod.Post, false, new { @class = "displayInlineBlock" }))
-                    {
-                        <input type="image" alt="Delete" src="~/img/icon-pack/png/190-trash.png" width="25" onclick="return confirm('are you sure you want to delete this product?');" />
-                    }
-                </td>
-            </tr>
+                @using (Html.BeginForm("Delete", "users", user, FormMethod.Post, false, new { @class = "displayInlineBlock" }))
+                {
+                    <input type="image" alt="Delete" src="~/img/icon-pack/png/190-trash.png" width="25" onclick="return confirm('are you sure you want to delete this product?');" />
+                }
+            </td>
+        </tr>
         }
     </tbody>
 </table>

@@ -114,6 +114,7 @@ namespace ECommerceRepository.BusinessLogic
                 }
 
                 size.Quantity -= quantityToReduce;
+                context.Entry(size).State = EntityState.Modified;
                 context.SaveChanges();
 
                 return true;
@@ -193,6 +194,7 @@ namespace ECommerceRepository.BusinessLogic
                 {
                     productEntity.IsActive = false;
                     context.Products.Update(productEntity);
+                    context.Entry(productEntity).State = EntityState.Modified;
                     context.SaveChanges();
                     return true;
                 }
@@ -221,6 +223,7 @@ namespace ECommerceRepository.BusinessLogic
                 try
                 {
                     context.Products.Add(productEntity);
+                    context.Entry(productEntity).State = EntityState.Added;
                     context.SaveChanges();
                     return true;
                 }
@@ -231,18 +234,18 @@ namespace ECommerceRepository.BusinessLogic
             }
         }
 
-        public bool UpdateProduct(Product productEntity)
+        public bool UpdateProduct(Product product)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 try
                 {
-                    var product = context.Products.
+                    var productEntity = context.Products.
                         Include("Images").
                         Include("Brand").
                         Include("Sizes").
                         Include("ProductType").
-                        SingleOrDefault(p => p.Id == productEntity.Id);
+                        SingleOrDefault(p => p.Id == product.Id);
 
                     if (product == null)
                     {
@@ -264,6 +267,7 @@ namespace ECommerceRepository.BusinessLogic
                     product.IsActive = productEntity.IsActive;
 
                     context.Products.Update(product);
+                    context.Entry(product).State = EntityState.Modified;
                     context.SaveChanges();
                     return true;
                 }

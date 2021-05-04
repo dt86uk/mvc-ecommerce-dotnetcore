@@ -19,6 +19,7 @@ namespace ECommerceRepository.BusinessLogic
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 var createdTransaction = context.Transactions.Add(transaction).Entity;
+                context.Entry(createdTransaction).State = EntityState.Added;
                 context.SaveChanges();
 
                 return context.Transactions

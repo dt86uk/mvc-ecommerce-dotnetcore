@@ -1,6 +1,7 @@
 ﻿using System;
 using ECommerceDatabase.Database.Entities;
 using ECommerceDatabase.Database.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceRepository.BusinessLogic
 {
@@ -17,6 +18,7 @@ namespace ECommerceRepository.BusinessLogic
             {
                 newOrder.Id = context.Orders.Add(newOrder).Entity.Id;
                 newOrder.ReferenceNumber = Guid.NewGuid().ToString();
+                context.Entry(newOrder).State = EntityState.Added;
                 context.SaveChanges();
                 return newOrder;
             }
