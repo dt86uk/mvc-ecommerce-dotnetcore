@@ -58,11 +58,11 @@ namespace ECommerceWebsite.Controllers
         }
 
         [HttpGet]
-        [Route("edit/{productId:int}")]
+        [Route("edit/{userId:int}")]
         public IActionResult Edit(int userId)
         {
-            EditUserViewModel model = _userWebService.GetEditUserModel(userId);
-            return View($"{UsersViewFolder}/Edit/{model.Id}", model);
+           EditUserViewModel model = _userWebService.GetEditUserModel(userId);
+            return View($"{UsersViewFolder}/Edit.cshtml", model);
         }
 
         [HttpPost]
@@ -72,7 +72,7 @@ namespace ECommerceWebsite.Controllers
             if (!ModelState.IsValid)
             {
                 model = _userWebService.GetEditUserModel(model.Id);
-                return View($"{UsersViewFolder}/Edit/{model.Id}", model);
+                return View($"{UsersViewFolder}/Edit.cshtml", model);
             }
 
             BaseWebServiceResponse response = _userWebService.UpdateUser(model);
@@ -80,11 +80,14 @@ namespace ECommerceWebsite.Controllers
             if (!response.ActionSuccessful)
             {
                 TempData[UserActionName] = response.Error.Message;
-                return View($"{UsersViewFolder}/Edit/{model.Id}", model);
+                return View($"{UsersViewFolder}/Edit.cshtml", model);
             }
 
+            AdminUsersViewModel returnModel = _userWebService.GetAllUsers();
+            returnModel.ActionResponse = response;
+
             TempData[UserActionName] = "User successfully updated";
-            return LocalRedirect("~/admin/users");
+            return View($"{UsersViewFolder}/Index.cshtml", returnModel);
         }
 
         [Route("delete")]

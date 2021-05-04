@@ -9,8 +9,8 @@
     @Html.ValidationSummary(false, string.Empty, new { @class = "required" })
 
     <div>
-        <div class="floatLeft width48perc">
-            @Html.LabelFor(p => p.FirstName)
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.FirstName) <span class="required">*</span>
         </div>
         <div class="floatLeft">
             @Html.TextBoxFor(p => p.FirstName, new { @class = "width200px" })
@@ -19,8 +19,8 @@
     </div>
 
     <div>
-        <div class="floatLeft width48perc">
-            @Html.LabelFor(p => p.LastName)
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.LastName) <span class="required">*</span>
         </div>
         <div class="floatLeft">
             @Html.TextBoxFor(p => p.LastName, new { @class = "width200px" })
@@ -29,8 +29,8 @@
     </div>
 
     <div>
-        <div class="floatLeft width48perc">
-            @Html.LabelFor(p => p.Email)
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.Email) <span class="required">*</span>
         </div>
         <div class="floatLeft">
             @Html.TextBoxFor(p => p.Email, new { @class = "width200px" })
@@ -39,7 +39,7 @@
     </div>
 
     <div>
-        <div class="floatLeft width48perc">
+        <div class="floatLeft width30perc">
             @Html.LabelFor(m => m.DateOfBirthDay)<span class="required">*</span>
         </div>
         <div class="floatLeft">
@@ -51,8 +51,8 @@
     </div>
 
     <div>
-        <div class="floatLeft width48perc">
-            @Html.LabelFor(p => p.Roles)
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.Roles) <span class="required">*</span>
         </div>
         <div class="floatLeft">
             @Html.DropDownListFor(p => p.SelectedRole, Model.Roles, "Select Role", new { @class = "width200px" })
@@ -61,21 +61,21 @@
     </div>
 
     <div>
-        <div class="floatLeft width48perc">
-            @Html.LabelFor(m => m.Password)<span class="required">*</span>
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(m => m.Password)
         </div>
         <div class="floatLeft">
-            @Html.TextBoxFor(m => m.Password, new { @type = "password", @required = "required" })
+            @Html.TextBoxFor(m => m.Password, new { @type = "password" })
         </div>
         <div class="clearBoth"></div>
     </div>
 
     <div>
-        <div class="floatLeft width48perc">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @type = "password" })<span class="required">*</span>
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @type = "password" })
         </div>
         <div class="floatLeft">
-            @Html.TextBoxFor(m => m.ConfirmPassword, new { @type = "password", @required = "required" })
+            @Html.TextBoxFor(m => m.ConfirmPassword, new { @type = "password" })
         </div>
         <div class="clearBoth"></div>
     </div>

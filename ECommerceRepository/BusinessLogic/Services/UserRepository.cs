@@ -63,7 +63,16 @@ namespace ECommerceRepository.BusinessLogic
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
-                return context.Users.SingleOrDefault(p => p.Id == userId);
+                var user = context.Users.SingleOrDefault(p => p.Id == userId);
+                
+                if (user == null)
+                {
+                    return null;
+                }
+
+                user.Password = string.Empty;
+
+                return user;
             }
         }
 
@@ -80,6 +89,11 @@ namespace ECommerceRepository.BusinessLogic
                     userEntity.DateOfBirth = user.DateOfBirth;
                     userEntity.IsSubscribed = user.IsSubscribed;
                     userEntity.Email = user.Email;
+
+                    if (!string.IsNullOrEmpty(user.Password))
+                    {
+                        user.Password = _passwordEncryptionService.SetPassword(user.Password);
+                    }
 
                     context.Users.Update(userEntity);
                     context.SaveChanges();

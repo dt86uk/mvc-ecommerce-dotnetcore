@@ -56,14 +56,7 @@ namespace ECommerceService.BusinessLogic
         /// <returns></returns>
         public UserDTO GetUserById(int userId)
         {
-            var userEntity = _userRepository.GetUserById(userId);
-
-            if (userEntity == null)
-            {
-                return null;
-            }
-
-            return mapper.Map<User, UserDTO>(userEntity);
+            return mapper.Map<User, UserDTO>(_userRepository.GetUserById(userId));
         }
 
         public bool UpdateUser(UserDTO user)

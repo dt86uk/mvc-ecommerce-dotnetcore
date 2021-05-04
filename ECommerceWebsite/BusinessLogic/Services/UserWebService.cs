@@ -223,7 +223,11 @@ namespace ECommerceWebsite.BusinessLogic
 
         public EditUserViewModel GetEditUserModel(int userId)
         {
-            return mapper.Map<UserDTO, EditUserViewModel>(_userService.GetUserById(userId));
+            var user = _userService.GetUserById(userId);
+            var model = mapper.Map<UserDTO, EditUserViewModel>(user);
+            model.Roles = SelectListItemHelper.BuildDropDownList(_userService.GetAllUserRoles());
+
+            return model;
         }
 
         public bool UpdateUser(AccountViewModel model)
@@ -267,26 +271,29 @@ namespace ECommerceWebsite.BusinessLogic
                 return response;
             }
 
-            if (!_userValidationService.IsPasswordValid(model.Password))
+            if (!string.IsNullOrEmpty(model.Password))
             {
-                response.Error = new ErrorServiceResponseModel()
+                if (!_userValidationService.IsPasswordValid(model.Password))
                 {
-                    Name = "Password",
-                    Message = "Password does not meet requirements; at least one number, one special character, one upper and lower case and 8 characters minimum."
-                };
-                return response;
-            }
+                    response.Error = new ErrorServiceResponseModel()
+                    {
+                        Name = "Password",
+                        Message = "Password does not meet requirements; at least one number, one special character, one upper and lower case and 8 characters minimum."
+                    };
+                    return response;
+                }
 
-            if (!_userValidationService.DoPasswordsMatch(model.Password, model.ConfirmPassword))
-            {
-                response.Error = new ErrorServiceResponseModel()
+                if (!_userValidationService.DoPasswordsMatch(model.Password, model.ConfirmPassword))
                 {
-                    Name = "Password",
-                    Message = "Password and Confirm Password do not match."
-                };
-                return response;
+                    response.Error = new ErrorServiceResponseModel()
+                    {
+                        Name = "Password",
+                        Message = "Password and Confirm Password do not match."
+                    };
+                    return response;
+                }
             }
-
+            
             response.ActionSuccessful = _userService.UpdateUser(userDto);
             return response;
         }

@@ -37,16 +37,13 @@ namespace ECommerceWebsite.Models
 
         [Display(Name = "Roles")]
         public List<SelectListItem> Roles { get; set; }
+        
+        [Required(ErrorMessage = "Role required")]
         public string SelectedRole { get; set; }
 
-        [Display(Name = "Subscribe")]
-        public bool IsSubscribed { get; set; }
-
-        [Required(ErrorMessage = "Password required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required]
         [Display(Name = "Confirm Password")]
         [DataType(DataType.Password)]
         [Compare("Password")]
