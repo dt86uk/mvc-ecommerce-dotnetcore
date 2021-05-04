@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using ECommerceService.BusinessLogic;
+using ECommerceWebsite.Models;
 
 namespace ECommerceWebsite.BusinessLogic
 {
@@ -14,19 +15,99 @@ namespace ECommerceWebsite.BusinessLogic
             _userService = userService;
         }
 
-        public bool DoPasswordsMatch(string password, string confirmPassword)
+        public ErrorServiceViewModel ValidateUserDateOfBirth(int day, int month, int year)
         {
-            return string.Equals(password, confirmPassword, StringComparison.InvariantCultureIgnoreCase);
+            if (!IsDateOfBirthValid(day, month, year))
+            {
+                return new ErrorServiceViewModel()
+                {
+                    Name = "Date of Birth",
+                    Message = "Date of Birth is not valid."
+                };
+            }
+
+            if (!IsDateOfBirthOver18(day, month, year))
+            {
+                return new ErrorServiceViewModel()
+                {
+                    Name = "Date of Birth",
+                    Message = "Date of Birth must be over 18 years old."
+                };
+            }
+
+            if (!IsDateOfBirthWithinHumanLivingYears(year))
+            {
+                return new ErrorServiceViewModel()
+                {
+                    Name = "Date of Birth",
+                    Message = "Date of Birth must be over 18 years old."
+                };
+            }
+
+            return null;
         }
 
-        public bool IsDateOfBirthOver18(int day, int month, int year)
+        public ErrorServiceViewModel ValidatePassword(string password, string confirmPassword)
+        {
+            if (!IsPasswordValid(password))
+            {
+                return new ErrorServiceViewModel()
+                {
+                    Name = "Password",
+                    Message = "Password does not meet requirements; at least one number, one special character, one upper and lower case and 8 characters minimum."
+                };
+            }
+
+            if (!DoPasswordsMatch(password, confirmPassword))
+            {
+                return new ErrorServiceViewModel()
+                {
+                    Name = "Password",
+                    Message = "Password and Confirm Password do not match."
+                };
+            }
+
+            return null;
+        }
+
+        public bool IsEmailInUse(string emailAddress)
+        {
+            return _userService.IsEmailInUse(emailAddress);
+        }
+
+        /// <summary>
+        /// Checks both passwords match with case sensitivity.
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="confirmPassword"></param>
+        /// <returns></returns>
+        private bool DoPasswordsMatch(string password, string confirmPassword)
+        {
+            return string.Equals(password, confirmPassword, StringComparison.InvariantCulture);
+        }
+
+        /// <summary>
+        /// Verifies that the Date of Birth provided is over 18 years old
+        /// </summary>
+        /// <param name="day"></param>
+        /// <param name="month"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        private bool IsDateOfBirthOver18(int day, int month, int year)
         {
             var dob = new DateTime(year, month, day);
 
             return (DateTime.Now.Year - dob.Year) > 18;
         }
 
-        public bool IsDateOfBirthValid(string day, string month, string year)
+        /// <summary>
+        /// Attempts to build a DateTime, returning the result as a bool
+        /// </summary>
+        /// <param name="day"></param>
+        /// <param name="month"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        private bool IsDateOfBirthValid(int day, int month, int year)
         {
             try
             {
@@ -43,24 +124,26 @@ namespace ECommerceWebsite.BusinessLogic
             }
         }
 
-        public bool IsDateOfBirthWithinHumanLivingYears(int year)
+        /// <summary>
+        /// Verifies that the Date of Birth provided is under 120 years old
+        /// </summary>
+        /// <param name="day"></param>
+        /// <param name="month"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        private bool IsDateOfBirthWithinHumanLivingYears(int year)
         {
-            try
-            {
-                return (DateTime.Now.Year - year) < 120;
-            }
-            catch
-            {
-                return false;
-            }
+            return (DateTime.Now.Year - year) < 120;
         }
 
-        public bool IsEmailInUse(string emailAddress)
-        {
-            return _userService.IsEmailInUse(emailAddress);
-        }
+        
 
-        public bool IsPasswordValid(string password)
+        /// <summary>
+        /// Checks password meets strength requirements: at least one number, one special character, one upper and lower case and 8 characters minimum.
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        private bool IsPasswordValid(string password)
         {
             return new Regex(RegexPasswordPattern)
                 .Match(password)

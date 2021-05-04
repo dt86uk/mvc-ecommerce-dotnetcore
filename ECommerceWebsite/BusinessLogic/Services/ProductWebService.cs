@@ -178,7 +178,6 @@ namespace ECommerceWebsite.BusinessLogic
             return productViewModel;
         }
 
-        //TODO: Consider renaming the methods to better reflect their purpose e.g. GetProductById => GetEditProductViewModel(id);
         public EditProductViewModel GetEditProductById(int productId)
         {
             var product = _productService.GetProductById(productId);
@@ -257,6 +256,7 @@ namespace ECommerceWebsite.BusinessLogic
                 Price = product.Price.ToString(),
                 Sizes = mapper.Map<List<ProductSizeDTO>, List<ProductSizeViewModel>>(product.Sizes)
             };
+
             //TODO: Refactor this - Helper
             foreach (var gender in editProductViewModel.Genders)
             {

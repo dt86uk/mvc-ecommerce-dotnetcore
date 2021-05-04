@@ -41,7 +41,7 @@ namespace ECommerceWebsite.Controllers
                 return View($"{UsersViewFolder}/Add.cshtml", model);
             }
 
-            BaseWebServiceResponse response = _userWebService.CreateUser(model);
+            BaseWebServiceResponse response = _userWebService.AddUser(model);
 
             if (!response.ActionSuccessful)
             {

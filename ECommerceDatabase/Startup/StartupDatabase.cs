@@ -116,16 +116,7 @@ namespace ECommerceDatabase
                                 Images = GetImages(2), ProductType = context.ProductTypes.SingleOrDefault(p => p.Id == 1), SizeIds = new int[2], Price = 370 },
                             new Product { Id = 3, Brand = context.Brands.SingleOrDefault(p => p.Id == 1), HeroImage = GetHeroImage(3), HeroTitle = "Nike Zoom Pegasus Turbo 2", ProductName = "Nike Zoom Pegasus Turbo 2", Description = GetDescription(3),
                                 CategoryId = 3, Gender = GenderEnum.Male.ToString(), Sizes = GetProductSizes(3),
-                                Images = GetImages(3), ProductType = context.ProductTypes.SingleOrDefault(p => p.Id == 1), SizeIds = new int[3], Price = 260 },
-
-                            //TODO : Add these later - let's just get the site up and running with data
-                            //new Product { Id = 4, Brand = context.Brands.Where(p => p.Id == 2).SingleOrDefault(), HeroImage = "", HeroTitle = "", Images = GetImages(4) },
-                            //new Product { Id = 5, Brand = context.Brands.Where(p => p.Id == 2).SingleOrDefault(), HeroImage = "", HeroTitle = "", Images = GetImages(5) },
-                            //new Product { Id = 6, Brand = context.Brands.Where(p => p.Id == 2).SingleOrDefault(), HeroImage = "", HeroTitle = "", Images = GetImages(6) },
-
-                            //new Product { Id = 7, Brand = context.Brands.Where(p => p.Id == 3).SingleOrDefault(), HeroImage = "", HeroTitle = "", Images = GetImages(7) },
-                            //new Product { Id = 8, Brand = context.Brands.Where(p => p.Id == 3).SingleOrDefault(), HeroImage = "", HeroTitle = "", Images = GetImages(8) },
-                            //new Product { Id = 9, Brand = context.Brands.Where(p => p.Id == 3).SingleOrDefault(), HeroImage = "", HeroTitle = "", Images = GetImages(9) },
+                                Images = GetImages(3), ProductType = context.ProductTypes.SingleOrDefault(p => p.Id == 1), SizeIds = new int[3], Price = 260 }
                         };
 
                         listProducts.ForEach(p => context.Products.Add(p));

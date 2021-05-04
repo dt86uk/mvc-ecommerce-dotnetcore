@@ -1,21 +1,32 @@
-﻿namespace ECommerceWebsite.BusinessLogic
+﻿using ECommerceWebsite.Models;
+
+namespace ECommerceWebsite.BusinessLogic
 {
     public interface IUserValidationService
     {
-        //TODO: Add these types of comments in FULLY (///)
-        //TODO: Add return types if necessary
+        /// <summary>
+        /// Makes several validation checks on Date of Birth.
+        /// </summary>
+        /// <param name="day"></param>
+        /// <param name="month"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        ErrorServiceViewModel ValidateUserDateOfBirth(int day, int month, int year);
+
+        /// <summary>
+        /// Makes several validation checks on Password.
+        /// </summary>
+        /// <param name="day"></param>
+        /// <param name="month"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        ErrorServiceViewModel ValidatePassword(string password, string confirmPassword);
+
+        /// <summary>
+        /// Checks if the email address exists in the database
+        /// </summary>
+        /// <param name="emailAddress"></param>
+        /// <returns></returns>
         bool IsEmailInUse(string emailAddress);
-
-        //Can it be a DateTime type?
-        bool IsDateOfBirthValid(string day, string month, string year);
-
-        bool IsDateOfBirthOver18(int day, int month, int year);
-
-        //over 120 years is too old - add some cheesy message on view/page.
-        bool IsDateOfBirthWithinHumanLivingYears(int year);
-
-        //does it meet requirements?
-        bool IsPasswordValid(string password);
-        bool DoPasswordsMatch(string password, string confirmPassword);
     }
 }

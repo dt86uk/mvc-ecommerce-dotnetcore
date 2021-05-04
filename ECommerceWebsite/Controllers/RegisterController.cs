@@ -39,7 +39,7 @@ namespace ECommerceWebsite.Controllers
                 return View("Index", model);
             }
             
-            BaseWebServiceResponse response = _userWebService.CreateUser(model);
+            BaseWebServiceResponse response = _userWebService.RegisterUser(model);
             if (!response.ActionSuccessful) 
             {
                 ModelState.AddModelError(response.Error.Name, response.Error.Message);

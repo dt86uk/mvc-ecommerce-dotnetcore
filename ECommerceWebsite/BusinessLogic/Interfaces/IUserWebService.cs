@@ -6,8 +6,8 @@ namespace ECommerceWebsite.BusinessLogic
 {
     public interface IUserWebService
     {
-        BaseWebServiceResponse CreateUser(AddUserViewModel model);
-        BaseWebServiceResponse CreateUser(RegisterViewModel model); //TODO: Review this, rename & repurpose for logic?
+        BaseWebServiceResponse AddUser(AddUserViewModel model);
+        BaseWebServiceResponse RegisterUser(RegisterViewModel model);
         AccountViewModel GetUserById(int userId);
         bool UpdateUser(AccountViewModel model);
         BaseWebServiceResponse UpdateUser(EditUserViewModel model);

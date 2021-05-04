@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ECommerceDatabase.Database.Entities;
 using ECommerceRepository.BusinessLogic;
 using ECommerceService.Models;
+using ECommerceService.Helpers;
 using AutoMapper;
 
 namespace ECommerceService.BusinessLogic
@@ -72,15 +72,9 @@ namespace ECommerceService.BusinessLogic
 
         public List<UserDetailsDTO> GetAllUsers()
         {
-            //TODO: Automapper to sort RoleName from RoleId => Google automapper assign propr based of value of another prop
-            var listUsersDetails = mapper.Map<List<User>, List<UserDetailsDTO>>(_userRepository.GetAllUsers());
+            var listAllUsers = mapper.Map<List<User>, List<UserDetailsDTO>>(_userRepository.GetAllUsers());
             var listRoles = mapper.Map<List<Role>, List<RoleDTO>>(_roleRepository.GetAllRoles());
-
-            foreach (var user in listUsersDetails)
-            {
-                var roleEntity = listRoles.SingleOrDefault(p => p.Id == user.RoleId);
-                user.RoleName = roleEntity != null ? roleEntity.RoleName : string.Empty;
-            }
+            var listUsersDetails = UserHelper.AssignRolesToUsers(listAllUsers, listRoles);
 
             return listUsersDetails;
         }

@@ -3,12 +3,12 @@
     public class BaseWebServiceResponse
     {
         public bool ActionSuccessful { get; set; }
-        public ErrorServiceResponseModel Error { get; set; }
+        public ErrorServiceViewModel Error { get; set; }
         public string JsonResponseObject { get; set; }
 
         public BaseWebServiceResponse() 
         {
-            Error = new ErrorServiceResponseModel();
+            Error = new ErrorServiceViewModel();
         }
     }
 }

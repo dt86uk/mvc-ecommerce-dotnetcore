@@ -25,43 +25,24 @@ namespace ECommerceWebsite.BusinessLogic
             mapper = _config.CreateMapper();
         }
 
-        public BaseWebServiceResponse CreateUser(RegisterViewModel model)
+        public BaseWebServiceResponse RegisterUser(RegisterViewModel model)
         {
-            var response = new BaseWebServiceResponse();
-
-            if (!_userValidationService.IsDateOfBirthValid(model.DateOfBirthDay,model.DateOfBirthMonth,model.DateOfBirthYear))
+            var response = new BaseWebServiceResponse
             {
-                response.Error = new ErrorServiceResponseModel()
-                {
-                    Name = "Date of Birth",
-                    Message = "Date of Birth is not valid."
-                };
-                return response;
-            }
+                Error = _userValidationService.ValidateUserDateOfBirth(
+                    int.Parse(model.DateOfBirthDay),
+                    int.Parse(model.DateOfBirthMonth),
+                    int.Parse(model.DateOfBirthYear))
+            };
 
-            if (!_userValidationService.IsDateOfBirthOver18(int.Parse(model.DateOfBirthDay),int.Parse(model.DateOfBirthMonth),int.Parse(model.DateOfBirthYear)))
+            if (response.Error != null)
             {
-                response.Error = new ErrorServiceResponseModel()
-                {
-                    Name = "Date of Birth",
-                    Message = "Date of Birth must be over 18 years old."
-                };
-                return response;
-            }
-
-            if(!_userValidationService.IsDateOfBirthWithinHumanLivingYears(int.Parse(model.DateOfBirthYear)))
-            {
-                response.Error = new ErrorServiceResponseModel()
-                {
-                    Name = "Date of Birth",
-                    Message = "Date of Birth must be over 18 years old."
-                };
                 return response;
             }
 
             if (_userValidationService.IsEmailInUse(model.Email))
             {
-                response.Error = new ErrorServiceResponseModel()
+                response.Error = new ErrorServiceViewModel()
                 {
                     Name = "Email",
                     Message = "Email is already in use."
@@ -69,23 +50,10 @@ namespace ECommerceWebsite.BusinessLogic
                 return response;
             }
 
-            if (!_userValidationService.IsPasswordValid(model.Password))
-            {
-                response.Error = new ErrorServiceResponseModel()
-                {
-                    Name = "Password",
-                    Message = "Password does not meet requirements; at least one number, one special character, one upper and lower case and 8 characters minimum."
-                };
-                return response;
-            }
+            response.Error = _userValidationService.ValidatePassword(model.Password, model.ConfirmPassword);
 
-            if (!_userValidationService.DoPasswordsMatch(model.Password, model.ConfirmPassword))
+            if (response.Error != null)
             {
-                response.Error = new ErrorServiceResponseModel()
-                {
-                    Name = "Password",
-                    Message = "Password and Confirm Password do not match."
-                };
                 return response;
             }
 
@@ -105,13 +73,14 @@ namespace ECommerceWebsite.BusinessLogic
 
             if (newUser == null || newUser.Id == 0)
             {
+                //TODO: Create logging service at Service layer and log error
                 _userService.TryRollbackUser(newUser);
-                response.Error = new ErrorServiceResponseModel()
+                response.Error = new ErrorServiceViewModel()
                 {
                     Name = "User",
                     Message = "There was a problem creating your account. We have been notified of the error but please try again."
                 };
-                //TODO: Create logging service at Service layer and log error
+                
                 return response;
             }
 
@@ -120,44 +89,24 @@ namespace ECommerceWebsite.BusinessLogic
             return response;
         }
 
-        //TODO: Refactor this with other Create User
-        public BaseWebServiceResponse CreateUser(AddUserViewModel model)
+        public BaseWebServiceResponse AddUser(AddUserViewModel model)
         {
-            var response = new BaseWebServiceResponse();
-
-            if (!_userValidationService.IsDateOfBirthValid(model.DateOfBirthDay, model.DateOfBirthMonth, model.DateOfBirthYear))
+            var response = new BaseWebServiceResponse()
             {
-                response.Error = new ErrorServiceResponseModel()
-                {
-                    Name = "Date of Birth",
-                    Message = "Date of Birth is not valid."
-                };
-                return response;
-            }
+                Error = _userValidationService.ValidateUserDateOfBirth(
+                    int.Parse(model.DateOfBirthDay),
+                    int.Parse(model.DateOfBirthMonth),
+                    int.Parse(model.DateOfBirthYear))
+            };
 
-            if (!_userValidationService.IsDateOfBirthOver18(int.Parse(model.DateOfBirthDay), int.Parse(model.DateOfBirthMonth), int.Parse(model.DateOfBirthYear)))
+            if (response.Error != null)
             {
-                response.Error = new ErrorServiceResponseModel()
-                {
-                    Name = "Date of Birth",
-                    Message = "Date of Birth must be over 18 years old."
-                };
-                return response;
-            }
-
-            if (!_userValidationService.IsDateOfBirthWithinHumanLivingYears(int.Parse(model.DateOfBirthYear)))
-            {
-                response.Error = new ErrorServiceResponseModel()
-                {
-                    Name = "Date of Birth",
-                    Message = "Date of Birth must be over 18 years old."
-                };
-                return response;
+                return response;    
             }
 
             if (_userValidationService.IsEmailInUse(model.Email))
             {
-                response.Error = new ErrorServiceResponseModel()
+                response.Error = new ErrorServiceViewModel()
                 {
                     Name = "Email",
                     Message = "Email is already in use."
@@ -165,26 +114,8 @@ namespace ECommerceWebsite.BusinessLogic
                 return response;
             }
 
-            if (!_userValidationService.IsPasswordValid(model.Password))
-            {
-                response.Error = new ErrorServiceResponseModel()
-                {
-                    Name = "Password",
-                    Message = "Password does not meet requirements; at least one number, one special character, one upper and lower case and 8 characters minimum."
-                };
-                return response;
-            }
-
-            if (!_userValidationService.DoPasswordsMatch(model.Password, model.ConfirmPassword))
-            {
-                response.Error = new ErrorServiceResponseModel()
-                {
-                    Name = "Password",
-                    Message = "Password and Confirm Password do not match."
-                };
-                return response;
-            }
-
+            response.Error = _userValidationService.ValidatePassword(model.Password, model.ConfirmPassword);
+            
             var newUser = _userService.CreateUser(
                 new UserDTO()
                 {
@@ -202,7 +133,7 @@ namespace ECommerceWebsite.BusinessLogic
             if (newUser == null || newUser.Id == 0)
             {
                 _userService.TryRollbackUser(newUser);
-                response.Error = new ErrorServiceResponseModel()
+                response.Error = new ErrorServiceViewModel()
                 {
                     Name = "User",
                     Message = "There was a problem creating the user. Please try again or contact support."
@@ -238,62 +169,26 @@ namespace ECommerceWebsite.BusinessLogic
 
         public BaseWebServiceResponse UpdateUser(EditUserViewModel model)
         {
-            var response = new BaseWebServiceResponse();
-            var userDto = mapper.Map<EditUserViewModel, UserDTO>(model);
-
-            if (!_userValidationService.IsDateOfBirthValid(model.DateOfBirthDay, model.DateOfBirthMonth, model.DateOfBirthYear))
+            var response = new BaseWebServiceResponse
             {
-                response.Error = new ErrorServiceResponseModel()
-                {
-                    Name = "Date of Birth",
-                    Message = "Date of Birth is not valid."
-                };
-                return response;
-            }
-
-            if (!_userValidationService.IsDateOfBirthOver18(int.Parse(model.DateOfBirthDay), int.Parse(model.DateOfBirthMonth), int.Parse(model.DateOfBirthYear)))
-            {
-                response.Error = new ErrorServiceResponseModel()
-                {
-                    Name = "Date of Birth",
-                    Message = "Date of Birth must be over 18 years old."
-                };
-                return response;
-            }
-
-            if (!_userValidationService.IsDateOfBirthWithinHumanLivingYears(int.Parse(model.DateOfBirthYear)))
-            {
-                response.Error = new ErrorServiceResponseModel()
-                {
-                    Name = "Date of Birth",
-                    Message = "Date of Birth must be over 18 years old."
-                };
-                return response;
-            }
+                Error = _userValidationService.ValidateUserDateOfBirth(
+                    int.Parse(model.DateOfBirthDay),
+                    int.Parse(model.DateOfBirthMonth),
+                    int.Parse(model.DateOfBirthYear))
+            };
 
             if (!string.IsNullOrEmpty(model.Password))
             {
-                if (!_userValidationService.IsPasswordValid(model.Password))
-                {
-                    response.Error = new ErrorServiceResponseModel()
-                    {
-                        Name = "Password",
-                        Message = "Password does not meet requirements; at least one number, one special character, one upper and lower case and 8 characters minimum."
-                    };
-                    return response;
-                }
+                response.Error = _userValidationService.ValidatePassword(model.Password, model.ConfirmPassword);
 
-                if (!_userValidationService.DoPasswordsMatch(model.Password, model.ConfirmPassword))
+                if (response.Error != null)
                 {
-                    response.Error = new ErrorServiceResponseModel()
-                    {
-                        Name = "Password",
-                        Message = "Password and Confirm Password do not match."
-                    };
                     return response;
                 }
             }
-            
+
+            var userDto = mapper.Map<EditUserViewModel, UserDTO>(model);
+
             response.ActionSuccessful = _userService.UpdateUser(userDto);
             return response;
         }
