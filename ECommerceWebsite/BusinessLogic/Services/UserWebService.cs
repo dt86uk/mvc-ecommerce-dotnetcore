@@ -221,9 +221,23 @@ namespace ECommerceWebsite.BusinessLogic
             };
         }
 
-        public bool DeleteUser(int userId)
+        public BaseWebServiceResponse DeleteUser(int userId)
         {
-            return _userService.DeleteUser(userId);
+            var isUserDeleted = _userService.DeleteUser(userId);
+
+            var response = new BaseWebServiceResponse
+            {
+                ActionSuccessful = isUserDeleted,
+                Error = new ErrorServiceViewModel()
+                {
+                    Name = "UserAction",
+                    Message = isUserDeleted ?
+                        "User Deleted!" :
+                        "There was a problem deleting the user!"
+                } 
+            };
+
+            return response;
         }
     }
 }

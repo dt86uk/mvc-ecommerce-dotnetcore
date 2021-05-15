@@ -87,17 +87,27 @@ namespace ECommerceWebsite.Controllers
             returnModel.ActionResponse = response;
 
             TempData[UserActionName] = "User successfully updated";
+
             return View($"{UsersViewFolder}/Index.cshtml", returnModel);
         }
 
         [Route("delete")]
         public IActionResult Delete(UsersViewModel model)
         {
-            TempData[UserActionName] = _userWebService.DeleteUser(model.Id) ?
-                    "User Deleted!" :
-                    "There was a problem deleting the user!";
+            BaseWebServiceResponse response = _userWebService.DeleteUser(model.Id);
 
-            return RedirectToAction("Index", "products");
+            if (!response.ActionSuccessful)
+            {
+                TempData[UserActionName] = response.Error.Message;
+                return View($"{UsersViewFolder}/Edit.cshtml", model);
+            }
+
+            AdminUsersViewModel returnModel = _userWebService.GetAllUsers();
+            returnModel.ActionResponse = response;
+
+            TempData[UserActionName] = "User Deleted!";
+
+            return View($"{UsersViewFolder}/Index.cshtml", returnModel);
         }
     }
 }

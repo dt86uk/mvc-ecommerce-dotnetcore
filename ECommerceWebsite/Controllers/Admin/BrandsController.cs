@@ -6,6 +6,7 @@ namespace ECommerceWebsite.Controllers
     public class BrandsController : Controller
     {
         private const string BrandsViewFolder = "~/Views/admin/brands";
+        private const string BrandActionName = "BrandAction";
 
         public IActionResult Index()
         {

@@ -15,7 +15,7 @@ namespace ECommerceWebsite.BusinessLogic
         List<NewUserViewModel> GetLatestNewUsers(int numberOfUsers);
         AdminUsersViewModel GetAllUsers();
         AddUserViewModel GetAddUserModel();
-        bool DeleteUser(int userId);
+        BaseWebServiceResponse DeleteUser(int userId);
         EditUserViewModel GetEditUserModel(int userId);
     }
 }
