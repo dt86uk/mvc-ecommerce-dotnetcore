@@ -190,6 +190,9 @@ namespace ECommerceWebsite.BusinessLogic
             var userDto = mapper.Map<EditUserViewModel, UserDTO>(model);
 
             response.ActionSuccessful = _userService.UpdateUser(userDto);
+            response.SuccessMessage = response.ActionSuccessful ? 
+                "User successfully updated" : 
+                string.Empty;
             return response;
         }
 
@@ -228,13 +231,18 @@ namespace ECommerceWebsite.BusinessLogic
             var response = new BaseWebServiceResponse
             {
                 ActionSuccessful = isUserDeleted,
-                Error = new ErrorServiceViewModel()
-                {
-                    Name = "UserAction",
-                    Message = isUserDeleted ?
-                        "User Deleted!" :
-                        "There was a problem deleting the user!"
-                } 
+                SuccessMessage = isUserDeleted ?
+                    "User Deleted!" : 
+                    string.Empty,
+                Error = isUserDeleted ? 
+                    null : 
+                    new ErrorServiceViewModel()
+                    {
+                        Name = "UserAction",
+                        Message = isUserDeleted ?
+                            string.Empty :
+                            "There was a problem deleting the user!"
+                    } 
             };
 
             return response;

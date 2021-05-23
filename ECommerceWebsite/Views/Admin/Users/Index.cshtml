@@ -1,8 +1,9 @@
 ﻿@using ECommerceWebsite.Models.Admin
 @model AdminUsersViewModel
 @{
+    ViewData["Title"] = "Admin Users";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    string userActionMessage = TempData["UserAction"] != null ? TempData["UserAction"].ToString() : string.Empty;
+    Model.ActionResponse = TempData["UserAction"] == null ? null : (BaseWebServiceResponse)TempData["UserAction"];
 }
 <div>
     <div class="titleHeader floatLeft width48perc">Users</div>
@@ -12,13 +13,13 @@
     <div class="clearBoth"></div>
 </div>
 
-@if (!string.IsNullOrEmpty(userActionMessage))
+@if (Model.ActionResponse != null)
 {
     <div class="messageBox">
         @if (Model.ActionResponse.ActionSuccessful)
         {
             <div class="confirmMessage">
-                @userActionMessage
+                @Model.ActionResponse.SuccessMessage
                 <img src="/img/icon-pack/png/icon-green-tick.png" class="messageImg">
             </div>
         }
@@ -26,8 +27,7 @@
         {
             <div class="responseMessageBox">
                 <div class="errorMessage">
-                    User not found, unable to delete. We recommend a hard browser refresh (Ctrl + F5) or clearing recent history.
-                    If this problem persists, please contact support.
+                    @Model.ActionResponse.Error.Message
                 </div>
             </div>
         }

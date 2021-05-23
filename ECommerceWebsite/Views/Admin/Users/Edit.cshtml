@@ -1,8 +1,9 @@
 ﻿@model EditUserViewModel
 @{
+    ViewData["Title"] = "Admin Edit User";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<div class="titleHeader">Edit User</div>
+<div class="titleHeader">Edit Brand</div>
 
 @using (Html.BeginForm("Update", "Users", FormMethod.Post))
 {

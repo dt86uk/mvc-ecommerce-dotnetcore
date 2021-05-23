@@ -83,12 +83,8 @@ namespace ECommerceWebsite.Controllers
                 return View($"{UsersViewFolder}/Edit.cshtml", model);
             }
 
-            AdminUsersViewModel returnModel = _userWebService.GetAllUsers();
-            returnModel.ActionResponse = response;
-
-            TempData[UserActionName] = "User successfully updated";
-
-            return View($"{UsersViewFolder}/Index.cshtml", returnModel);
+            TempData[UserActionName] = response;
+            return RedirectToAction("Index", "Users");
         }
 
         [Route("delete")]
@@ -99,15 +95,11 @@ namespace ECommerceWebsite.Controllers
             if (!response.ActionSuccessful)
             {
                 TempData[UserActionName] = response.Error.Message;
-                return View($"{UsersViewFolder}/Edit.cshtml", model);
-            }
+                return View($"{UsersViewFolder}/Index.cshtml", model);
+            }            
 
-            AdminUsersViewModel returnModel = _userWebService.GetAllUsers();
-            returnModel.ActionResponse = response;
-
-            TempData[UserActionName] = "User Deleted!";
-
-            return View($"{UsersViewFolder}/Index.cshtml", returnModel);
+            TempData[UserActionName] = response;
+            return RedirectToAction("Index", "User");
         }
     }
 }

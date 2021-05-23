@@ -1,6 +1,7 @@
 ﻿@using ECommerceWebsite.Models.Admin
 @model AddUserViewModel
 @{
+    ViewData["Title"] = "Admin Add User";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     string userActionMessage = TempData["UserAction"] != null ? TempData["UserAction"].ToString() : string.Empty;
 }

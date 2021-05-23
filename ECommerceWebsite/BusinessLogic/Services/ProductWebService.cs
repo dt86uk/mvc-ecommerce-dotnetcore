@@ -345,9 +345,24 @@ namespace ECommerceWebsite.BusinessLogic
             };
         }
 
-        public bool DeleteProduct(int productId)
+        //TODO: Make sure all messages have a pattern - consts?
+        public BaseWebServiceResponse DeleteProduct(int productId)
         {
-            return _productService.DeleteProduct(productId);
+            var isProductDeleted = _productService.DeleteProduct(productId);
+            return new BaseWebServiceResponse
+            {
+                ActionSuccessful = isProductDeleted,
+                SuccessMessage = isProductDeleted ?
+                    "Product Deleted!" :
+                    string.Empty,
+                Error = isProductDeleted ?
+                    null :
+                    new ErrorServiceViewModel
+                    {
+                        Name = "Product",
+                        Message = "There was a problem deleting the Product. If this problem persists, please contact support."
+                    }
+            };
         }
 
         public AddProductViewModel GetAddProductsContents()
@@ -494,6 +509,7 @@ namespace ECommerceWebsite.BusinessLogic
             }
 
             response.ActionSuccessful = true;
+            response.SuccessMessage = "Product added successfully!";
             return response;
         }
 
@@ -595,6 +611,7 @@ namespace ECommerceWebsite.BusinessLogic
             }
 
             response.ActionSuccessful = true;
+            response.SuccessMessage = "Product successfully updated";
             return response;
         }
     }

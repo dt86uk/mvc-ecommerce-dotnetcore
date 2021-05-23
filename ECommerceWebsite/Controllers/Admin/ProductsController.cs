@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ECommerceWebsite.BusinessLogic;
 using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Admin;
@@ -22,15 +21,6 @@ namespace ECommerceWebsite.Controllers
         public IActionResult Index()
         {
             AdminProductsViewModel model = _productWebService.GetAllProducts();
-            
-            if (TempData[ProductActionName] != null)
-            {
-                model.ActionResponse = new BaseWebServiceResponse()
-                {
-                    ActionSuccessful = true
-                };
-            }
-
             return View($"{ProductsViewFolder}/Index.cshtml", model);
         }
 
@@ -61,15 +51,10 @@ namespace ECommerceWebsite.Controllers
                 return View($"{ProductsViewFolder}/Add.cshtml", model);
             }
 
-            AdminProductsViewModel returnModel = _productWebService.GetAllProducts();
-            returnModel.ActionResponse = response;
-
-            //TODO: Url does not change/update to admin/products
-            TempData[ProductActionName] = "Product added successfully!";
-            return LocalRedirect("~/admin/products");
+            TempData[ProductActionName] = response;
+            return RedirectToAction("Index", "Products");
         }
 
-        //TODO: Make all "edit" pages with e.g. site/area/id-here => Post puts all values in URL
         [HttpGet]
         [Route("edit/{productId:int}")]
         public IActionResult Edit(int productId)
@@ -96,19 +81,23 @@ namespace ECommerceWebsite.Controllers
                 return View($"{ProductsViewFolder}/Edit.cshtml", model);
             }
 
-            TempData[ProductActionName] = "Product successfully updated";
-            return LocalRedirect("~/admin/products");
+            TempData[ProductActionName] = response;
+            return RedirectToAction("Index", "Products");
         }
-
 
         [HttpPost]
         [Route("delete")]
         public IActionResult Delete(ProductsViewModel model)
         {
-            TempData[ProductActionName] = _productWebService.DeleteProduct(model.Id) ?
-                    "Product Deleted!" :
-                    "There was a problem deleting !";
+            BaseWebServiceResponse response = _productWebService.DeleteProduct(model.Id);
 
+            if (!response.ActionSuccessful)
+            {
+                TempData[ProductActionName] = response.Error.Message;
+                return View($"{ProductsViewFolder}/Index.cshtml", model);
+            }
+
+            TempData[ProductActionName] = response;
             return RedirectToAction("Index", "products");
         }
     }

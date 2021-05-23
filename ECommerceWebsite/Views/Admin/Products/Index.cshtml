@@ -1,8 +1,9 @@
 ﻿@using ECommerceWebsite.Models.Admin
 @model AdminProductsViewModel
 @{
+    ViewData["Title"] = "Admin Products";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    string productActionMessage = TempData["ProductAction"] != null ? TempData["ProductAction"].ToString() : string.Empty;
+    Model.ActionResponse = TempData["ProductAction"] == null ? null : (BaseWebServiceResponse)TempData["ProductAction"];
 }
 <div>
     <div class="titleHeader floatLeft width48perc">Products</div>
@@ -12,13 +13,13 @@
     <div class="clearBoth"></div>
 </div>
 
-@if (!string.IsNullOrEmpty(productActionMessage))
+@if (Model.ActionResponse != null)
 {
     <div class="messageBox">
         @if (Model.ActionResponse.ActionSuccessful)
         {
             <div class="confirmMessage">
-                @productActionMessage
+                @Model.ActionResponse.SuccessMessage
                 <img src="/img/icon-pack/png/icon-green-tick.png" class="messageImg">
             </div>
         }
