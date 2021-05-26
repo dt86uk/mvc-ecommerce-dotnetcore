@@ -116,21 +116,40 @@ namespace ECommerceWebsite.BusinessLogic
 
         public BaseWebServiceResponse DeleteBrand(int brandId)
         {
-            var isBrandDeleted = _brandService.DeleteBrand(brandId);
-            return new BaseWebServiceResponse
+            var brandHasProducts = _brandValidationService.BrandHasProducts(brandId);
+
+            var response = new BaseWebServiceResponse()
             {
-                ActionSuccessful = isBrandDeleted,
-                SuccessMessage = isBrandDeleted ? 
-                    "Brand Deleted!" : 
-                    string.Empty,
-                Error = isBrandDeleted ?
-                    null :
-                    new ErrorServiceViewModel
+                ActionSuccessful = !brandHasProducts,
+                Error = brandHasProducts ?
+                    new ErrorServiceViewModel()
                     {
                         Name = "Brand",
-                        Message = "There was an issue deleting the brand. We have been notified of the error but please try again."
-                    }
+                        Message = "This brand is currently linked to active products, please ensure no products are associated with the brand before deletion."
+                    } :
+                    null
             };
+
+            if (brandHasProducts)
+            {
+                return response;
+            }
+
+            var isBrandDeleted = _brandService.DeleteBrand(brandId);
+
+            response.ActionSuccessful = isBrandDeleted;
+            response.SuccessMessage = isBrandDeleted ?
+                "Brand Deleted!" :
+                string.Empty;
+            response.Error = isBrandDeleted ?
+                null :
+                new ErrorServiceViewModel
+                {
+                    Name = "Brand",
+                    Message = "There was an issue deleting the brand. We have been notified of the error but please try again."
+                };
+
+            return response;
         }
 
         public EditBrandViewModel GetBrandById(int brandId)

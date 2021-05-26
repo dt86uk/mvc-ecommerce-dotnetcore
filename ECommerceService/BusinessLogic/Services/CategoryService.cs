@@ -30,5 +30,15 @@ namespace ECommerceService.BusinessLogic
         {
             return mapper.Map<Category, CategoryDTO>(_categoryRepository.GetCategoryById(categoryId));
         }
+
+        public bool CategoryHasProducts(int categoryId)
+        {
+            return _categoryRepository.CategoryHasProducts(categoryId);
+        }
+
+        public bool DeleteCategory(int categoryId)
+        {
+            return _categoryRepository.DeleteCategory(categoryId);
+        }
     }
 }

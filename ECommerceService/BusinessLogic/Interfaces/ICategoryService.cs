@@ -7,5 +7,7 @@ namespace ECommerceService.BusinessLogic
     {
         CategoryDTO GetCategoryById(int categoryId);
         List<CategoryDTO> GetAllCategories();
+        bool DeleteCategory(int categoryId);
+        bool CategoryHasProducts(int categoryId);
     }
 }

@@ -92,5 +92,13 @@ namespace ECommerceRepository.BusinessLogic
                 return false;
             }
         }
+
+        public bool BrandHasProducts(int brandId)
+        {
+            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
+            {
+                return context.Products.Any(p => p.BrandId == brandId);
+            }
+        }
     }
 }

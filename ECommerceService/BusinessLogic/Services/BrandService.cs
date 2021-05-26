@@ -55,5 +55,10 @@ namespace ECommerceService.BusinessLogic
         {
             return _brandRepository.UpdateBrand(mapper.Map<BrandDTO, Brand>(brand));
         }
+
+        public bool BrandHasProducts(int brandId)
+        {
+            return _brandRepository.BrandHasProducts(brandId);
+        }
     }
 }

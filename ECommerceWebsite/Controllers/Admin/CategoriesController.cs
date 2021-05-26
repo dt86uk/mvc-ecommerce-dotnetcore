@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ECommerceWebsite.BusinessLogic;
+using ECommerceWebsite.Models;
+using ECommerceWebsite.Models.Admin;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceWebsite.Controllers
 {
@@ -6,10 +9,19 @@ namespace ECommerceWebsite.Controllers
     public class CategoriesController : Controller
     {
         private const string CategoriesViewFolder = "~/Views/admin/categories";
+        private const string CategoryActionName = "CategoryAction";
+
+        private readonly ICategoryWebService _categoryWebService;
+        
+        public CategoriesController(ICategoryWebService categoryWebService)
+        {
+            _categoryWebService = categoryWebService;
+        }
 
         public IActionResult Index()
         {
-            return View($"{CategoriesViewFolder}/Index.cshtml");
+            AdminCategoriesViewModel model = _categoryWebService.GetAllCategories();
+            return View($"{CategoriesViewFolder}/Index.cshtml", model);
         }
 
         [Route("add")]
@@ -25,9 +37,17 @@ namespace ECommerceWebsite.Controllers
         }
 
         [Route("delete")]
-        public IActionResult Delete()
+        public IActionResult Delete(CategoryItemViewModel model)
         {
-            return View();
+            BaseWebServiceResponse response = _categoryWebService.DeleteCategory(model.Id);
+
+            if (!response.ActionSuccessful)
+            {
+                TempData[CategoryActionName] = response.Error.Message;
+                return View($"{CategoryActionName}/Index.cshtml", model);
+            }
+            TempData[CategoryActionName] = response;
+            return RedirectToAction("Index", "Brands");
         }
     }
 }

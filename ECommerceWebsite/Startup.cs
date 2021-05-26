@@ -47,10 +47,14 @@ namespace ECommerceWebsite
             services.AddTransient<ICartWebService, CartWebService>();
             services.AddTransient<IOrderWebService, OrderWebService>();
             services.AddTransient<IUserWebService, UserWebService>();
+            services.AddTransient<IBrandWebService, BrandWebService>();
+            services.AddTransient<ICategoryWebService, CategoryWebService>();
+
+            //validation
             services.AddTransient<IUserValidationService, UserValidationService>();
             services.AddTransient<IBrandValidationService, BrandValidationService>();
             services.AddTransient<IFileValidationWebService, FileValidationWebService>();
-            services.AddTransient<IBrandWebService, BrandWebService>();
+            services.AddTransient<ICategoryValidationService, CategoryValidationService>();
 
             //service
             services.AddTransient<IMenuService, MenuService>();

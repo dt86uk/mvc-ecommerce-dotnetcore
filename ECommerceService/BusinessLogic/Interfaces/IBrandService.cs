@@ -12,5 +12,6 @@ namespace ECommerceService.BusinessLogic
         bool BrandNameExists(string brandName);
         bool BrandNameExists(string brandName, int brandId);
         bool DeleteBrand(int brandId);
+        bool BrandHasProducts(int brandId);
     }
 }

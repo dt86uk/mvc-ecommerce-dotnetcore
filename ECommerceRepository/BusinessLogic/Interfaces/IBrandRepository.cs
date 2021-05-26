@@ -12,5 +12,6 @@ namespace ECommerceRepository.BusinessLogic
         bool AddBrand(Brand brand);
         bool DeleteBrand(int brandId);
         bool UpdateBrand(Brand brand);
+        bool BrandHasProducts(int brandId);
     }
 }

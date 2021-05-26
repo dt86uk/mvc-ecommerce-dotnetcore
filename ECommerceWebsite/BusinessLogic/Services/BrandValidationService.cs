@@ -11,6 +11,11 @@ namespace ECommerceWebsite.BusinessLogic
             _brandService = brandService;
         }
 
+        public bool BrandHasProducts(int brandId)
+        {
+            return _brandService.BrandHasProducts(brandId);
+        }
+
         public bool BrandNameExists(string brandName)
         {
            return _brandService.BrandNameExists(brandName);
