@@ -2,6 +2,7 @@
 using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Admin;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ECommerceWebsite.Controllers
 {
@@ -40,15 +41,14 @@ namespace ECommerceWebsite.Controllers
             }
 
             BaseWebServiceResponse response = _brandWebService.AddBrand(model);
+            TempData[BrandActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)
             {
-                TempData[BrandActionName] = response.Error.Message;
                 model.ActionResponse = response;
                 return View($"{BrandsViewFolder}/Add.cshtml", model);
             }
             
-            TempData[BrandActionName] = response;
             return RedirectToAction("Index", "Brands");
         }
 
@@ -71,14 +71,13 @@ namespace ECommerceWebsite.Controllers
             }
 
             BaseWebServiceResponse response = _brandWebService.UpdatedBrand(model);
+            TempData[BrandActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)
             {
-                TempData[BrandActionName] = response.Error.Message;
                 return View($"{BrandsViewFolder}/Index.cshtml", model);
             }
 
-            TempData[BrandActionName] = response;
             return RedirectToAction("Index", "Brands");
         }
 
@@ -86,13 +85,13 @@ namespace ECommerceWebsite.Controllers
         public IActionResult Delete(BrandViewModel model)
         {
             BaseWebServiceResponse response = _brandWebService.DeleteBrand(model.Id);
+            TempData[BrandActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)
             {
-                TempData[BrandActionName] = response.Error.Message;
                 return View($"{BrandsViewFolder}/Index.cshtml", model);
             }
-            TempData[BrandActionName] = response;
+
             return RedirectToAction("Index", "Brands");
         }
     }

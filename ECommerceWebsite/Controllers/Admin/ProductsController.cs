@@ -2,6 +2,7 @@
 using ECommerceWebsite.BusinessLogic;
 using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Admin;
+using Newtonsoft.Json;
 
 namespace ECommerceWebsite.Controllers
 {
@@ -43,15 +44,14 @@ namespace ECommerceWebsite.Controllers
             }
 
             BaseWebServiceResponse response = _productWebService.AddProduct(model);
+            TempData[ProductActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)
-            {
-                TempData[ProductActionName] = response.Error.Message;
+            {   
                 model.ActionResponse = response;
                 return View($"{ProductsViewFolder}/Add.cshtml", model);
             }
 
-            TempData[ProductActionName] = response;
             return RedirectToAction("Index", "Products");
         }
 
@@ -74,14 +74,13 @@ namespace ECommerceWebsite.Controllers
             }
 
             BaseWebServiceResponse response = _productWebService.UpdateProduct(model);
+            TempData[ProductActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)
             {
-                TempData[ProductActionName] = response.Error.Message;
                 return View($"{ProductsViewFolder}/Edit.cshtml", model);
             }
 
-            TempData[ProductActionName] = response;
             return RedirectToAction("Index", "Products");
         }
 
@@ -90,14 +89,13 @@ namespace ECommerceWebsite.Controllers
         public IActionResult Delete(ProductsViewModel model)
         {
             BaseWebServiceResponse response = _productWebService.DeleteProduct(model.Id);
+            TempData[ProductActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)
             {
-                TempData[ProductActionName] = response.Error.Message;
                 return View($"{ProductsViewFolder}/Index.cshtml", model);
             }
 
-            TempData[ProductActionName] = response;
             return RedirectToAction("Index", "products");
         }
     }

@@ -57,6 +57,7 @@ namespace ECommerceDatabase
                         new Category { Id = 2, CategoryName = "Men" },
                         new Category { Id = 3, CategoryName = "Women" },
                         new Category { Id = 4, CategoryName = "Unisex" },
+                        new Category { Id = 5, CategoryName = "Misc" },
                     };
 
                     listCategories.ForEach(p => context.Categories.Add(p));

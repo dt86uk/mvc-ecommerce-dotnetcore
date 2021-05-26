@@ -2,6 +2,7 @@
 using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Admin;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ECommerceWebsite.Controllers
 {
@@ -42,26 +43,22 @@ namespace ECommerceWebsite.Controllers
             }
 
             BaseWebServiceResponse response = _userWebService.AddUser(model);
+            TempData[UserActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)
-            {
-                TempData[UserActionName] = response.Error.Message;
+            {   
                 model.ActionResponse = response;
                 return View($"{UsersViewFolder}/Add.cshtml", model);
             }
 
-            AdminUsersViewModel returnModel = _userWebService.GetAllUsers();
-            returnModel.ActionResponse = response;
-
-            TempData[UserActionName] = "User added successfully!";
-            return LocalRedirect("~/admin/users");
+            return RedirectToAction("Index", "Users");
         }
 
         [HttpGet]
         [Route("edit/{userId:int}")]
         public IActionResult Edit(int userId)
         {
-           EditUserViewModel model = _userWebService.GetEditUserModel(userId);
+            EditUserViewModel model = _userWebService.GetEditUserModel(userId);
             return View($"{UsersViewFolder}/Edit.cshtml", model);
         }
 
@@ -76,14 +73,13 @@ namespace ECommerceWebsite.Controllers
             }
 
             BaseWebServiceResponse response = _userWebService.UpdateUser(model);
+            TempData[UserActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)
             {
-                TempData[UserActionName] = response.Error.Message;
                 return View($"{UsersViewFolder}/Edit.cshtml", model);
             }
 
-            TempData[UserActionName] = response;
             return RedirectToAction("Index", "Users");
         }
 
@@ -91,15 +87,14 @@ namespace ECommerceWebsite.Controllers
         public IActionResult Delete(UsersViewModel model)
         {
             BaseWebServiceResponse response = _userWebService.DeleteUser(model.Id);
+            TempData[UserActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)
             {
-                TempData[UserActionName] = response.Error.Message;
                 return View($"{UsersViewFolder}/Index.cshtml", model);
             }            
 
-            TempData[UserActionName] = response;
-            return RedirectToAction("Index", "User");
+            return RedirectToAction("Index", "Users");
         }
     }
 }

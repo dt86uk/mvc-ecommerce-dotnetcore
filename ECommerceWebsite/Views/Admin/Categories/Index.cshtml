@@ -1,9 +1,10 @@
 ﻿@using ECommerceWebsite.Models.Admin
+@using Newtonsoft.Json
 @model AdminCategoriesViewModel
 @{
     ViewData["Title"] = "Admin Products";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    Model.ActionResponse = TempData["CategoryAction"] == null ? null : (BaseWebServiceResponse)TempData["CategoryAction"];
+    Model.ActionResponse = TempData["CategoryAction"] == null ? null : JsonConvert.DeserializeObject<BaseWebServiceResponse>(TempData["CategoryAction"].ToString());
 }
 <div>
     <div class="titleHeader floatLeft width48perc">Categories</div>

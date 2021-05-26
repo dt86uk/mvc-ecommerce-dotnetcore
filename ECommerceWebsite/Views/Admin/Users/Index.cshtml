@@ -1,9 +1,10 @@
 ﻿@using ECommerceWebsite.Models.Admin
+@using Newtonsoft.Json;
 @model AdminUsersViewModel
 @{
     ViewData["Title"] = "Admin Users";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    Model.ActionResponse = TempData["UserAction"] == null ? null : (BaseWebServiceResponse)TempData["UserAction"];
+    Model.ActionResponse = TempData["UserAction"] == null ? null : JsonConvert.DeserializeObject<BaseWebServiceResponse>(TempData["UserAction"].ToString());
 }
 <div>
     <div class="titleHeader floatLeft width48perc">Users</div>
@@ -47,26 +48,29 @@
     <tbody>
         @foreach (var user in Model.AllUsers)
         {
-        <tr>
-            <td>
-                @Html.HiddenFor(p => user.Id)
-                @user.FirstName @user.LastName
-            </td>
-            <td class="textAlignCenter">@user.RoleName</td>
-            <td class="textAlignCenter">@user.DateRegistered</td>
-            <td class="textAlignCenter">@user.DateOfBirth.ToShortDateString()</td>
-            <td style="padding: 5px;">
-                @using (Html.BeginForm("Edit", "users", user, FormMethod.Post, false, new { @class = "displayInlineBlock" }))
-                {
-                    <input type="image" alt="Edit" src="~/img/icon-pack/png/074-pen.png" width="25" />
-                }
+            <tr>
+                <td>
+                    @Html.HiddenFor(p => user.Id)
+                    @user.FirstName @user.LastName
+                </td>
+                <td class="textAlignCenter">@user.RoleName</td>
+                <td class="textAlignCenter">@user.DateRegistered</td>
+                <td class="textAlignCenter">@user.DateOfBirth.ToShortDateString()</td>
+                <td style="padding: 5px;">
+                    @using (Html.BeginForm("Edit", "users", user, FormMethod.Post, false, new { @class = "displayInlineBlock" }))
+                    {
+                        <input type="image" alt="Edit" src="~/img/icon-pack/png/074-pen.png" width="25" />
+                    }
 
-                @using (Html.BeginForm("Delete", "users", user, FormMethod.Post, false, new { @class = "displayInlineBlock" }))
-                {
-                    <input type="image" alt="Delete" src="~/img/icon-pack/png/190-trash.png" width="25" onclick="return confirm('Are you sure you want to delete this User?');" />
-                }
-            </td>
-        </tr>
+                    @if (Model.AllUsers.Count > 1)
+                    {
+                        @using (Html.BeginForm("Delete", "users", user, FormMethod.Post, false, new { @class = "displayInlineBlock" }))
+                        {
+                            <input type="image" alt="Delete" src="~/img/icon-pack/png/190-trash.png" width="25" onclick="return confirm('Are you sure you want to delete this User?');" />
+                        }
+                    }
+                </td>
+            </tr>
         }
     </tbody>
 </table>

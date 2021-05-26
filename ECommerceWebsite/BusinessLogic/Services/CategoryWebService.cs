@@ -37,7 +37,7 @@ namespace ECommerceWebsite.BusinessLogic
                     null
             };
 
-            if (!categoryHasProducts)
+            if (categoryHasProducts)
             {
                 return response;
             }

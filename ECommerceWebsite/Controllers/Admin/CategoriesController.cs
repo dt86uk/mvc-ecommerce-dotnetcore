@@ -2,6 +2,7 @@
 using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Admin;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ECommerceWebsite.Controllers
 {
@@ -47,7 +48,8 @@ namespace ECommerceWebsite.Controllers
                 return View($"{CategoryActionName}/Index.cshtml", model);
             }
             TempData[CategoryActionName] = response;
-            return RedirectToAction("Index", "Brands");
+                //JsonConvert.SerializeObject(response);
+            return RedirectToAction("Index", "Categories");
         }
     }
 }
