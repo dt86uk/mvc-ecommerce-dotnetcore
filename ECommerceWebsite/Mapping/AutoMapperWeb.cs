@@ -78,6 +78,7 @@ namespace ECommerceWebsite.Mapping
                     .ReverseMap();
                 cfg.CreateMap<AddBrandViewModel, BrandDTO>().ReverseMap();
                 cfg.CreateMap<EditBrandViewModel, BrandDTO>().ReverseMap();
+                cfg.CreateMap<EditCategoryViewModel, CategoryDTO>().ReverseMap();
             });
         }
     }

@@ -25,30 +25,60 @@ namespace ECommerceWebsite.Controllers
             return View($"{CategoriesViewFolder}/Index.cshtml", model);
         }
 
+        [HttpGet]
         [Route("add")]
         public IActionResult Add()
         {
             return View();
         }
 
-        [Route("edit")]
-        public IActionResult Edit()
+        [HttpPost]
+        [Route("add")]
+        public IActionResult AddCategory()
         {
             return View();
+        }
+
+        [HttpGet]
+        [Route("edit/{categoryId:int}")]
+        public IActionResult Edit(int categoryId)
+        {
+            EditCategoryViewModel model = _categoryWebService.GetCategoryById(categoryId);
+            return View($"{CategoriesViewFolder}/Edit.cshtml", model);
+        }
+
+        [HttpPost]
+        [Route("update")]
+        public IActionResult Update(EditCategoryViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model = _categoryWebService.GetCategoryById(model.Id);
+                return View($"{CategoriesViewFolder}/Edit.cshtml", model);
+            }
+
+            BaseWebServiceResponse response = _categoryWebService.UpdatedCategory(model);
+            TempData[CategoryActionName] = JsonConvert.SerializeObject(response);
+
+            if (!response.ActionSuccessful)
+            {
+                return View($"{CategoriesViewFolder}/Index.cshtml", model);
+            }
+
+            return RedirectToAction("Index", "Brands");
         }
 
         [Route("delete")]
         public IActionResult Delete(CategoryItemViewModel model)
         {
             BaseWebServiceResponse response = _categoryWebService.DeleteCategory(model.Id);
+            TempData[CategoryActionName] = response;
 
             if (!response.ActionSuccessful)
             {
-                TempData[CategoryActionName] = response.Error.Message;
                 return View($"{CategoryActionName}/Index.cshtml", model);
             }
-            TempData[CategoryActionName] = response;
-                //JsonConvert.SerializeObject(response);
+
             return RedirectToAction("Index", "Categories");
         }
     }

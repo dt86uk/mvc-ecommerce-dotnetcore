@@ -68,5 +68,11 @@ namespace ECommerceWebsite.BusinessLogic
                 AllCategories = listCategories
             };
         }
+
+        public EditCategoryViewModel GetCategoryById(int categoryId)
+        {
+            var category = _categoryService.GetCategoryById(categoryId);
+            return mapper.Map<CategoryDTO, EditCategoryViewModel>(category);
+        }
     }
 }

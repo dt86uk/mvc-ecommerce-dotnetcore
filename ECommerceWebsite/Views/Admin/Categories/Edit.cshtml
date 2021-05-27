@@ -1,23 +1,23 @@
 ﻿@using ECommerceWebsite.Models.Admin
-@model EditBrandViewModel
+@model EditCategoryViewModel
 @{
-    ViewData["Title"] = "Admin Edit Brand";
+    ViewData["Title"] = "Admin Edit Category";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="titleHeader">Edit Brand</div>
+<div class="titleHeader">Edit Category</div>
 
-@using (Html.BeginForm("Update", "brands", Model, FormMethod.Post, false, new { enctype = "multipart/form-data", @class = "form" }))
+@using (Html.BeginForm("UpdateCategory", "categories", Model, FormMethod.Post, false, new { enctype = "multipart/form-data", @class = "form" }))
 {
     @Html.ValidationSummary(false, string.Empty, new { @class = "required" })
 
     <div>
         <div class="floatLeft width48perc">
             @Html.HiddenFor(p => p.Id)
-            @Html.LabelFor(p => p.BrandName)
+            @Html.LabelFor(p => p.CategoryName)
         </div>
         <div class="floatLeft">
-            @Html.TextBoxFor(p => p.BrandName, new { @class = "width200px" })
+            @Html.TextBoxFor(p => p.CategoryName, new { @class = "width200px" })
         </div>
         <div class="clearBoth"></div>
     </div>
