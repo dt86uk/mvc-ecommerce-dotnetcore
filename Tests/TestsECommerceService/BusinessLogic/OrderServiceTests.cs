@@ -86,7 +86,7 @@ namespace TestsECommerceService.BusinessLogic
                 .Setup(x => x.ProcessPayment(It.IsAny<PaymentDetail>()))
                 .Returns(true);
             _mockTransactionService
-                .Setup(x => x.CreateTransaction(It.IsAny<Order>(), It.IsAny<PaymentDetail>()))
+                .Setup(x => x.Create(It.IsAny<Order>(), It.IsAny<PaymentDetail>()))
                 .Returns(transaction);
 
             //Act
@@ -217,7 +217,7 @@ namespace TestsECommerceService.BusinessLogic
                 .Returns(false);
             
             _mockTransactionService
-                .Setup(x => x.CreateTransaction(It.IsAny<Order>(), It.IsAny<PaymentDetail>()))
+                .Setup(x => x.Create(It.IsAny<Order>(), It.IsAny<PaymentDetail>()))
                 .Returns(transaction);
 
             //Act
