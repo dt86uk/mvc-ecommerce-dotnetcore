@@ -25,7 +25,7 @@ namespace ECommerceWebsite.BusinessLogic
             mapper = _config.CreateMapper();
         }
 
-        public BaseWebServiceResponse RegisterUser(RegisterViewModel model)
+        public BaseWebServiceResponse Register(RegisterViewModel model)
         {
             var response = new BaseWebServiceResponse
             {
@@ -57,7 +57,7 @@ namespace ECommerceWebsite.BusinessLogic
                 return response;
             }
 
-            var newUser = _userService.CreateUser(
+            var newUser = _userService.Create(
                 new UserDTO()
                 {
                     Email = model.Email,
@@ -89,7 +89,7 @@ namespace ECommerceWebsite.BusinessLogic
             return response;
         }
 
-        public BaseWebServiceResponse AddUser(AddUserViewModel model)
+        public BaseWebServiceResponse Add(AddUserViewModel model)
         {
             var response = new BaseWebServiceResponse()
             {
@@ -116,7 +116,7 @@ namespace ECommerceWebsite.BusinessLogic
 
             response.Error = _userValidationService.ValidatePassword(model.Password, model.ConfirmPassword);
             
-            var newUser = _userService.CreateUser(
+            var newUser = _userService.Create(
                 new UserDTO()
                 {
                     Email = model.Email,
@@ -164,10 +164,10 @@ namespace ECommerceWebsite.BusinessLogic
         public bool UpdateUser(AccountViewModel model)
         {
             var userDto = mapper.Map<AccountViewModel, UserDTO>(model);
-            return _userService.UpdateUser(userDto);
+            return _userService.Update(userDto);
         }
 
-        public BaseWebServiceResponse UpdateUser(EditUserViewModel model)
+        public BaseWebServiceResponse Update(EditUserViewModel model)
         {
             var response = new BaseWebServiceResponse
             {
@@ -189,7 +189,7 @@ namespace ECommerceWebsite.BusinessLogic
 
             var userDto = mapper.Map<EditUserViewModel, UserDTO>(model);
 
-            response.ActionSuccessful = _userService.UpdateUser(userDto);
+            response.ActionSuccessful = _userService.Update(userDto);
             response.SuccessMessage = response.ActionSuccessful ? 
                 "User successfully updated" : 
                 string.Empty;
@@ -224,9 +224,9 @@ namespace ECommerceWebsite.BusinessLogic
             };
         }
 
-        public BaseWebServiceResponse DeleteUser(int userId)
+        public BaseWebServiceResponse Delete(int userId)
         {
-            var isUserDeleted = _userService.DeleteUser(userId);
+            var isUserDeleted = _userService.Delete(userId);
 
             var response = new BaseWebServiceResponse
             {

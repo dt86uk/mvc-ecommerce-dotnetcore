@@ -21,7 +21,7 @@ namespace ECommerceWebsite.BusinessLogic
             mapper = _config.CreateMapper();
         }
 
-        public BaseWebServiceResponse AddCategory(AddCategoryViewModel model)
+        public BaseWebServiceResponse Add(AddCategoryViewModel model)
         {
             var categoryDto = mapper.Map<AddCategoryViewModel, CategoryDTO>(model);
             var categoryExists = _categoryService.CategoryExists(categoryDto);
@@ -62,7 +62,7 @@ namespace ECommerceWebsite.BusinessLogic
             return response;
         }
 
-        public BaseWebServiceResponse DeleteCategory(int categoryId)
+        public BaseWebServiceResponse Delete(int categoryId)
         {
             var categoryHasProducts = _categoryService.CategoryHasProducts(categoryId);
 
@@ -116,7 +116,7 @@ namespace ECommerceWebsite.BusinessLogic
             return mapper.Map<CategoryDTO, EditCategoryViewModel>(category);
         }
 
-        public BaseWebServiceResponse UpdatedCategory(EditCategoryViewModel model)
+        public BaseWebServiceResponse Update(EditCategoryViewModel model)
         {
             var categoryDto = mapper.Map<EditCategoryViewModel, CategoryDTO>(model);
             var categoryExists = _categoryService.CategoryExists(categoryDto);

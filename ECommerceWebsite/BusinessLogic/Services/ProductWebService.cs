@@ -346,9 +346,9 @@ namespace ECommerceWebsite.BusinessLogic
         }
 
         //TODO: Make sure all messages have a pattern - consts?
-        public BaseWebServiceResponse DeleteProduct(int productId)
+        public BaseWebServiceResponse Delete(int productId)
         {
-            var isProductDeleted = _productService.DeleteProduct(productId);
+            var isProductDeleted = _productService.Delete(productId);
             return new BaseWebServiceResponse
             {
                 ActionSuccessful = isProductDeleted,
@@ -441,7 +441,7 @@ namespace ECommerceWebsite.BusinessLogic
             return model;
         }
 
-        public BaseWebServiceResponse AddProduct(AddProductViewModel model)
+        public BaseWebServiceResponse Add(AddProductViewModel model)
         {
             var response = new BaseWebServiceResponse();
 
@@ -500,7 +500,7 @@ namespace ECommerceWebsite.BusinessLogic
             productDto.Images.Add(new ProductImageDTO() { Image = ProductHelper.WriteImageToBytes(model.Image4) });
             productDto.Sizes = JsonConvert.DeserializeObject<List<ProductSizeDTO>>(model.SizesJson);
 
-            if (!_productService.AddProduct(productDto))
+            if (!_productService.Add(productDto))
             {
                 response.Error.Name = "Add Product";
                 response.Error.Message = "There was a problem while attempting to add the Product, please try again. If this problem persists, please contact support.";
@@ -513,7 +513,7 @@ namespace ECommerceWebsite.BusinessLogic
             return response;
         }
 
-        public BaseWebServiceResponse UpdateProduct(EditProductViewModel model)
+        public BaseWebServiceResponse Update(EditProductViewModel model)
         {
             var response = new BaseWebServiceResponse();
 
@@ -602,7 +602,7 @@ namespace ECommerceWebsite.BusinessLogic
             }
             productDto.Sizes = JsonConvert.DeserializeObject<List<ProductSizeDTO>>(model.SizesJson);
 
-            if (!_productService.UpdateProduct(productDto))
+            if (!_productService.Update(productDto))
             {
                 response.Error.Name = "Add Product";
                 response.Error.Message = "There was a problem while attempting to add the Product, please try again. If this problem persists, please contact support.";

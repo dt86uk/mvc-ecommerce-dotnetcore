@@ -40,7 +40,7 @@ namespace ECommerceWebsite.Controllers
                 return View($"{BrandsViewFolder}/Add.cshtml", model);
             }
 
-            BaseWebServiceResponse response = _brandWebService.AddBrand(model);
+            BaseWebServiceResponse response = _brandWebService.Add(model);
             TempData[BrandActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)
@@ -70,7 +70,7 @@ namespace ECommerceWebsite.Controllers
                 return View($"{BrandsViewFolder}/Edit.cshtml", model);
             }
 
-            BaseWebServiceResponse response = _brandWebService.UpdatedBrand(model);
+            BaseWebServiceResponse response = _brandWebService.Update(model);
             TempData[BrandActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)
@@ -84,7 +84,7 @@ namespace ECommerceWebsite.Controllers
         [Route("delete")]
         public IActionResult Delete(BrandViewModel model)
         {
-            BaseWebServiceResponse response = _brandWebService.DeleteBrand(model.Id);
+            BaseWebServiceResponse response = _brandWebService.Delete(model.Id);
             TempData[BrandActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)

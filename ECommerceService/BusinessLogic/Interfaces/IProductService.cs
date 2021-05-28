@@ -8,9 +8,9 @@ namespace ECommerceService.BusinessLogic
     /// </summary>
     public interface IProductService
     {
-        bool AddProduct(ProductDTO addProductDto);
-        bool UpdateProduct(ProductDTO addProductDto);
-        bool DeleteProduct(int productId);
+        bool Add(ProductDTO addProductDto);
+        bool Update(ProductDTO addProductDto);
+        bool Delete(int productId);
         List<ProductDTO> GetProductsByCategoryName(string categoryName);
         ProductDTO GetProductByProductName(string productName);
         List<ProductDTO> GetSuggestedProducts(int userId);

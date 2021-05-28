@@ -7,10 +7,10 @@ namespace ECommerceService.BusinessLogic
     {
         CategoryDTO GetCategoryById(int categoryId);
         List<CategoryDTO> GetAllCategories();
-        bool DeleteCategory(int categoryId);
+        bool Delete(int categoryId);
         bool CategoryHasProducts(int categoryId);
         bool CategoryExists(CategoryDTO category);
-        bool UpdateCategory(CategoryDTO category);
-        bool AddCategory(CategoryDTO category);
+        bool Update(CategoryDTO category);
+        bool Add(CategoryDTO category);
     }
 }

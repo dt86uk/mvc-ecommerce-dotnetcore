@@ -42,7 +42,7 @@ namespace ECommerceWebsite.Controllers
                 return View($"{UsersViewFolder}/Add.cshtml", model);
             }
 
-            BaseWebServiceResponse response = _userWebService.AddUser(model);
+            BaseWebServiceResponse response = _userWebService.Add(model);
             TempData[UserActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)
@@ -72,7 +72,7 @@ namespace ECommerceWebsite.Controllers
                 return View($"{UsersViewFolder}/Edit.cshtml", model);
             }
 
-            BaseWebServiceResponse response = _userWebService.UpdateUser(model);
+            BaseWebServiceResponse response = _userWebService.Update(model);
             TempData[UserActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)
@@ -86,7 +86,7 @@ namespace ECommerceWebsite.Controllers
         [Route("delete")]
         public IActionResult Delete(UsersViewModel model)
         {
-            BaseWebServiceResponse response = _userWebService.DeleteUser(model.Id);
+            BaseWebServiceResponse response = _userWebService.Delete(model.Id);
             TempData[UserActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)

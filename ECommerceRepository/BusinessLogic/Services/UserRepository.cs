@@ -17,7 +17,7 @@ namespace ECommerceRepository.BusinessLogic
             _passwordEncryptionService = passwordEncryptionService;
         }
 
-        public User CreateUser(User user)
+        public User Create(User user)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
@@ -36,7 +36,7 @@ namespace ECommerceRepository.BusinessLogic
             }
         }
 
-        public bool DeleteUser(int userId)
+        public bool Delete(int userId)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
@@ -79,7 +79,7 @@ namespace ECommerceRepository.BusinessLogic
             }
         }
 
-        public bool UpdateUser(User user)
+        public bool Update(User user)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {

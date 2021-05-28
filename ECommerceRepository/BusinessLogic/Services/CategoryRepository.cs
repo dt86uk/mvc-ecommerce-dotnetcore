@@ -25,7 +25,7 @@ namespace ECommerceRepository.BusinessLogic
             }
         }
 
-        public bool DeleteCategory(int categoryId)
+        public bool Delete(int categoryId)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
@@ -66,7 +66,7 @@ namespace ECommerceRepository.BusinessLogic
             }
         }
 
-        public bool UpdateCategory(Category category)
+        public bool Update(Category category)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
@@ -87,7 +87,7 @@ namespace ECommerceRepository.BusinessLogic
             }
         }
 
-        public bool AddCategory(Category category)
+        public bool Add(Category category)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {

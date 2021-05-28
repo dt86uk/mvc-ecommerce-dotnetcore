@@ -14,7 +14,7 @@ namespace ECommerceRepository.BusinessLogic
         /// </summary>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public Transaction CreateTransaction(Transaction transaction)
+        public Transaction Create(Transaction transaction)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {

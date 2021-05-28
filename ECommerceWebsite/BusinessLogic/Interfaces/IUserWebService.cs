@@ -6,16 +6,16 @@ namespace ECommerceWebsite.BusinessLogic
 {
     public interface IUserWebService
     {
-        BaseWebServiceResponse AddUser(AddUserViewModel model);
-        BaseWebServiceResponse RegisterUser(RegisterViewModel model);
+        BaseWebServiceResponse Add(AddUserViewModel model);
+        BaseWebServiceResponse Register(RegisterViewModel model);
         AccountViewModel GetUserById(int userId);
         bool UpdateUser(AccountViewModel model);
-        BaseWebServiceResponse UpdateUser(EditUserViewModel model);
+        BaseWebServiceResponse Update(EditUserViewModel model);
         int GetRoleByUserId(int userId);
         List<NewUserViewModel> GetLatestNewUsers(int numberOfUsers);
         AdminUsersViewModel GetAllUsers();
         AddUserViewModel GetAddUserModel();
-        BaseWebServiceResponse DeleteUser(int userId);
+        BaseWebServiceResponse Delete(int userId);
         EditUserViewModel GetEditUserModel(int userId);
     }
 }

@@ -41,7 +41,7 @@ namespace ECommerceWebsite.Controllers
                 return View($"{CategoriesViewFolder}/Add.cshtml", model);
             }
 
-            BaseWebServiceResponse response = _categoryWebService.AddCategory(model);
+            BaseWebServiceResponse response = _categoryWebService.Add(model);
             TempData[CategoryActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)
@@ -71,7 +71,7 @@ namespace ECommerceWebsite.Controllers
                 return View($"{CategoriesViewFolder}/Edit.cshtml", model);
             }
 
-            BaseWebServiceResponse response = _categoryWebService.UpdatedCategory(model);
+            BaseWebServiceResponse response = _categoryWebService.Update(model);
             TempData[CategoryActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)
@@ -85,7 +85,7 @@ namespace ECommerceWebsite.Controllers
         [Route("delete")]
         public IActionResult Delete(CategoryItemViewModel model)
         {
-            BaseWebServiceResponse response = _categoryWebService.DeleteCategory(model.Id);
+            BaseWebServiceResponse response = _categoryWebService.Delete(model.Id);
             TempData[CategoryActionName] = response;
 
             if (!response.ActionSuccessful)

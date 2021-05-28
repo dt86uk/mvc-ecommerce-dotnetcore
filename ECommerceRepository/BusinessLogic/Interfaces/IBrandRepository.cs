@@ -9,9 +9,9 @@ namespace ECommerceRepository.BusinessLogic
         Brand GetBrandById(int brandId);
         bool BrandNameExists(string brandName);
         bool BrandNameExists(string brandName, int brandId);
-        bool AddBrand(Brand brand);
-        bool DeleteBrand(int brandId);
-        bool UpdateBrand(Brand brand);
+        bool Add(Brand brand);
+        bool Delete(int brandId);
+        bool Update(Brand brand);
         bool BrandHasProducts(int brandId);
     }
 }

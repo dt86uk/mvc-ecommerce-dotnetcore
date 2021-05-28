@@ -6,9 +6,9 @@ namespace ECommerceWebsite.BusinessLogic
     public interface IBrandWebService
     {
         AdminBrandsViewModel GetAllBrands();
-        BaseWebServiceResponse AddBrand(AddBrandViewModel model);
-        BaseWebServiceResponse UpdatedBrand(EditBrandViewModel model);
-        BaseWebServiceResponse DeleteBrand(int brandId);
+        BaseWebServiceResponse Add(AddBrandViewModel model);
+        BaseWebServiceResponse Update(EditBrandViewModel model);
+        BaseWebServiceResponse Delete(int brandId);
         EditBrandViewModel GetBrandById(int brandId);
     }
 }

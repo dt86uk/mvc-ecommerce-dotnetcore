@@ -5,14 +5,14 @@ namespace ECommerceService.BusinessLogic
 {
     public interface IUserService
     {
-        UserDTO CreateUser(UserDTO user);
+        UserDTO Create(UserDTO user);
         bool IsEmailInUse(string emailAddress);
         void TryRollbackUser(UserDTO newUser);
         UserDTO GetUserById(int userId);
-        bool UpdateUser(UserDTO user);
+        bool Update(UserDTO user);
         List<NewUserDTO> GetLatestNewUsers(int numberOfUsers);
         List<UserDetailsDTO> GetAllUsers();
         List<RoleDTO> GetAllUserRoles();
-        bool DeleteUser(int userId);
+        bool Delete(int userId);
     }
 }

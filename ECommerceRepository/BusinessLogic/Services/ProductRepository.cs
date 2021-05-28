@@ -179,7 +179,7 @@ namespace ECommerceRepository.BusinessLogic
             }
         }
 
-        public bool DeleteProduct(int productId)
+        public bool Delete(int productId)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
@@ -216,7 +216,7 @@ namespace ECommerceRepository.BusinessLogic
             }
         }
 
-        public bool AddProduct(Product productEntity)
+        public bool Add(Product productEntity)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
@@ -234,7 +234,7 @@ namespace ECommerceRepository.BusinessLogic
             }
         }
 
-        public bool UpdateProduct(Product product)
+        public bool Update(Product product)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {

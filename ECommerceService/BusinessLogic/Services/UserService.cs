@@ -62,7 +62,7 @@ namespace ECommerceService.BusinessLogic
         public bool UpdateUser(UserDTO user)
         {
             var userEntity = mapper.Map<UserDTO, User>(user);
-            return _userRepository.UpdateUser(userEntity);
+            return _userRepository.Update(userEntity);
         }
 
         public List<NewUserDTO> GetLatestNewUsers(int numberOfUsers)

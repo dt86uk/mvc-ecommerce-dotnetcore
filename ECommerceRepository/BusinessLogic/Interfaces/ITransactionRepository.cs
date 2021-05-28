@@ -8,7 +8,7 @@ namespace ECommerceRepository.BusinessLogic
     /// </summary>
     public interface ITransactionRepository
     {
-        Transaction CreateTransaction(Transaction transaction);
+        Transaction Create(Transaction transaction);
         List<Transaction> GetLatestTransactions();
         List<Transaction> GetDailyTakings(int numberOfDays);
     }

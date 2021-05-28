@@ -7,11 +7,11 @@ namespace ECommerceService.BusinessLogic
     {
         BrandDTO GetBrandById(int brandId);
         List<BrandDTO> GetAllBrands();
-        bool AddBrand(BrandDTO brand);
-        bool UpdateBrand(BrandDTO brand);
+        bool Add(BrandDTO brand);
+        bool Update(BrandDTO brand);
         bool BrandNameExists(string brandName);
         bool BrandNameExists(string brandName, int brandId);
-        bool DeleteBrand(int brandId);
+        bool Delete(int brandId);
         bool BrandHasProducts(int brandId);
     }
 }

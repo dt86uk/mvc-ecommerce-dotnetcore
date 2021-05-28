@@ -9,7 +9,7 @@ namespace ECommerceRepository.BusinessLogic
 {
     public class BrandRepository : IBrandRepository
     {
-        public bool AddBrand(Brand brand)
+        public bool Add(Brand brand)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
@@ -37,7 +37,7 @@ namespace ECommerceRepository.BusinessLogic
             }
         }
 
-        public bool DeleteBrand(int brandId)
+        public bool Delete(int brandId)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
@@ -72,7 +72,7 @@ namespace ECommerceRepository.BusinessLogic
             }
         }
 
-        public bool UpdateBrand(Brand brand)
+        public bool Update(Brand brand)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {

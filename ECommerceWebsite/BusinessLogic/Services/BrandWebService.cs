@@ -31,7 +31,7 @@ namespace ECommerceWebsite.BusinessLogic
             };
         }
 
-        public BaseWebServiceResponse AddBrand(AddBrandViewModel model)
+        public BaseWebServiceResponse Add(AddBrandViewModel model)
         {
             var brandDto = mapper.Map<AddBrandViewModel, BrandDTO>(model);
             var brandNameExists = _brandService.BrandNameExists(brandDto.BrandName);
@@ -53,7 +53,7 @@ namespace ECommerceWebsite.BusinessLogic
                 return response;
             }
 
-            var brandAdded = _brandService.AddBrand(brandDto);
+            var brandAdded = _brandService.Add(brandDto);
 
             if (!brandAdded)
             {
@@ -72,7 +72,7 @@ namespace ECommerceWebsite.BusinessLogic
             return response;
         }
 
-        public BaseWebServiceResponse UpdatedBrand(EditBrandViewModel model)
+        public BaseWebServiceResponse Update(EditBrandViewModel model)
         {
             var brandDto = mapper.Map<EditBrandViewModel, BrandDTO>(model);
             var brandNameExists = _brandService.BrandNameExists(brandDto.BrandName, model.Id);
@@ -94,7 +94,7 @@ namespace ECommerceWebsite.BusinessLogic
                 return response;
             }
 
-            var brandAdded = _brandService.UpdateBrand(brandDto);
+            var brandAdded = _brandService.Update(brandDto);
 
             if (!brandAdded)
             {
@@ -113,7 +113,7 @@ namespace ECommerceWebsite.BusinessLogic
             return response;
         }
 
-        public BaseWebServiceResponse DeleteBrand(int brandId)
+        public BaseWebServiceResponse Delete(int brandId)
         {
             var brandHasProducts = _brandService.BrandHasProducts(brandId);
 
@@ -134,7 +134,7 @@ namespace ECommerceWebsite.BusinessLogic
                 return response;
             }
 
-            var isBrandDeleted = _brandService.DeleteBrand(brandId);
+            var isBrandDeleted = _brandService.Delete(brandId);
 
             response.ActionSuccessful = isBrandDeleted;
             response.SuccessMessage = isBrandDeleted ?

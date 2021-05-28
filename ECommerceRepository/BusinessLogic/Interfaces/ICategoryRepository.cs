@@ -7,10 +7,10 @@ namespace ECommerceRepository.BusinessLogic
     {
         List<Category> GetAllCategories();
         Category GetCategoryById(int categoryId);
-        bool DeleteCategory(int categoryId);
+        bool Delete(int categoryId);
         bool CategoryHasProducts(int categoryId);
         bool CategoryExists(Category category);
-        bool UpdateCategory(Category category);
-        bool AddCategory(Category category);
+        bool Update(Category category);
+        bool Add(Category category);
     }
 }

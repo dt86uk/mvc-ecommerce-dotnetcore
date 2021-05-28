@@ -5,11 +5,11 @@ namespace ECommerceRepository.BusinessLogic
 {
     public interface IUserRepository
     {
-        User CreateUser(User user);
+        User Create(User user);
         bool IsEmailInUse(string emailAddress);
-        bool DeleteUser(int userId);
+        bool Delete(int userId);
         User GetUserById(int userId);
-        bool UpdateUser(User user);
+        bool Update(User user);
         List<User> GetLatestNewUsers(int numberOfUsers);
         List<User> GetAllUsers();
     }
