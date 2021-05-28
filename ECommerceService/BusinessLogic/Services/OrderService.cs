@@ -45,7 +45,7 @@ namespace ECommerceService.BusinessLogic
             }
 
             dbOrder.PaymentReceived = true;
-            var transaction = _transactionService.CreateTransaction(dbOrder, paymentDetails);
+            var transaction = _transactionService.Create(dbOrder, paymentDetails);
             return transaction.Order;
         }
     }

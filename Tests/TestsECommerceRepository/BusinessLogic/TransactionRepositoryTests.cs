@@ -81,7 +81,7 @@ namespace TestsECommerceRepository.BusinessLogic
             };
 
             //Act
-            var result = transactionRepository.CreateTransaction(transaction);
+            var result = transactionRepository.Create(transaction);
 
             //Assert
             Assert.IsNotNull(result);

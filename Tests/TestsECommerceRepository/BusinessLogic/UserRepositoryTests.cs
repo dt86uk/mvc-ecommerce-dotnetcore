@@ -40,7 +40,7 @@ namespace TestsECommerceRepository.BusinessLogic
             };
 
             //Act
-            var result = userRepository.CreateUser(user);
+            var result = userRepository.Create(user);
 
             //Assert
             Assert.IsNull(result);
@@ -68,7 +68,7 @@ namespace TestsECommerceRepository.BusinessLogic
                 .Returns(encryptedPassword);
 
             //Act
-            var result = userRepository.CreateUser(user);
+            var result = userRepository.Create(user);
 
             //Assert
             Assert.IsNotNull(result);

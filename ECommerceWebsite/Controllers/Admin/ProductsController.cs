@@ -43,7 +43,7 @@ namespace ECommerceWebsite.Controllers
                 return  View($"{ProductsViewFolder}/Add.cshtml", model);
             }
 
-            BaseWebServiceResponse response = _productWebService.AddProduct(model);
+            BaseWebServiceResponse response = _productWebService.Add(model);
             TempData[ProductActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)
@@ -73,7 +73,7 @@ namespace ECommerceWebsite.Controllers
                 return View($"{ProductsViewFolder}/Edit/{model.Id}", model);
             }
 
-            BaseWebServiceResponse response = _productWebService.UpdateProduct(model);
+            BaseWebServiceResponse response = _productWebService.Update(model);
             TempData[ProductActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)
@@ -88,7 +88,7 @@ namespace ECommerceWebsite.Controllers
         [Route("delete")]
         public IActionResult Delete(ProductsViewModel model)
         {
-            BaseWebServiceResponse response = _productWebService.DeleteProduct(model.Id);
+            BaseWebServiceResponse response = _productWebService.Delete(model.Id);
             TempData[ProductActionName] = JsonConvert.SerializeObject(response);
 
             if (!response.ActionSuccessful)

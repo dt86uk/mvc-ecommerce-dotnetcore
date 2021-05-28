@@ -82,11 +82,11 @@ namespace TestsECommerceService.BusinessLogic
             };
 
             _mockTransactionRepository
-                .Setup(x => x.CreateTransaction(It.IsAny<Transaction>()))
+                .Setup(x => x.Create(It.IsAny<Transaction>()))
                 .Returns(transaction);
 
             //Act
-            var result = _transactionService.CreateTransaction(order, paymentDetail);
+            var result = _transactionService.Create(order, paymentDetail);
 
             //Assert
             Assert.IsNotNull(result);

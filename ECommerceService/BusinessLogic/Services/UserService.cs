@@ -22,10 +22,10 @@ namespace ECommerceService.BusinessLogic
             mapper = _config.CreateMapper();
         }
 
-        public UserDTO CreateUser(UserDTO user)
+        public UserDTO Create(UserDTO user)
         {
             var userEntity = mapper.Map<UserDTO, User>(user);
-            var createdUser = _userRepository.CreateUser(userEntity);
+            var createdUser = _userRepository.Create(userEntity);
 
             return mapper.Map<User, UserDTO>(createdUser);
         }
@@ -46,7 +46,7 @@ namespace ECommerceService.BusinessLogic
                 return;
             }
 
-            _userRepository.DeleteUser(newUser.Id);
+            _userRepository.Delete(newUser.Id);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace ECommerceService.BusinessLogic
             return mapper.Map<User, UserDTO>(_userRepository.GetUserById(userId));
         }
 
-        public bool UpdateUser(UserDTO user)
+        public bool Update(UserDTO user)
         {
             var userEntity = mapper.Map<UserDTO, User>(user);
             return _userRepository.Update(userEntity);
@@ -84,9 +84,9 @@ namespace ECommerceService.BusinessLogic
             return mapper.Map<List<Role>, List<RoleDTO>>(_roleRepository.GetAllRoles());
         }
 
-        public bool DeleteUser(int userId)
+        public bool Delete(int userId)
         {
-            return _userRepository.DeleteUser(userId);
+            return _userRepository.Delete(userId);
         }
     }
 }

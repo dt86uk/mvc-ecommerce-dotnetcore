@@ -36,9 +36,9 @@ namespace ECommerceService.BusinessLogic
             return _categoryRepository.CategoryHasProducts(categoryId);
         }
 
-        public bool DeleteCategory(int categoryId)
+        public bool Delete(int categoryId)
         {
-            return _categoryRepository.DeleteCategory(categoryId);
+            return _categoryRepository.Delete(categoryId);
         }
 
         public bool CategoryExists(CategoryDTO category)
@@ -47,16 +47,16 @@ namespace ECommerceService.BusinessLogic
             return _categoryRepository.CategoryExists(categoryEntity);
         }
 
-        public bool UpdateCategory(CategoryDTO category)
+        public bool Update(CategoryDTO category)
         {
             var categoryEntity = mapper.Map<CategoryDTO, Category>(category);
-            return _categoryRepository.UpdateCategory(categoryEntity);
+            return _categoryRepository.Update(categoryEntity);
         }
 
-        public bool AddCategory(CategoryDTO category)
+        public bool Add(CategoryDTO category)
         {
             var categoryEntity = mapper.Map<CategoryDTO, Category>(category);
-            return _categoryRepository.AddCategory(categoryEntity);
+            return _categoryRepository.Add(categoryEntity);
         }
     }
 }

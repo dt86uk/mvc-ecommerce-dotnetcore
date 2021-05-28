@@ -109,9 +109,9 @@ namespace ECommerceService.BusinessLogic
             return mapper.Map<List<Product>, List<ProductDTO>>(listProductsEntity);
         }
 
-        public bool DeleteProduct(int productId)
+        public bool Delete(int productId)
         {
-            return _productRepository.DeleteProduct(productId);
+            return _productRepository.Delete(productId);
         }
 
         public AddProductContentsDTO GetAddProductContents()
@@ -135,17 +135,17 @@ namespace ECommerceService.BusinessLogic
             return _productRepository.ProductNameExists(productName, productId);
         }
 
-        public bool AddProduct(ProductDTO productDto)
+        public bool Add(ProductDTO productDto)
         {
             var productEntity = mapper.Map<ProductDTO, Product>(productDto);
             productEntity.IsActive = false;
-            return _productRepository.AddProduct(productEntity);
+            return _productRepository.Add(productEntity);
         }
 
-        public bool UpdateProduct(ProductDTO productDto)
+        public bool Update(ProductDTO productDto)
         {
             var productEntity = mapper.Map<ProductDTO, Product>(productDto);
-            return _productRepository.UpdateProduct(productEntity);
+            return _productRepository.Update(productEntity);
         }
     }
 }

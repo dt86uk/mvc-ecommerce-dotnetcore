@@ -51,11 +51,11 @@ namespace TestsECommerceService.BusinessLogic
             };
 
             _mockUserRepository
-                .Setup(x => x.CreateUser(It.IsAny<User>()))
+                .Setup(x => x.Create(It.IsAny<User>()))
                 .Returns(userEntity);
 
             //Act
-            var result = _userService.CreateUser(userDto);
+            var result = _userService.Create(userDto);
 
             //Assert
             Assert.IsNotNull(result);
@@ -64,7 +64,7 @@ namespace TestsECommerceService.BusinessLogic
             Assert.AreEqual(result.LastName, userEntity.LastName);
             Assert.AreEqual(result.IsSubscribed, userEntity.IsSubscribed);
             Assert.AreEqual(result.RoleId, userEntity.RoleId);
-            _mockUserRepository.Verify(x => x.CreateUser(It.IsAny<User>()));
+            _mockUserRepository.Verify(x => x.Create(It.IsAny<User>()));
         }
 
         [TestMethod]
@@ -128,18 +128,18 @@ namespace TestsECommerceService.BusinessLogic
             };
             
             _mockUserRepository
-                .Setup(x => x.CreateUser(It.IsAny<User>()))
+                .Setup(x => x.Create(It.IsAny<User>()))
                 .Returns(userEntity);
             _mockUserRepository
-                .Setup(x => x.DeleteUser(It.IsAny<int>()));
+                .Setup(x => x.Delete(It.IsAny<int>()));
 
-            var newUser = _userService.CreateUser(userToDelete);
+            var newUser = _userService.Create(userToDelete);
 
             //Act
             _userService.TryRollbackUser(userToDelete);
 
             //Assert
-            _mockUserRepository.Verify(x => x.DeleteUser(It.IsAny<int>()));
+            _mockUserRepository.Verify(x => x.Delete(It.IsAny<int>()));
         }
 
         [TestMethod]
@@ -149,7 +149,7 @@ namespace TestsECommerceService.BusinessLogic
             _userService.TryRollbackUser(null);
 
             //Assert
-            _mockUserRepository.Verify(x => x.DeleteUser(It.IsAny<int>()), Times.Never);
+            _mockUserRepository.Verify(x => x.Delete(It.IsAny<int>()), Times.Never);
         }
     }
 }

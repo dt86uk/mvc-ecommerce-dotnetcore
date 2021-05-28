@@ -43,7 +43,7 @@ namespace ECommerceWebsite.BusinessLogic
                 return response;
             }
 
-            var categoryAdded = _categoryService.AddCategory(categoryDto);
+            var categoryAdded = _categoryService.Add(categoryDto);
 
             if (!categoryAdded)
             {
@@ -83,7 +83,7 @@ namespace ECommerceWebsite.BusinessLogic
                 return response;
             }
 
-            var isCategoryDeleted = _categoryService.DeleteCategory(categoryId);
+            var isCategoryDeleted = _categoryService.Delete(categoryId);
 
             response.ActionSuccessful = isCategoryDeleted;
             response.SuccessMessage = isCategoryDeleted ?
@@ -138,7 +138,7 @@ namespace ECommerceWebsite.BusinessLogic
                 return response;
             }
             
-            var categoryUpdated = _categoryService.UpdateCategory(categoryDto);
+            var categoryUpdated = _categoryService.Update(categoryDto);
 
             if (!categoryUpdated)
             {

@@ -6,6 +6,6 @@ namespace ECommerceService.BusinessLogic
     public interface ITransactionService
     {
         bool ProcessPayment(PaymentDetail paymentDetails);
-        TransactionDTO CreateTransaction(Order order, PaymentDetail paymentDetail);
+        TransactionDTO Create(Order order, PaymentDetail paymentDetail);
     }
 }

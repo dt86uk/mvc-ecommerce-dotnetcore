@@ -19,7 +19,7 @@ namespace ECommerceService.BusinessLogic
             mapper = _config.CreateMapper();
         }
 
-        public TransactionDTO CreateTransaction(Order order, PaymentDetail paymentDetail)
+        public TransactionDTO Create(Order order, PaymentDetail paymentDetail)
         {
             var address = mapper.Map<DeliveryInformation, Address>(order.ShippingInformation);
             var transaction = new Transaction()
@@ -29,7 +29,7 @@ namespace ECommerceService.BusinessLogic
                 AddressDetails = address
             };
 
-            var newTransaction = _transactionRepository.CreateTransaction(transaction);
+            var newTransaction = _transactionRepository.Create(transaction);
 
             return mapper.Map<Transaction, TransactionDTO>(newTransaction);
         }
