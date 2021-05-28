@@ -40,5 +40,23 @@ namespace ECommerceService.BusinessLogic
         {
             return _categoryRepository.DeleteCategory(categoryId);
         }
+
+        public bool CategoryExists(CategoryDTO category)
+        {
+            var categoryEntity = mapper.Map<CategoryDTO, Category>(category);
+            return _categoryRepository.CategoryExists(categoryEntity);
+        }
+
+        public bool UpdateCategory(CategoryDTO category)
+        {
+            var categoryEntity = mapper.Map<CategoryDTO, Category>(category);
+            return _categoryRepository.UpdateCategory(categoryEntity);
+        }
+
+        public bool AddCategory(CategoryDTO category)
+        {
+            var categoryEntity = mapper.Map<CategoryDTO, Category>(category);
+            return _categoryRepository.AddCategory(categoryEntity);
+        }
     }
 }

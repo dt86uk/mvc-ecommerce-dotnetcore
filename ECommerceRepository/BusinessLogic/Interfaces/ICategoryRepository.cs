@@ -9,5 +9,8 @@ namespace ECommerceRepository.BusinessLogic
         Category GetCategoryById(int categoryId);
         bool DeleteCategory(int categoryId);
         bool CategoryHasProducts(int categoryId);
+        bool CategoryExists(Category category);
+        bool UpdateCategory(Category category);
+        bool AddCategory(Category category);
     }
 }

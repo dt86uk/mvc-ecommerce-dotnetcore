@@ -52,9 +52,7 @@ namespace ECommerceWebsite
 
             //validation
             services.AddTransient<IUserValidationService, UserValidationService>();
-            services.AddTransient<IBrandValidationService, BrandValidationService>();
             services.AddTransient<IFileValidationWebService, FileValidationWebService>();
-            services.AddTransient<ICategoryValidationService, CategoryValidationService>();
 
             //service
             services.AddTransient<IMenuService, MenuService>();

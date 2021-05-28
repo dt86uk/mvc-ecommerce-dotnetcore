@@ -10,14 +10,13 @@ namespace ECommerceWebsite.BusinessLogic
     public class BrandWebService : IBrandWebService
     {
         private readonly IBrandService _brandService;
-        private readonly IBrandValidationService _brandValidationService;
+
         private readonly IMapper mapper;
         private MapperConfiguration _config;
 
-        public BrandWebService(IBrandService brandService, IBrandValidationService brandValidationService)
+        public BrandWebService(IBrandService brandService)
         {
             _brandService = brandService;
-            _brandValidationService = brandValidationService;
             _config = new Mapping.AutoMapperWeb().Configuration;
             mapper = _config.CreateMapper();
         }
@@ -35,7 +34,7 @@ namespace ECommerceWebsite.BusinessLogic
         public BaseWebServiceResponse AddBrand(AddBrandViewModel model)
         {
             var brandDto = mapper.Map<AddBrandViewModel, BrandDTO>(model);
-            var brandNameExists = _brandValidationService.BrandNameExists(brandDto.BrandName);
+            var brandNameExists = _brandService.BrandNameExists(brandDto.BrandName);
 
             var response = new BaseWebServiceResponse
             {
@@ -76,7 +75,7 @@ namespace ECommerceWebsite.BusinessLogic
         public BaseWebServiceResponse UpdatedBrand(EditBrandViewModel model)
         {
             var brandDto = mapper.Map<EditBrandViewModel, BrandDTO>(model);
-            var brandNameExists = _brandValidationService.BrandNameExists(brandDto.BrandName, model.Id);
+            var brandNameExists = _brandService.BrandNameExists(brandDto.BrandName, model.Id);
 
             var response = new BaseWebServiceResponse
             {
@@ -116,7 +115,7 @@ namespace ECommerceWebsite.BusinessLogic
 
         public BaseWebServiceResponse DeleteBrand(int brandId)
         {
-            var brandHasProducts = _brandValidationService.BrandHasProducts(brandId);
+            var brandHasProducts = _brandService.BrandHasProducts(brandId);
 
             var response = new BaseWebServiceResponse()
             {

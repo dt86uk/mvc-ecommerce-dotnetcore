@@ -1,13 +1,13 @@
 ﻿@using ECommerceWebsite.Models.Admin
-@model EditCategoryViewModel
+@model AddCategoryViewModel
 @{
-    ViewData["Title"] = "Admin Edit Category";
+    ViewData["Title"] = "Admin Add Category";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="titleHeader">Edit Category</div>
+<div class="titleHeader">Add Category</div>
 
-@using (Html.BeginForm("UpdateCategory", "categories", Model, FormMethod.Post, false, new { enctype = "multipart/form-data", @class = "form" }))
+@using (Html.BeginForm("AddCategory", "categories", Model, FormMethod.Post, false, new { enctype = "multipart/form-data", @class = "form" }))
 {
     @Html.ValidationSummary(false, string.Empty, new { @class = "required" })
 
@@ -27,7 +27,7 @@
             &nbsp;&nbsp;
         </div>
         <div class="floatLeft">
-            <input id="btnSubmit" value="Update Category" type="submit" class="btnSubmit redOrangeGrad" />
+            <input id="btnSubmit" value="Add Category" type="submit" class="btnSubmit redOrangeGrad" />
         </div>
         <div class="clearBoth"></div>
     </div>

@@ -13,11 +13,11 @@ namespace ECommerceRepository.BusinessLogic
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
-                var brandentity = context.Brands.Add(brand);
+                var brandEntity = context.Brands.Add(brand);
                 context.Entry(brand).State = EntityState.Added;
                 context.SaveChanges();
                 
-                return context.Brands.Any(p => p.Id == brandentity.Entity.Id);
+                return context.Brands.Any(p => p.Id == brandEntity.Entity.Id);
             }
         }
 
@@ -76,7 +76,7 @@ namespace ECommerceRepository.BusinessLogic
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
-                var brandEntity = context.Brands.FirstOrDefault(p => p.Id == brand.Id);
+                var brandEntity = context.Brands.SingleOrDefault(p => p.Id == brand.Id);
 
                 if (brandEntity != null)
                 {

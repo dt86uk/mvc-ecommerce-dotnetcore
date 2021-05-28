@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using ECommerceDatabase.Database.Entities;
 using ECommerceDatabase.Database.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceRepository.BusinessLogic
 {
@@ -31,7 +33,7 @@ namespace ECommerceRepository.BusinessLogic
 
                 if (categoryEntity != null)
                 {
-                    context.Entry(categoryEntity).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                    context.Entry(categoryEntity).State = EntityState.Deleted;
                     context.Categories.Remove(categoryEntity);
                     context.SaveChanges();
 
@@ -47,6 +49,53 @@ namespace ECommerceRepository.BusinessLogic
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 return context.Products.Any(p => p.CategoryId == categoryId);
+            }
+        }
+
+        public bool CategoryExists(Category category)
+        {
+            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
+            {
+                if (category.Id != 0)
+                {
+                    return context.Categories.Any(p => string.Equals(p.CategoryName, category.CategoryName, StringComparison.InvariantCultureIgnoreCase) && 
+                            p.Id != category.Id);
+                }
+
+                return context.Categories.Any(p => string.Equals(p.CategoryName, category.CategoryName, StringComparison.InvariantCultureIgnoreCase));
+            }
+        }
+
+        public bool UpdateCategory(Category category)
+        {
+            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
+            {
+                var categoryEntity = context.Categories.SingleOrDefault(p => p.Id == category.Id);
+
+                if (categoryEntity != null)
+                {
+                    categoryEntity.CategoryName = category.CategoryName;
+
+                    context.Entry(categoryEntity).State = EntityState.Modified;
+                    context.Categories.Update(categoryEntity);
+                    context.SaveChanges();
+
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        public bool AddCategory(Category category)
+        {
+            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
+            {
+                var categoryEntity = context.Categories.Add(category);
+                context.Entry(category).State = EntityState.Added;
+                context.SaveChanges();
+
+                return context.Categories.Any(p => p.Id == categoryEntity.Entity.Id);
             }
         }
     }

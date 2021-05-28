@@ -29,14 +29,28 @@ namespace ECommerceWebsite.Controllers
         [Route("add")]
         public IActionResult Add()
         {
-            return View();
+            return View($"{CategoriesViewFolder}/Add.cshtml", new AddCategoryViewModel());
         }
 
         [HttpPost]
         [Route("add")]
-        public IActionResult AddCategory()
+        public IActionResult AddCategory(AddCategoryViewModel model)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return View($"{CategoriesViewFolder}/Add.cshtml", model);
+            }
+
+            BaseWebServiceResponse response = _categoryWebService.AddCategory(model);
+            TempData[CategoryActionName] = JsonConvert.SerializeObject(response);
+
+            if (!response.ActionSuccessful)
+            {
+                model.ActionResponse = response;
+                return View($"{CategoriesViewFolder}/Add.cshtml", model);
+            }
+
+            return RedirectToAction("Index", "Categories");
         }
 
         [HttpGet]

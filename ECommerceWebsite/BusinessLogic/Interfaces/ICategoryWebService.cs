@@ -9,6 +9,7 @@ namespace ECommerceWebsite.BusinessLogic
         AdminCategoriesViewModel GetAllCategories();
         BaseWebServiceResponse DeleteCategory(int categoryId);
         EditCategoryViewModel GetCategoryById(int categoryId);
-        BaseWebServiceResponse UpdatedCategory(EditCategoryViewModel categoryId);
+        BaseWebServiceResponse UpdatedCategory(EditCategoryViewModel model);
+        BaseWebServiceResponse AddCategory(AddCategoryViewModel model);
     }
 }
