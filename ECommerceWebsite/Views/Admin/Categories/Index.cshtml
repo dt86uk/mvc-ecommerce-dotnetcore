@@ -2,7 +2,7 @@
 @using Newtonsoft.Json
 @model AdminCategoriesViewModel
 @{
-    ViewData["Title"] = "Admin Products";
+    ViewData["Title"] = "Admin Categories";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     Model.ActionResponse = TempData["CategoryAction"] == null ? null : JsonConvert.DeserializeObject<BaseWebServiceResponse>(TempData["CategoryAction"].ToString());
 }
@@ -43,7 +43,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var category in Model.AllCategories)
+        @foreach (var category in Model.Categories)
         {
             <tr>
                 <td class="textAlignCenter">

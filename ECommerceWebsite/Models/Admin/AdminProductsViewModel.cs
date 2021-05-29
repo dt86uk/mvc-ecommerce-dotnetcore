@@ -4,6 +4,6 @@ namespace ECommerceWebsite.Models.Admin
 {
     public class AdminProductsViewModel : AdminBaseViewModel
     {
-        public List<ProductsViewModel> AllProducts { get; set; }
+        public List<ProductsViewModel> Products { get; set; }
     }
 }

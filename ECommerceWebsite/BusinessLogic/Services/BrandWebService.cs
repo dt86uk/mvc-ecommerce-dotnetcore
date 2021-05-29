@@ -27,7 +27,7 @@ namespace ECommerceWebsite.BusinessLogic
 
             return new AdminBrandsViewModel()
             {
-                AllBrands = listBrands
+                Brands = listBrands
             };
         }
 
