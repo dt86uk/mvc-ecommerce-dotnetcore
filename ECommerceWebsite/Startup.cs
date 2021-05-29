@@ -49,6 +49,7 @@ namespace ECommerceWebsite
             services.AddTransient<IUserWebService, UserWebService>();
             services.AddTransient<IBrandWebService, BrandWebService>();
             services.AddTransient<ICategoryWebService, CategoryWebService>();
+            services.AddTransient<IRoleWebService, RoleWebService>();
 
             //validation
             services.AddTransient<IUserValidationService, UserValidationService>();

@@ -34,7 +34,7 @@ namespace ECommerceWebsite.Models.Admin
 
         [Required(ErrorMessage = "Product Name required")]
         [Display(Name = "Product Name")]
-        [MinLength(3)]
+        [MinLength(3, ErrorMessage = "Product Name must be longer than 3 characters")]
         public string ProductName { get; set; }
 
         [Display(Name = "Category")]
@@ -45,7 +45,7 @@ namespace ECommerceWebsite.Models.Admin
 
         [Required(ErrorMessage = "Description required")]
         [Display(Name = "Description")]
-        [MinLength(3)]
+        [MinLength(3, ErrorMessage = "Description must be longer than 3 characters")]
         public string Description { get; set; }
 
         [Display(Name = "Gender")]
@@ -93,7 +93,6 @@ namespace ECommerceWebsite.Models.Admin
 
         [Required(ErrorMessage = "Price required")]
         [Display(Name = "Price Type")]
-        [MinLength(1)]
         public string Price { get; set; }
 
         [Display(Name = "Is Product Live?")]

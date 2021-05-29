@@ -6,7 +6,7 @@ namespace ECommerceWebsite.Models.Admin
     {
         [Required(ErrorMessage = "Brand Name required")]
         [Display(Name = "Brand Name")]
-        [MinLength(2)]
+        [MinLength(3, ErrorMessage = "Brand Name must be longer than 3 characters")]
         public string BrandName { get; set; }
     }
 }

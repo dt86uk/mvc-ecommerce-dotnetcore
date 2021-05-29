@@ -2,6 +2,7 @@
 using AutoMapper;
 using ECommerceService.BusinessLogic;
 using ECommerceService.Models;
+using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Admin;
 
 namespace ECommerceWebsite.BusinessLogic
@@ -21,6 +22,21 @@ namespace ECommerceWebsite.BusinessLogic
             mapper = _config.CreateMapper();
         }
 
+        public BaseWebServiceResponse Add(AddRoleViewModel model)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public BaseWebServiceResponse Update(EditRoleViewModel model)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public BaseWebServiceResponse Delete(int roleId)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public AdminRolesViewModel GetAllRoles()
         {
             var roles = mapper.Map<List<RoleDTO>, List<RoleViewModel>>(_roleService.GetAllRoles());
@@ -29,6 +45,11 @@ namespace ECommerceWebsite.BusinessLogic
             {
                 Roles = roles
             };
+        }
+
+        public EditRoleViewModel GetRoleById(int roleId)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

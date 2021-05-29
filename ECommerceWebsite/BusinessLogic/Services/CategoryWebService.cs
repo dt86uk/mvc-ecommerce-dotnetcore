@@ -106,7 +106,7 @@ namespace ECommerceWebsite.BusinessLogic
 
             return new AdminCategoriesViewModel()
             {
-                AllCategories = listCategories
+                Categories = listCategories
             };
         }
 

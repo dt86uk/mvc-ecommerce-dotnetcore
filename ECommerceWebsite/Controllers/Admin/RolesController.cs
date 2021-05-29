@@ -1,6 +1,8 @@
 ﻿using ECommerceWebsite.BusinessLogic;
+using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Admin;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ECommerceWebsite.Controllers
 {
@@ -12,6 +14,11 @@ namespace ECommerceWebsite.Controllers
 
         private readonly IRoleWebService _roleWebService;
 
+        public RolesController(IRoleWebService roleWebService)
+        {
+            _roleWebService = roleWebService;
+        }
+
         public IActionResult Index()
         {
             AdminRolesViewModel model = _roleWebService.GetAllRoles();
@@ -21,7 +28,28 @@ namespace ECommerceWebsite.Controllers
         [Route("add")]
         public IActionResult Add()
         {
-            return View();
+            return View($"{RolesViewFolder}/Add.cshtml", new AddRoleViewModel());
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public IActionResult AddRole(AddRoleViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View($"{RolesViewFolder}/Add.cshtml", model);
+            }
+
+            BaseWebServiceResponse response = _roleWebService.Add(model);
+            TempData[RolesActionName] = JsonConvert.SerializeObject(response);
+
+            if (!response.ActionSuccessful)
+            {
+                model.ActionResponse = response;
+                return View($"{RolesViewFolder}/Add.cshtml", model);
+            }
+
+            return RedirectToAction("Index", "Roles");
         }
 
         [Route("edit")]

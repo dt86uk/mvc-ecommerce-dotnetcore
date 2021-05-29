@@ -341,7 +341,7 @@ namespace ECommerceWebsite.BusinessLogic
 
             return new AdminProductsViewModel() 
             { 
-                AllProducts = listProdctsViewModel 
+                Products = listProdctsViewModel 
             };
         }
 

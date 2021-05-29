@@ -212,7 +212,7 @@ namespace ECommerceWebsite.BusinessLogic
 
             return new AdminUsersViewModel()
             {
-                AllUsers = listUserDetails
+                Users = listUserDetails
             };
         }
 

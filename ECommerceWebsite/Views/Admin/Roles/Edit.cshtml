@@ -1,0 +1,34 @@
+﻿@using ECommerceWebsite.Models.Admin
+@model EditRoleViewModel
+@{
+    ViewData["Title"] = "Admin Edit Role";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="titleHeader">Edit Role</div>
+
+@using (Html.BeginForm("UpdateRole", "roles", Model, FormMethod.Post, false, new { enctype = "multipart/form-data", @class = "form" }))
+{
+    @Html.ValidationSummary(false, string.Empty, new { @class = "required" })
+
+    <div>
+        <div class="floatLeft width48perc">
+            @Html.HiddenFor(p => p.Id)
+            @Html.LabelFor(p => p.RoleName)
+        </div>
+        <div class="floatLeft">
+            @Html.TextBoxFor(p => p.RoleName, new { @class = "width200px" })
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div class="paddingTopBot10">
+        <div class="floatLeft width30perc">
+            &nbsp;&nbsp;
+        </div>
+        <div class="floatLeft">
+            <input id="btnSubmit" value="Update Role" type="submit" class="btnSubmit redOrangeGrad" />
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+}

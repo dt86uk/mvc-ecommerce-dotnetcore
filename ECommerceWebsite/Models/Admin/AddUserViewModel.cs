@@ -8,7 +8,7 @@ namespace ECommerceWebsite.Models.Admin
     {
         [Required(ErrorMessage = "Email Address required")]
         [Display(Name = "Email Address")]
-        [MinLength(3)]
+        [MinLength(3, ErrorMessage = "Email Address must be longer than 3 characters")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "First Name required")]
