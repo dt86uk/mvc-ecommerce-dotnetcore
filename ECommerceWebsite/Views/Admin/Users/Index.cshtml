@@ -46,7 +46,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in Model.AllUsers)
+        @foreach (var user in Model.Users)
         {
             <tr>
                 <td>
@@ -62,7 +62,7 @@
                         <input type="image" alt="Edit" src="~/img/icon-pack/png/074-pen.png" width="25" />
                     }
 
-                    @if (Model.AllUsers.Count > 1)
+                    @if (Model.Users.Count > 1)
                     {
                         @using (Html.BeginForm("Delete", "users", user, FormMethod.Post, false, new { @class = "displayInlineBlock" }))
                         {

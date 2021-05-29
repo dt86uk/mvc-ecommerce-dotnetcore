@@ -68,6 +68,7 @@ namespace ECommerceWebsite
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IProductTypeService, ProductTypeService>();
             services.AddTransient<IGenderService, GenderService>();
+            services.AddTransient<IRoleService, RoleService>();
 
             //repo
             services.AddTransient<IMenuRepository, MenuRepository>();
