@@ -7,8 +7,7 @@ namespace ECommerceRepository.BusinessLogic
     {
         List<Brand> GetAllBrands();
         Brand GetBrandById(int brandId);
-        bool BrandNameExists(string brandName);
-        bool BrandNameExists(string brandName, int brandId);
+        bool BrandNameExists(Brand brand);
         bool Add(Brand brand);
         bool Delete(int brandId);
         bool Update(Brand brand);

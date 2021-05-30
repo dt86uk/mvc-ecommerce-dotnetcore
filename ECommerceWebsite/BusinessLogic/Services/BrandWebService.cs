@@ -34,7 +34,7 @@ namespace ECommerceWebsite.BusinessLogic
         public BaseWebServiceResponse Add(AddBrandViewModel model)
         {
             var brandDto = mapper.Map<AddBrandViewModel, BrandDTO>(model);
-            var brandNameExists = _brandService.BrandNameExists(brandDto.BrandName);
+            var brandNameExists = _brandService.BrandNameExists(brandDto);
 
             var response = new BaseWebServiceResponse
             {
@@ -58,7 +58,7 @@ namespace ECommerceWebsite.BusinessLogic
             if (!brandAdded)
             {
                 response.ActionSuccessful = false;
-                response.Error = brandNameExists ?
+                response.Error = brandAdded ?
                     null :
                     new ErrorServiceViewModel()
                     {
@@ -75,7 +75,7 @@ namespace ECommerceWebsite.BusinessLogic
         public BaseWebServiceResponse Update(EditBrandViewModel model)
         {
             var brandDto = mapper.Map<EditBrandViewModel, BrandDTO>(model);
-            var brandNameExists = _brandService.BrandNameExists(brandDto.BrandName, model.Id);
+            var brandNameExists = _brandService.BrandNameExists(brandDto);
 
             var response = new BaseWebServiceResponse
             {

@@ -21,19 +21,16 @@ namespace ECommerceRepository.BusinessLogic
             }
         }
 
-        public bool BrandNameExists(string brandName)
+        public bool BrandNameExists(Brand brand)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
-                return context.Brands.Any(p => string.Equals(brandName, p.BrandName, StringComparison.InvariantCultureIgnoreCase));
-            }
-        }
+                if (brand.Id != 0)
+                {
+                    return context.Brands.Any(p => string.Equals(brand.BrandName, p.BrandName, StringComparison.InvariantCultureIgnoreCase) && p.Id != brand.Id);
+                }
 
-        public bool BrandNameExists(string brandName, int brandId)
-        {
-            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
-            {
-                return context.Brands.Any(p => string.Equals(brandName, p.BrandName, StringComparison.InvariantCultureIgnoreCase) && p.Id != brandId);
+                return context.Brands.Any(p => string.Equals(brand.BrandName, p.BrandName, StringComparison.InvariantCultureIgnoreCase));
             }
         }
 

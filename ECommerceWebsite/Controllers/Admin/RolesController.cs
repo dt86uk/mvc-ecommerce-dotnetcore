@@ -52,16 +52,47 @@ namespace ECommerceWebsite.Controllers
             return RedirectToAction("Index", "Roles");
         }
 
-        [Route("edit")]
-        public IActionResult Edit()
+        [HttpGet]
+        [Route("edit/{roleId:int}")]
+        public IActionResult Edit(int roleId)
         {
-            return View();
+            EditRoleViewModel model = _roleWebService.GetRoleById(roleId);
+            return View($"{RolesViewFolder}/Edit.cshtml", model);
+        }
+
+        [HttpPost]
+        [Route("edit")]
+        public IActionResult Update(EditRoleViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model = _roleWebService.GetRoleById(model.Id);
+                return View($"{RolesViewFolder}/Edit.cshtml", model);
+            }
+
+            BaseWebServiceResponse response = _roleWebService.Update(model);
+            TempData[RolesActionName] = JsonConvert.SerializeObject(response);
+
+            if (!response.ActionSuccessful)
+            {
+                return View($"{RolesViewFolder}/Index.cshtml", model);
+            }
+
+            return RedirectToAction("Index", "Brands");
         }
 
         [Route("delete")]
-        public IActionResult Delete()
+        public IActionResult Delete(RoleViewModel model)
         {
-            return View();
+            BaseWebServiceResponse response = _roleWebService.Delete(model.Id);
+            TempData[RolesViewFolder] = JsonConvert.SerializeObject(response);
+
+            if (!response.ActionSuccessful)
+            {
+                return View($"{RolesViewFolder}/Index.cshtml", model);
+            }
+
+            return RedirectToAction("Index", "Roles");
         }
     }
 }
