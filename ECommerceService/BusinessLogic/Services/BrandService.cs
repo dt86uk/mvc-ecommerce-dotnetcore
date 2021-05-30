@@ -36,14 +36,10 @@ namespace ECommerceService.BusinessLogic
             return mapper.Map<Brand, BrandDTO>(_brandRepository.GetBrandById(brandId));
         }
 
-        public bool BrandNameExists(string brandName)
+        public bool BrandNameExists(BrandDTO brandDto)
         {
-            return _brandRepository.BrandNameExists(brandName);
-        }
-
-        public bool BrandNameExists(string brandName, int brandId)
-        {
-            return _brandRepository.BrandNameExists(brandName, brandId);
+            var brand = mapper.Map<BrandDTO, Brand>(brandDto);
+            return _brandRepository.BrandNameExists(brand);
         }
 
         public bool Delete(int brandId)
