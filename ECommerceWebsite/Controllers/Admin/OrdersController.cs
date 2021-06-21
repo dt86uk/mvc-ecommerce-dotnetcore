@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ECommerceWebsite.BusinessLogic;
+using ECommerceWebsite.Models.Admin;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceWebsite.Controllers
 {
@@ -6,10 +8,19 @@ namespace ECommerceWebsite.Controllers
     public class OrdersController : Controller
     {
         private const string OrdersViewFolder = "~/Views/admin/orders";
+        private const string OrdersActionName = "OrdersAction";
+
+        private readonly IOrdersManagementWebService _ordersManagementWebService;
+
+        public OrdersController(IOrdersManagementWebService ordersManagementWebService)
+        {
+            _ordersManagementWebService = ordersManagementWebService;
+        }
 
         public IActionResult Index()
         {
-            return View($"{OrdersViewFolder}/Index.cshtml");
+            AdminOrdersViewModel model = _ordersManagementWebService.GetOrders();
+            return View($"{OrdersViewFolder}/Index.cshtml", model);
         }
 
         [Route("add")]

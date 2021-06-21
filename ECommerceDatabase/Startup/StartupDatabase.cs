@@ -145,10 +145,66 @@ namespace ECommerceDatabase
                     var listUsers = new List<User>()
                     {
                         new User { Id = 1, Email = "admin@ecommerce.com", CreatedDate = DateTime.Now, DateOfBirth = DateTime.Now, FirstName = "Admin", LastName = "ECommerce", IsSubscribed = false, Password = passwordEncryptionService.SetPassword("thisisencrypted"), RoleId = 1 },
-                        new User { Id = 2, Email = "superuser@ecommerce.com", CreatedDate = DateTime.Now, DateOfBirth = DateTime.Now, FirstName = "Superuser", LastName = "ECommerce", IsSubscribed = false, Password = passwordEncryptionService.SetPassword("thisisencrypted"), RoleId = 2 }
+                        new User { Id = 2, Email = "superuser@ecommerce.com", CreatedDate = DateTime.Now, DateOfBirth = DateTime.Now, FirstName = "Superuser", LastName = "ECommerce", IsSubscribed = false, Password = passwordEncryptionService.SetPassword("thisisencrypted"), RoleId = 2 },
+                        new User { Id = 3, Email = "johnny.b.goode@somedomain.com", CreatedDate = DateTime.Now, DateOfBirth = DateTime.Now, FirstName = "Johnny B.", LastName = "Goode", IsSubscribed = false, Password = passwordEncryptionService.SetPassword("thisisencrypted"), RoleId = 3 }
                     };
 
                     listUsers.ForEach(p => context.Users.Add(p));
+                    context.SaveChanges();
+                }
+
+                if (context.Orders.Count() == 0)
+                {
+                    var order = new Order()
+                    {
+                        Id = 1,
+                        BillingInformation = new DeliveryInformation()
+                        {
+                            Id = 1,
+                            Address1 = "1 Purchase Way",
+                            Address2 = "Moolah Town",
+                            CityTown = "Dot upon Net",
+                            Country = "United Kingdom",
+                            DeliveryMethod = "VISA",
+                            Email = "johnny.b.goode@somedomain.com",
+                            FirstName = "Johnny B.",
+                            LastName = "Goode",
+                            Phone = "07512345678",
+                            PostalCode = "NE13 6DR",
+                            TermsAndConditions = true
+                        },
+                        OrderedProducts = new List<OrderedProduct>()
+                        {
+                            new OrderedProduct()
+                            {
+                                Id = 1,
+                                Price = 200,
+                                ProductId = 1,
+                                SizeId = 1
+                            }
+                        },
+                        OrderStatus = "Completed",
+                        PaymentReceived = true,
+                        ReferenceNumber = Guid.NewGuid().ToString(),
+                        ShippingInformation = new DeliveryInformation()
+                        {
+                            Id = 1,
+                            Address1 = "1 Purchase Way",
+                            Address2 = "Moolah Town",
+                            CityTown = "Dot upon Net",
+                            Country = "United Kingdom",
+                            DeliveryMethod = "VISA",
+                            Email = "johnny.b.goode@somedomain.com",
+                            FirstName = "Johnny B.",
+                            LastName = "Goode",
+                            Phone = "07512345678",
+                            PostalCode = "NE13 6DR",
+                            TermsAndConditions = true
+                        },
+                        UserId = 3
+                    };
+
+                    context.Orders.Add(order);
                     context.SaveChanges();
                 }
 

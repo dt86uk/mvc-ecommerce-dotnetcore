@@ -50,6 +50,7 @@ namespace ECommerceWebsite
             services.AddTransient<IBrandWebService, BrandWebService>();
             services.AddTransient<ICategoryWebService, CategoryWebService>();
             services.AddTransient<IRoleWebService, RoleWebService>();
+            services.AddTransient<IOrdersManagementWebService, OrdersManagementWebService>();
 
             //validation
             services.AddTransient<IUserValidationService, UserValidationService>();
@@ -69,6 +70,7 @@ namespace ECommerceWebsite
             services.AddTransient<IProductTypeService, ProductTypeService>();
             services.AddTransient<IGenderService, GenderService>();
             services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<IOrdersManagementService, OrdersManagementService>();
 
             //repo
             services.AddTransient<IMenuRepository, MenuRepository>();
@@ -83,6 +85,7 @@ namespace ECommerceWebsite
             services.AddTransient<IProductSizeRepository, ProductSizeRepository>();
             services.AddTransient<IProductTypeRepository, ProductTypeRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();
+            services.AddTransient<IOrdersManagementRepository, OrdersManagementRepository>();
 
             //database
             services.AddTransient<IPasswordEncryptionService, PasswordEncryptionService>();

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using ECommerceDatabase.Database.Entities;
 using ECommerceService.Models;
 
@@ -49,6 +50,9 @@ namespace ECommerceService.Mapping
                     .ReverseMap();
                 cfg.CreateMap<User, UserDetailsDTO>()
                     .ForMember(src => src.DateRegistered, opt => opt.MapFrom(dest => dest.CreatedDate))
+                    .ReverseMap();
+                cfg.CreateMap<Order, OrderInformationDTO>()
+                    .ForMember(src => src.Cost, opt => opt.MapFrom(dest => dest.OrderedProducts.Sum(s => s.Price)))
                     .ReverseMap();
             });
         }

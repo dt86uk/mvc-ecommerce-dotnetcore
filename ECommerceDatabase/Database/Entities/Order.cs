@@ -12,11 +12,14 @@ namespace ECommerceDatabase.Database.Entities
         public int Id { get; set; }
         public virtual List<OrderedProduct> OrderedProducts { get; set; }
         public string OrderStatus { get; set; }
-        public virtual User Customer { get; set; }
         public DeliveryInformation ShippingInformation { get; set; }
         public DeliveryInformation BillingInformation { get; set; }
         public DateTime ArrivalDate => DateTime.Now.AddDays(14);
         public bool PaymentReceived { get; set; }
-        public string ReferenceNumber { get; set; } 
+        public string ReferenceNumber { get; set; }
+
+        [ForeignKey("Id")]
+        public int UserId { get; set; }
+        public virtual User Customer { get; set; }
     }
 }

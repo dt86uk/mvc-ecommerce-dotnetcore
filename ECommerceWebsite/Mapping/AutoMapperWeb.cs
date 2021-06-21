@@ -83,6 +83,7 @@ namespace ECommerceWebsite.Mapping
                 cfg.CreateMap<RoleDTO, RoleViewModel>().ReverseMap();
                 cfg.CreateMap<RoleDTO, EditRoleViewModel>().ReverseMap();
                 cfg.CreateMap<RoleDTO, AddRoleViewModel>().ReverseMap();
+                cfg.CreateMap<OrderInformationDTO, OrderInformationViewModel>().ReverseMap();
             });
         }
     }

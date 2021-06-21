@@ -27,7 +27,7 @@ namespace ECommerceWebsite.BusinessLogic
             //cast to send type
             //customer to do here
             var newOrder = mapper.Map<CheckoutViewModel, OrderDTO>(model);
-            var newOrder1 = new OrderDTO()
+            var newOrderDTO = new OrderDTO()
             {
                 OrderStatus = "Ongoing",
                 PaymentDetails = new PaymentDetailDTO()

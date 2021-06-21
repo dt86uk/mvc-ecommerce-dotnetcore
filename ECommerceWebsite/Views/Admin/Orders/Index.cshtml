@@ -1,5 +1,85 @@
-﻿@{
+﻿@using ECommerceWebsite.Models.Admin
+@model AdminOrdersViewModel
+@{
     ViewData["Title"] = "Admin Orders";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Model.ActionResponse = TempData["OrdersAction"] == null ? null : (BaseWebServiceResponse)TempData["OrdersAction"];
 }
-<h1>BRANDS PAGE</h1>
+<div>
+    <div class="titleHeader floatLeft width48perc">Orders</div>
+    <div class="addNewText">
+        &nbsp;
+    </div>
+    <div class="clearBoth"></div>
+</div>
+
+@if (Model.ActionResponse != null)
+{
+    <div class="messageBox">
+        @if (Model.ActionResponse.ActionSuccessful)
+        {
+            <div class="confirmMessage">
+                @Model.ActionResponse.SuccessMessage
+                <img src="/img/icon-pack/png/icon-green-tick.png" class="messageImg">
+            </div>
+        }
+        else
+        {
+            <div class="responseMessageBox">
+                <div class="errorMessage">
+                    @Model.ActionResponse.Error.Message
+                    @*Brand not found, unable to delete. We recommend a hard browser refresh (Ctrl + F5) or clearing recent history.
+                        If this problem persists, please contact support.*@
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<table class="tblBase">
+    <thead class="tblHeadBorder">
+        <tr>
+            <td class="textAlignCenter" width="20%" style="padding-bottom: 5px;">Customer Name</td>
+            <td class="textAlignCenter" width="10%" style="padding-bottom: 5px;">Order Status</td>
+            <td class="textAlignCenter" width="35%" style="padding-bottom: 5px;">Ref #</td>
+            <td class="textAlignCenter" width="10%" style="padding-bottom: 5px;">Cost ($)</td>
+            <td class="textAlignCenter" width="15%" style="padding-bottom: 5px;">Payment Processed</td>
+            <td class="textAlignCenter" width="10%" style="padding-bottom: 5px;">Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.Orders)
+        {
+            <tr>
+                <td class="textAlignCenter">
+                    @Html.HiddenFor(p => order.Id)
+                    @order.CustomerName
+                </td>
+                <td class="textAlignCenter">
+                    @order.OrderStatus
+                </td>
+                <td class="textAlignCenter">
+                    @order.ReferenceNumber
+                </td>
+                <td class="textAlignCenter">
+                    @order.Cost
+                </td>
+                <td class="textAlignCenter">
+                    @if (order.PaymentReceived)
+                    {
+                        <span>Yes</span> 
+                    }
+                    else
+                    {
+                        <span>No</span>
+                    }
+                </td>
+                <td>
+                    <a href="@Url.Action("edit", "orders", new { order.Id })">
+                        <input type="image" alt="Edit" src="~/img/icon-pack/png/074-pen.png" width="25" />
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
