@@ -14,5 +14,13 @@ namespace ECommerceRepository.BusinessLogic
                 return context.ProductSizes.ToList();
             }
         }
+
+        public string GetSizeNameById(int sizeId)
+        {
+            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
+            {
+                return context.ProductSizes.Single(p => p.Id == sizeId).Size;
+            }
+        }
     }
 }

@@ -23,22 +23,12 @@ namespace ECommerceWebsite.Controllers
             return View($"{OrdersViewFolder}/Index.cshtml", model);
         }
 
-        [Route("add")]
-        public IActionResult Add()
+        [HttpGet]
+        [Route("edit/{orderId:int}")]
+        public IActionResult Edit(int orderId)
         {
-            return View();
-        }
-
-        [Route("edit")]
-        public IActionResult Edit()
-        {
-            return View();
-        }
-
-        [Route("delete")]
-        public IActionResult Delete()
-        {
-            return View();
+            EditOrderInformationViewModel model = _ordersManagementWebService.GetOrderById(orderId);
+            return View($"{OrdersViewFolder}/Edit.cshtml", model);
         }
     }
 }

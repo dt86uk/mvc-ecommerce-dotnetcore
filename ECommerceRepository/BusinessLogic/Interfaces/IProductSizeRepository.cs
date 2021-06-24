@@ -6,5 +6,6 @@ namespace ECommerceRepository.BusinessLogic
     public interface IProductSizeRepository
     {
         List<ProductSize> GetAllProductSizes();
+        string GetSizeNameById(int sizeId);
     }
 }

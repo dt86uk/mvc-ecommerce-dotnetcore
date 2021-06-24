@@ -20,5 +20,6 @@ namespace ECommerceRepository.BusinessLogic
         bool ProductNameExists(string productName, int? productId);
         bool Add(Product productEntity);
         bool Update(Product productEntity);
+        string GetProductNameById(int productId);
     }
 }

@@ -35,7 +35,7 @@ namespace TestsECommerceService.BusinessLogic
                 {
                     Address1 = "1 Oxford Street",
                     Address2 = "Somewhere",
-                    City = "Wellington",
+                    CityTown = "Wellington",
                     Country = "New Zealand",
                     DeliveryMethod = "Standard",
                     Email = "customer@email.com",
@@ -114,7 +114,7 @@ namespace TestsECommerceService.BusinessLogic
                 {
                     Address1 = "1 Oxford Street",
                     Address2 = "Somewhere",
-                    City = "Wellington",
+                    CityTown = "Wellington",
                     Country = "New Zealand",
                     DeliveryMethod = "Standard",
                     Email = "customer@email.com",
@@ -169,7 +169,7 @@ namespace TestsECommerceService.BusinessLogic
                 {
                     Address1 = "1 Oxford Street",
                     Address2 = "Somewhere",
-                    City = "Wellington",
+                    CityTown = "Wellington",
                     Country = "New Zealand",
                     DeliveryMethod = "Standard",
                     Email = "customer@email.com",

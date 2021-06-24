@@ -84,6 +84,17 @@ namespace ECommerceWebsite.Mapping
                 cfg.CreateMap<RoleDTO, EditRoleViewModel>().ReverseMap();
                 cfg.CreateMap<RoleDTO, AddRoleViewModel>().ReverseMap();
                 cfg.CreateMap<OrderInformationDTO, OrderInformationViewModel>().ReverseMap();
+                cfg.CreateMap<EditOrderedProductDTO, OrderedProductViewModel>().ReverseMap();
+                cfg.CreateMap<DeliveryInformationDTO, DeliveryInformationViewModel>().ReverseMap();
+                cfg.CreateMap<EditOrderInformationDTO, EditOrderInformationViewModel>()
+                    .ForMember(src => src.BillingInformation, opt => opt.MapFrom(src => src.BillingInformation))
+                    .ForPath(src => src.BillingInformation.CityTown, opt => opt.MapFrom(src => src.BillingInformation.CityTown))
+                    .ForPath(src => src.BillingInformation.PostCode, opt => opt.MapFrom(src => src.BillingInformation.PostCode))
+                    .ForMember(src => src.ShippingInformation, opt => opt.MapFrom(src => src.ShippingInformation))
+                    .ForPath(src => src.ShippingInformation.CityTown, opt => opt.MapFrom(src => src.ShippingInformation.CityTown))
+                    .ForPath(src => src.ShippingInformation.PostCode, opt => opt.MapFrom(src => src.ShippingInformation.PostCode))
+                    .ForMember(src => src.OrderedProducts, opt => opt.MapFrom(src => src.OrderedProducts))
+                    .ReverseMap();
             });
         }
     }

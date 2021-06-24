@@ -21,13 +21,8 @@ namespace ECommerceService.Mapping
                 cfg.CreateMap<ProductImage, ProductImageDTO>().ReverseMap();
                 cfg.CreateMap<ProductSize, ProductSizeDTO>().ReverseMap();
                 cfg.CreateMap<ProductType, ProductTypeDTO>().ReverseMap();
-                cfg.CreateMap<Product, ProductDTO>()
-                    //.ForMember(src => src.Category, opt => opt.Ignore())
-                    //.ForMember(src => src.Brand, opt => opt.Ignore())
-                    //.ForMember(src => src.ProductType, opt => opt.Ignore())
-                    .ReverseMap();
-                cfg.CreateMap<DeliveryInformation, DeliveryInformationDTO>()
-                    .ReverseMap();
+                cfg.CreateMap<Product, ProductDTO>().ReverseMap();
+                cfg.CreateMap<DeliveryInformation, DeliveryInformationDTO>().ReverseMap();
                 cfg.CreateMap<Order, OrderDTO>()
                     .ForMember(src => src.Customer, opt => opt.MapFrom(dest => dest.Customer))
                     .ForMember(src => src.OrderedProducts, opt => opt.MapFrom(dest => dest.OrderedProducts))
@@ -53,6 +48,19 @@ namespace ECommerceService.Mapping
                     .ReverseMap();
                 cfg.CreateMap<Order, OrderInformationDTO>()
                     .ForMember(src => src.Cost, opt => opt.MapFrom(dest => dest.OrderedProducts.Sum(s => s.Price)))
+                    .ReverseMap();
+                cfg.CreateMap<OrderedProduct, EditOrderedProductDTO>()
+                    .ForMember(src => src.PriceId, opt => opt.MapFrom(dest => dest.Id))
+                    .ReverseMap();
+                cfg.CreateMap<Order, EditOrderInformationDTO>()
+                    .ForMember(src => src.BillingInformation, opt => opt.MapFrom(dest => dest.BillingInformation))
+                    .ForPath(src => src.BillingInformation.CityTown, opt => opt.MapFrom(dest => dest.BillingInformation.CityTown))
+                    .ForPath(src => src.BillingInformation.PostCode, opt => opt.MapFrom(dest => dest.BillingInformation.PostalCode))
+                    .ForMember(src => src.ShippingInformation, opt => opt.MapFrom(dest => dest.ShippingInformation))
+                    .ForPath(src => src.ShippingInformation.CityTown, opt => opt.MapFrom(dest => dest.ShippingInformation.CityTown))
+                    .ForPath(src => src.ShippingInformation.PostCode, opt => opt.MapFrom(dest => dest.ShippingInformation.PostalCode))
+                    .ForMember(src => src.OrderedProducts, opt => opt.MapFrom(dest => dest.OrderedProducts))
+                    .ForMember(src => src.User, opt => opt.MapFrom(dest => dest.Customer))
                     .ReverseMap();
             });
         }

@@ -5,5 +5,6 @@ namespace ECommerceWebsite.BusinessLogic
     public interface IOrdersManagementWebService
     {
         AdminOrdersViewModel GetOrders();
+        EditOrderInformationViewModel GetOrderById(int orderId);
     }
 }

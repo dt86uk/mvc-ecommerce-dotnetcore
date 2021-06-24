@@ -10,10 +10,18 @@ namespace ECommerceDatabase.Database.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         public virtual List<OrderedProduct> OrderedProducts { get; set; }
         public string OrderStatus { get; set; }
-        public DeliveryInformation ShippingInformation { get; set; }
-        public DeliveryInformation BillingInformation { get; set; }
+
+        [ForeignKey("Id")]
+        public int BillingInformationId { get; set; }
+        public virtual DeliveryInformation BillingInformation { get; set; }
+
+        [ForeignKey("Id")]
+        public int ShippingInformationId { get; set; }
+        public virtual DeliveryInformation ShippingInformation { get; set; }
+
         public DateTime ArrivalDate => DateTime.Now.AddDays(14);
         public bool PaymentReceived { get; set; }
         public string ReferenceNumber { get; set; }

@@ -29,5 +29,10 @@ namespace ECommerceWebsite.BusinessLogic
                 Orders = listOrders
             };
         }
+
+        public EditOrderInformationViewModel GetOrderById(int orderId)
+        {
+            return mapper.Map<EditOrderInformationDTO, EditOrderInformationViewModel>(_ordersManagementService.GetOrderById(orderId));
+        }
     }
 }

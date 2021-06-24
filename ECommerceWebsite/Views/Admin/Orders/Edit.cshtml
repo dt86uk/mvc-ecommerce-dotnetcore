@@ -1,0 +1,119 @@
+﻿@using ECommerceWebsite.Models.Admin
+@model EditOrderInformationViewModel
+@{
+    ViewData["Title"] = "Admin Orders";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Model.ActionResponse = TempData["OrdersAction"] == null ? null : (BaseWebServiceResponse)TempData["OrdersAction"];
+    var paymentReceived = Model.PaymentReceived ? "Yes" : "No";
+}
+<div class="titleHeader">Edit Product</div>
+
+@using (Html.BeginForm("Update", "Products", FormMethod.Post))
+{
+    @Html.ValidationSummary(false, string.Empty, new { @class = "required" })
+
+    <div>
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.User)
+        </div>
+        <div class="floatLeft width30perc">
+            @Html.DisplayFor(p => p.User.FirstName) @Html.DisplayFor(p => p.User.LastName) <br/>
+            @Html.DisplayFor(p => p.User.Email) <br />
+            @Html.DisplayFor(p => p.User.DateOfBirth)
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.OrderedProducts)
+        </div>
+        <div class="floatLeft width30perc">
+            @foreach (var orderedProduct in Model.OrderedProducts)
+            {
+                <div>
+                    Product: @Html.DisplayFor(p => orderedProduct.Product) <br />
+                    Size: @Html.DisplayFor(p => orderedProduct.Size) <br />
+                    Price: $@Html.DisplayFor(p => orderedProduct.Price) <br />
+                </div>
+            }
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.OrderStatus)
+        </div>
+        <div class="floatLeft width30perc">
+            @Html.DisplayFor(p => p.OrderStatus)
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.ReferenceNumber)
+        </div>
+        <div class="floatLeft width30perc">
+            @Html.DisplayFor(p => p.ReferenceNumber)
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.ArrivalDate)
+        </div>
+        <div class="floatLeft width30perc">
+            @Model.ArrivalDate.ToShortDateString()
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.PaymentReceived)
+        </div>
+        <div class="floatLeft width30perc">
+            @paymentReceived
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.BillingInformation)
+        </div>
+        <div class="floatLeft width30perc">
+            @Html.DisplayFor(p => p.BillingInformation.FirstName) @Html.DisplayFor(p => p.BillingInformation.LastName)<br />
+            @Html.DisplayFor(p => p.BillingInformation.Email)<br />
+            @Html.DisplayFor(p => p.BillingInformation.Address1)<br />
+            @Html.DisplayFor(p => p.BillingInformation.Address2)<br />
+            @Html.DisplayFor(p => p.BillingInformation.CityTown)<br />
+            @Html.DisplayFor(p => p.BillingInformation.Country)<br />
+            @Html.DisplayFor(p => p.BillingInformation.PostCode)<br />
+            @Html.DisplayFor(p => p.BillingInformation.Phone)<br />
+            @Html.DisplayFor(p => p.BillingInformation.DeliveryMethod)<br />
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div>
+        <div class="floatLeft width30perc">
+            @Html.LabelFor(p => p.ShippingInformation)
+        </div>
+        <div class="floatLeft width30perc">
+            @Html.DisplayFor(p => p.ShippingInformation.FirstName) @Html.DisplayFor(p => p.ShippingInformation.LastName) <br />
+            @Html.DisplayFor(p => p.ShippingInformation.Email)<br />
+            @Html.DisplayFor(p => p.ShippingInformation.Address1)<br />
+            @Html.DisplayFor(p => p.ShippingInformation.Address2)<br />
+            @Html.DisplayFor(p => p.ShippingInformation.CityTown)<br />
+            @Html.DisplayFor(p => p.ShippingInformation.Country)<br />
+            @Html.DisplayFor(p => p.ShippingInformation.PostCode)<br />
+            @Html.DisplayFor(p => p.ShippingInformation.Phone)<br />
+            @Html.LabelFor(p => p.ShippingInformation.Phone)<br/>
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+}

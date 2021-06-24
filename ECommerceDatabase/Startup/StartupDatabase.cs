@@ -153,26 +153,57 @@ namespace ECommerceDatabase
                     context.SaveChanges();
                 }
 
+                if (context.BillingInformation.Count() == 0)
+                {
+                    var billingInformation = new DeliveryInformation()
+                    {
+                        Id = 1,
+                        Address1 = "1 Purchase Way",
+                        Address2 = "Moolah Town",
+                        CityTown = "Dot upon Net",
+                        Country = "United Kingdom",
+                        DeliveryMethod = "VISA",
+                        Email = "johnny.b.goode@somedomain.com",
+                        FirstName = "Johnny B.",
+                        LastName = "Goode",
+                        Phone = "07512345678",
+                        PostalCode = "NE13 6DR",
+                        TermsAndConditions = true
+                    };
+
+                    context.BillingInformation.Add(billingInformation);
+                    context.SaveChanges();
+                }
+
+                if (context.BillingInformation.Count() == 0)
+                {
+                    var shippingInformation = new DeliveryInformation()
+                    {
+                        Id = 1,
+                        Address1 = "1 Purchase Way",
+                        Address2 = "Moolah Town",
+                        CityTown = "Dot upon Net",
+                        Country = "United Kingdom",
+                        DeliveryMethod = "VISA",
+                        Email = "johnny.b.goode@somedomain.com",
+                        FirstName = "Johnny B.",
+                        LastName = "Goode",
+                        Phone = "07512345678",
+                        PostalCode = "NE13 6DR",
+                        TermsAndConditions = true
+                    };
+
+                    context.ShippingInformation.Add(shippingInformation);
+                    context.SaveChanges();
+                }
+
                 if (context.Orders.Count() == 0)
                 {
                     var order = new Order()
                     {
                         Id = 1,
-                        BillingInformation = new DeliveryInformation()
-                        {
-                            Id = 1,
-                            Address1 = "1 Purchase Way",
-                            Address2 = "Moolah Town",
-                            CityTown = "Dot upon Net",
-                            Country = "United Kingdom",
-                            DeliveryMethod = "VISA",
-                            Email = "johnny.b.goode@somedomain.com",
-                            FirstName = "Johnny B.",
-                            LastName = "Goode",
-                            Phone = "07512345678",
-                            PostalCode = "NE13 6DR",
-                            TermsAndConditions = true
-                        },
+                        BillingInformationId = 1,
+                        ShippingInformationId = 1,
                         OrderedProducts = new List<OrderedProduct>()
                         {
                             new OrderedProduct()
@@ -186,21 +217,6 @@ namespace ECommerceDatabase
                         OrderStatus = "Completed",
                         PaymentReceived = true,
                         ReferenceNumber = Guid.NewGuid().ToString(),
-                        ShippingInformation = new DeliveryInformation()
-                        {
-                            Id = 1,
-                            Address1 = "1 Purchase Way",
-                            Address2 = "Moolah Town",
-                            CityTown = "Dot upon Net",
-                            Country = "United Kingdom",
-                            DeliveryMethod = "VISA",
-                            Email = "johnny.b.goode@somedomain.com",
-                            FirstName = "Johnny B.",
-                            LastName = "Goode",
-                            Phone = "07512345678",
-                            PostalCode = "NE13 6DR",
-                            TermsAndConditions = true
-                        },
                         UserId = 3
                     };
 

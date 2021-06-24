@@ -277,5 +277,13 @@ namespace ECommerceRepository.BusinessLogic
                 }
             }
         }
+
+        public string GetProductNameById(int productId)
+        {
+            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
+            {
+                return context.Products.Single(p => p.Id == productId).ProductName;
+            }
+        }
     }
 }

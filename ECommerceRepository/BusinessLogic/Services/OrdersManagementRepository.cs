@@ -20,5 +20,20 @@ namespace ECommerceRepository.BusinessLogic
                 return listOrders;
             }
         }
+
+        public Order GetOrderById(int orderId)
+        {
+            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
+            {
+                var order = context.Orders
+                    .Include("OrderedProducts")
+                    .Include("Customer")
+                    .Include("BillingInformation")
+                    .Include("ShippingInformation")
+                    .SingleOrDefault(p => p.Id == orderId);
+
+                return order;
+            }
+        }
     }
 }
