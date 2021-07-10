@@ -61,6 +61,10 @@ namespace ECommerceService.Mapping
                     .ForPath(src => src.ShippingInformation.PostCode, opt => opt.MapFrom(dest => dest.ShippingInformation.PostalCode))
                     .ForMember(src => src.OrderedProducts, opt => opt.MapFrom(dest => dest.OrderedProducts))
                     .ForMember(src => src.User, opt => opt.MapFrom(dest => dest.Customer))
+                    .ForMember(src => src.OrderStatusId, opt => opt.MapFrom(dest => dest.OrderStatusId))
+                    .ReverseMap();
+                cfg.CreateMap<OrderStatus, OrderStatusDTO>()
+                    .ForMember(src => src.OrderStatus, opt => opt.MapFrom(dest => dest.Status))
                     .ReverseMap();
             });
         }

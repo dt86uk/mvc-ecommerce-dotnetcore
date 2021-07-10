@@ -6,20 +6,21 @@
     Model.ActionResponse = TempData["OrdersAction"] == null ? null : (BaseWebServiceResponse)TempData["OrdersAction"];
     var paymentReceived = Model.PaymentReceived ? "Yes" : "No";
 }
-<div class="titleHeader">Edit Product</div>
+<div class="titleHeader">Edit Order</div>
 
-@using (Html.BeginForm("Update", "Products", FormMethod.Post))
+@using (Html.BeginForm("Update", "Orders", FormMethod.Post))
 {
     @Html.ValidationSummary(false, string.Empty, new { @class = "required" })
 
     <div>
         <div class="floatLeft width30perc">
+            @Html.HiddenFor(p => p.Id)
             @Html.LabelFor(p => p.User)
         </div>
         <div class="floatLeft width30perc">
-            @Html.DisplayFor(p => p.User.FirstName) @Html.DisplayFor(p => p.User.LastName) <br/>
+            @Html.DisplayFor(p => p.User.FirstName) @Html.DisplayFor(p => p.User.LastName) <br />
             @Html.DisplayFor(p => p.User.Email) <br />
-            @Html.DisplayFor(p => p.User.DateOfBirth)
+            @Html.ActionLink("Edit User", "Edit", "Users")
         </div>
         <div class="clearBoth"></div>
     </div>
@@ -43,10 +44,10 @@
 
     <div>
         <div class="floatLeft width30perc">
-            @Html.LabelFor(p => p.OrderStatus)
+            @Html.LabelFor(p => p.OrderStatuses)
         </div>
         <div class="floatLeft width30perc">
-            @Html.DisplayFor(p => p.OrderStatus)
+            @Html.DropDownListFor(p => p.SelectedOrderStatus, Model.OrderStatuses, new { @class = "width200px" })
         </div>
         <div class="clearBoth"></div>
     </div>
@@ -66,7 +67,7 @@
             @Html.LabelFor(p => p.ArrivalDate)
         </div>
         <div class="floatLeft width30perc">
-            @Model.ArrivalDate.ToShortDateString()
+            @Html.TextBoxFor(p => p.ArrivalDate) @*TODO: DatePicker here*@
         </div>
         <div class="clearBoth"></div>
     </div>
@@ -86,15 +87,16 @@
             @Html.LabelFor(p => p.BillingInformation)
         </div>
         <div class="floatLeft width30perc">
-            @Html.DisplayFor(p => p.BillingInformation.FirstName) @Html.DisplayFor(p => p.BillingInformation.LastName)<br />
-            @Html.DisplayFor(p => p.BillingInformation.Email)<br />
-            @Html.DisplayFor(p => p.BillingInformation.Address1)<br />
-            @Html.DisplayFor(p => p.BillingInformation.Address2)<br />
-            @Html.DisplayFor(p => p.BillingInformation.CityTown)<br />
-            @Html.DisplayFor(p => p.BillingInformation.Country)<br />
-            @Html.DisplayFor(p => p.BillingInformation.PostCode)<br />
-            @Html.DisplayFor(p => p.BillingInformation.Phone)<br />
-            @Html.DisplayFor(p => p.BillingInformation.DeliveryMethod)<br />
+            @Html.TextBoxFor(p => p.BillingInformation.FirstName) <br />
+            @Html.TextBoxFor(p => p.BillingInformation.LastName)<br />
+            @Html.TextBoxFor(p => p.BillingInformation.Email)<br />
+            @Html.TextBoxFor(p => p.BillingInformation.Address1)<br />
+            @Html.TextBoxFor(p => p.BillingInformation.Address2)<br />
+            @Html.TextBoxFor(p => p.BillingInformation.CityTown)<br />
+            @Html.TextBoxFor(p => p.BillingInformation.Country)<br />
+            @Html.TextBoxFor(p => p.BillingInformation.PostCode)<br />
+            @Html.TextBoxFor(p => p.BillingInformation.Phone)<br />
+            @Html.TextBoxFor(p => p.BillingInformation.DeliveryMethod)<br />
         </div>
         <div class="clearBoth"></div>
     </div>
@@ -104,15 +106,26 @@
             @Html.LabelFor(p => p.ShippingInformation)
         </div>
         <div class="floatLeft width30perc">
-            @Html.DisplayFor(p => p.ShippingInformation.FirstName) @Html.DisplayFor(p => p.ShippingInformation.LastName) <br />
-            @Html.DisplayFor(p => p.ShippingInformation.Email)<br />
-            @Html.DisplayFor(p => p.ShippingInformation.Address1)<br />
-            @Html.DisplayFor(p => p.ShippingInformation.Address2)<br />
-            @Html.DisplayFor(p => p.ShippingInformation.CityTown)<br />
-            @Html.DisplayFor(p => p.ShippingInformation.Country)<br />
-            @Html.DisplayFor(p => p.ShippingInformation.PostCode)<br />
-            @Html.DisplayFor(p => p.ShippingInformation.Phone)<br />
-            @Html.LabelFor(p => p.ShippingInformation.Phone)<br/>
+            @Html.TextBoxFor(p => p.ShippingInformation.FirstName) <br />
+            @Html.TextBoxFor(p => p.ShippingInformation.LastName) <br />
+            @Html.TextBoxFor(p => p.ShippingInformation.Email)<br />
+            @Html.TextBoxFor(p => p.ShippingInformation.Address1)<br />
+            @Html.TextBoxFor(p => p.ShippingInformation.Address2)<br />
+            @Html.TextBoxFor(p => p.ShippingInformation.CityTown)<br />
+            @Html.TextBoxFor(p => p.ShippingInformation.Country)<br />
+            @Html.TextBoxFor(p => p.ShippingInformation.PostCode)<br />
+            @Html.TextBoxFor(p => p.ShippingInformation.Phone)<br />
+            @Html.TextBoxFor(p => p.ShippingInformation.Phone)<br />
+        </div>
+        <div class="clearBoth"></div>
+    </div>
+
+    <div class="paddingTopBot10">
+        <div class="floatLeft width30perc">
+            &nbsp;&nbsp;
+        </div>
+        <div class="floatLeft">
+            <input id="btnSubmit" value="Update Order" type="submit" class="btnSubmit redOrangeGrad" />
         </div>
         <div class="clearBoth"></div>
     </div>

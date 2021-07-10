@@ -82,7 +82,7 @@ namespace ECommerceDatabase.Database.EntityFramework
         public DbSet<OrderedProduct> OrderedProducts { get; set; }
         public DbSet<DeliveryInformation> BillingInformation { get; set; }
         public DbSet<DeliveryInformation> ShippingInformation { get; set; }
-        public DbSet<OrderStatus> OrderStatus { get; set; }
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
         public DbSet<PaymentDetail> PaymentDetails { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }

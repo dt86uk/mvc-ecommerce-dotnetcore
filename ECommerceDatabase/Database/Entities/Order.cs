@@ -10,9 +10,12 @@ namespace ECommerceDatabase.Database.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        
+        [ForeignKey("Id")]
+        public int OrderStatusId { get; set; }
+        public virtual OrderStatus OrderStatus { get; set; }
 
         public virtual List<OrderedProduct> OrderedProducts { get; set; }
-        public string OrderStatus { get; set; }
 
         [ForeignKey("Id")]
         public int BillingInformationId { get; set; }

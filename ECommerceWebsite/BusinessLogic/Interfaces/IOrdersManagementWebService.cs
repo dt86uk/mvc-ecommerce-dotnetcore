@@ -1,4 +1,5 @@
-﻿using ECommerceWebsite.Models.Admin;
+﻿using ECommerceWebsite.Models;
+using ECommerceWebsite.Models.Admin;
 
 namespace ECommerceWebsite.BusinessLogic
 {
@@ -6,5 +7,6 @@ namespace ECommerceWebsite.BusinessLogic
     {
         AdminOrdersViewModel GetOrders();
         EditOrderInformationViewModel GetOrderById(int orderId);
+        BaseWebServiceResponse Update(EditOrderInformationViewModel model);
     }
 }

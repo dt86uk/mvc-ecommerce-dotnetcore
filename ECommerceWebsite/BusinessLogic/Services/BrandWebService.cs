@@ -72,6 +72,7 @@ namespace ECommerceWebsite.BusinessLogic
             return response;
         }
 
+        //TODO: Update Update, Delete, Add per layer to single interface and have models/base model run from Interface
         public BaseWebServiceResponse Update(EditBrandViewModel model)
         {
             var brandDto = mapper.Map<EditBrandViewModel, BrandDTO>(model);
@@ -94,9 +95,9 @@ namespace ECommerceWebsite.BusinessLogic
                 return response;
             }
 
-            var brandAdded = _brandService.Update(brandDto);
+            var brandUpdated = _brandService.Update(brandDto);
 
-            if (!brandAdded)
+            if (!brandUpdated)
             {
                 response.ActionSuccessful = false;
                 response.Error = brandNameExists ?

@@ -56,5 +56,15 @@ namespace ECommerceService.BusinessLogic
 
             return model;
         }
+
+        public List<OrderStatusDTO> GetOrderStatuses()
+        {
+            return mapper.Map<List<OrderStatus>, List<OrderStatusDTO>>(_ordersManagementRepository.GetOrderStatuses());
+        }
+
+        public bool Update(EditOrderInformationDTO order)
+        {
+            return _ordersManagementRepository.Update(mapper.Map<EditOrderInformationDTO, Order>(order));
+        }
     }
 }

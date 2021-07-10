@@ -7,5 +7,7 @@ namespace ECommerceService.BusinessLogic
     {
         List<OrderInformationDTO> GetOrders();
         EditOrderInformationDTO GetOrderById(int orderId);
+        List<OrderStatusDTO> GetOrderStatuses();
+        bool Update(EditOrderInformationDTO order);
     }
 }

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using ECommerceService.BusinessLogic;
 using ECommerceService.Models;
 using ECommerceWebsite.Models.Admin;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using ECommerceWebsite.Helpers;
+using System;
+using ECommerceWebsite.Models;
 
 namespace ECommerceWebsite.BusinessLogic
 {
@@ -32,7 +36,33 @@ namespace ECommerceWebsite.BusinessLogic
 
         public EditOrderInformationViewModel GetOrderById(int orderId)
         {
-            return mapper.Map<EditOrderInformationDTO, EditOrderInformationViewModel>(_ordersManagementService.GetOrderById(orderId));
+            var model = mapper.Map<EditOrderInformationDTO, EditOrderInformationViewModel>(_ordersManagementService.GetOrderById(orderId));
+            model.OrderStatuses = SelectListItemHelper.BuildDropDownList(_ordersManagementService.GetOrderStatuses());
+            model.OrderStatuses.ForEach(p => p.Selected = int.Parse(p.Value) == model.OrderStatusId);
+
+            return model;
+        }
+
+        public BaseWebServiceResponse Update(EditOrderInformationViewModel model)
+        {
+            var orderDto = mapper.Map<EditOrderInformationViewModel, EditOrderInformationDTO>(model);
+            var orderUpdated = _ordersManagementService.Update(orderDto);
+
+            var response = new BaseWebServiceResponse
+            {
+                ActionSuccessful = orderUpdated,
+                Error = orderUpdated ?
+                    null :
+                    new ErrorServiceViewModel()
+                    {
+                        Name = "Order",
+                        Message = "There was a problem updating the Order. We have been notified of the error but please try again."
+                    }
+            };
+
+            response.ActionSuccessful = true;
+            response.SuccessMessage = "Order successfully updated";
+            return response;
         }
     }
 }

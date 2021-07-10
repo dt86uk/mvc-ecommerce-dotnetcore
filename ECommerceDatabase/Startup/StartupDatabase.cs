@@ -77,7 +77,7 @@ namespace ECommerceDatabase
                     context.SaveChanges();
                 }
 
-                if (context.OrderStatus.Count() == 0)
+                if (context.OrderStatuses.Count() == 0)
                 {
                     var listOrderStatus = new List<OrderStatus>()
                     {
@@ -86,7 +86,7 @@ namespace ECommerceDatabase
                         new OrderStatus { Id = 3, Status = "Abandoned" }
                     };
 
-                    listOrderStatus.ForEach(p => context.OrderStatus.Add(p));
+                    listOrderStatus.ForEach(p => context.OrderStatuses.Add(p));
                     context.SaveChanges();
                 }
 
@@ -202,6 +202,7 @@ namespace ECommerceDatabase
                     var order = new Order()
                     {
                         Id = 1,
+                        OrderStatusId = 1,
                         BillingInformationId = 1,
                         ShippingInformationId = 1,
                         OrderedProducts = new List<OrderedProduct>()
@@ -214,7 +215,6 @@ namespace ECommerceDatabase
                                 SizeId = 1
                             }
                         },
-                        OrderStatus = "Completed",
                         PaymentReceived = true,
                         ReferenceNumber = Guid.NewGuid().ToString(),
                         UserId = 3

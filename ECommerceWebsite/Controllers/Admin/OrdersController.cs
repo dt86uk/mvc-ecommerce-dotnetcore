@@ -1,6 +1,8 @@
 ﻿using ECommerceWebsite.BusinessLogic;
+using ECommerceWebsite.Models;
 using ECommerceWebsite.Models.Admin;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ECommerceWebsite.Controllers
 {
@@ -29,6 +31,27 @@ namespace ECommerceWebsite.Controllers
         {
             EditOrderInformationViewModel model = _ordersManagementWebService.GetOrderById(orderId);
             return View($"{OrdersViewFolder}/Edit.cshtml", model);
+        }
+
+        [HttpPost]
+        [Route("edit")]
+        public IActionResult Update(EditOrderInformationViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model = _ordersManagementWebService.GetOrderById(model.Id);
+                return View($"{OrdersViewFolder}/Edit.cshtml", model);
+            }
+
+            BaseWebServiceResponse response = _ordersManagementWebService.Update(model);
+            TempData[OrdersActionName] = JsonConvert.SerializeObject(response);
+
+            if (!response.ActionSuccessful)
+            {
+                return View($"{OrdersViewFolder}/Index.cshtml", model);
+            }
+
+            return RedirectToAction("Index", "orders");
         }
     }
 }

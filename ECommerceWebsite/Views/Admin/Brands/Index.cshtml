@@ -1,9 +1,10 @@
 ﻿@using ECommerceWebsite.Models.Admin
+@using Newtonsoft.Json
 @model AdminBrandsViewModel
 @{
     ViewData["Title"] = "Admin Brands";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    Model.ActionResponse = TempData["BrandAction"] == null ? null : (BaseWebServiceResponse)TempData["BrandAction"];
+    Model.ActionResponse = TempData["BrandAction"] == null ? null : JsonConvert.DeserializeObject<BaseWebServiceResponse>(TempData["BrandAction"].ToString());
 }
 <div>
     <div class="titleHeader floatLeft width48perc">Users</div>
@@ -29,7 +30,7 @@
                 <div class="errorMessage">
                     @Model.ActionResponse.Error.Message
                     @*Brand not found, unable to delete. We recommend a hard browser refresh (Ctrl + F5) or clearing recent history.
-                    If this problem persists, please contact support.*@
+                        If this problem persists, please contact support.*@
                 </div>
             </div>
         }

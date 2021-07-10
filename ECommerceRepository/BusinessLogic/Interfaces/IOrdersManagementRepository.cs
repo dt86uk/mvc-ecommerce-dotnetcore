@@ -7,5 +7,7 @@ namespace ECommerceRepository.BusinessLogic
     {
         List<Order> GetOrders();
         Order GetOrderById(int orderId);
+        List<OrderStatus> GetOrderStatuses();
+        bool Update(Order order);
     }
 }

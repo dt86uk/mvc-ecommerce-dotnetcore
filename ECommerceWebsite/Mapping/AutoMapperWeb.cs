@@ -94,6 +94,7 @@ namespace ECommerceWebsite.Mapping
                     .ForPath(src => src.ShippingInformation.CityTown, opt => opt.MapFrom(src => src.ShippingInformation.CityTown))
                     .ForPath(src => src.ShippingInformation.PostCode, opt => opt.MapFrom(src => src.ShippingInformation.PostCode))
                     .ForMember(src => src.OrderedProducts, opt => opt.MapFrom(src => src.OrderedProducts))
+                    .ForMember(src => src.OrderStatusId, opt => opt.MapFrom(src => src.OrderStatusId))
                     .ReverseMap();
             });
         }

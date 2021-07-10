@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,9 +14,14 @@ namespace ECommerceWebsite.Models.Admin
 
         [Display(Name = "Ordered Products")]
         public List<OrderedProductViewModel> OrderedProducts { get; set; }
-        
+
+        public int OrderStatusId { get; set; }
+
         [Display(Name = "Order Status")]
-        public string OrderStatus { get; set; }
+        public List<SelectListItem> OrderStatuses { get; set; }
+
+        [Required(ErrorMessage = "Category required")]
+        public string SelectedOrderStatus { get; set; }
 
         [Display(Name = "Billing Information")]
         public DeliveryInformationViewModel BillingInformation { get; set; }
@@ -24,6 +30,7 @@ namespace ECommerceWebsite.Models.Admin
         public DeliveryInformationViewModel ShippingInformation { get; set; }
 
         [Display(Name = "Arrival Date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime ArrivalDate { get; set; }
 
         [Display(Name = "Payment Received?")]
