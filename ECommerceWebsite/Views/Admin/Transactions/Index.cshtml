@@ -1,5 +1,47 @@
-﻿@{
+﻿@using ECommerceWebsite.Models.Admin
+@model AdminTransactionsViewModel
+@{
     ViewData["Title"] = "Admin Transactions";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<h1>TRANSACTIONS PAGE</h1>
+
+<div>
+    <div class="titleHeader floatLeft width48perc">Transactions</div>
+    <div class="addNewText">
+        &nbsp;
+    </div>
+    <div class="clearBoth"></div>
+</div>
+
+<table class="tblBase">
+    <thead class="tblHeadBorder">
+        <tr>
+            <td class="textAlignCenter" width="20%" style="padding-bottom: 5px;">Customer Name</td>
+            <td class="textAlignCenter" width="10%" style="padding-bottom: 5px;">Created Date</td>
+            <td class="textAlignCenter" width="10%" style="padding-bottom: 5px;">Total Cost ($)</td>
+            <td class="textAlignCenter" width="10%" style="padding-bottom: 5px;">Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var transaction in Model.Transactions)
+        {
+            <tr>
+                <td class="textAlignCenter">
+                    @Html.HiddenFor(p => transaction.Id)
+                    @transaction.CustomerName
+                </td>
+                <td class="textAlignCenter">
+                    @transaction.CreatedDate
+                </td>
+                <td class="textAlignCenter">
+                    @transaction.TotalPrice
+                </td>
+                <td class="textAlignCenter">
+                    <a href="@Url.Action("view", "transactions", new { transaction.Id })">
+                        <input type="image" alt="Edit" src="~/img/icon-pack/png/074-pen.png" width="25" />
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

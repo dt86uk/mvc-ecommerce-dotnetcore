@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ECommerceWebsite.BusinessLogic;
+using ECommerceWebsite.Models.Admin;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceWebsite.Controllers
 {
@@ -7,27 +9,25 @@ namespace ECommerceWebsite.Controllers
     {
         private const string TransactionsViewFolder = "~/Views/admin/transactions";
 
+        private readonly ITransactionWebService _transactionWebService;
+
+        public TransactionsController(ITransactionWebService transactionWebService)
+        {
+            _transactionWebService = transactionWebService;
+        }
+
         public IActionResult Index()
         {
-            return View($"{TransactionsViewFolder}/Index.cshtml");
+            AdminTransactionsViewModel model = _transactionWebService.GetAllTransactions();
+            return View($"{TransactionsViewFolder}/Index.cshtml", model);
         }
 
-        [Route("add")]
-        public IActionResult Add()
-        {
-            return View();
-        }
 
-        [Route("edit")]
-        public IActionResult Edit()
+        [Route("view/{transactionId:int}")]
+        public IActionResult View(int transactionId)
         {
-            return View();
-        }
-
-        [Route("delete")]
-        public IActionResult Delete()
-        {
-            return View();
+            TransactionViewModel model = _transactionWebService.GetTransactionById(transactionId);
+            return View($"{TransactionsViewFolder}/View.cshtml", model);
         }
     }
 }

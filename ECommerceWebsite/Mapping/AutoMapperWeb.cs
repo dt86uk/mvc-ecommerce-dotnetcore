@@ -96,6 +96,12 @@ namespace ECommerceWebsite.Mapping
                     .ForMember(src => src.OrderedProducts, opt => opt.MapFrom(src => src.OrderedProducts))
                     .ForMember(src => src.OrderStatusId, opt => opt.MapFrom(src => src.OrderStatusId))
                     .ReverseMap();
+                cfg.CreateMap<TransactionItemViewModel, TransactionItemDTO>()
+                    .ReverseMap();
+                cfg.CreateMap<TransactionDTO, TransactionViewModel>()
+                    .ForMember(src => src.AddressDetails, opt => opt.MapFrom(dest => dest.AddressDetails))
+                    .ForMember(src => src.Order, opt => opt.MapFrom(dest => dest.Order))
+                    .ReverseMap();
             });
         }
     }

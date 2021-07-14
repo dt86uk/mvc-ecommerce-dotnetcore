@@ -40,6 +40,8 @@ namespace ECommerceService.Mapping
                     .ForMember(src => src.Order, opt => opt.MapFrom(dest => dest.Order))
                     .ForMember(src => src.PaymentDetails, opt => opt.MapFrom(dest => dest.PaymentDetails))
                     .ReverseMap();
+                cfg.CreateMap<Transaction, TransactionItemDTO>()
+                    .ReverseMap();
                 cfg.CreateMap<User, NewUserDTO>()
                     .ForMember(src => src.DateRegistered, opt => opt.MapFrom(dest => dest.CreatedDate))
                     .ReverseMap();

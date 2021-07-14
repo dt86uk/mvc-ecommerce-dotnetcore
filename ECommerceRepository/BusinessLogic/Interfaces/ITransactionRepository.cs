@@ -11,5 +11,7 @@ namespace ECommerceRepository.BusinessLogic
         Transaction Create(Transaction transaction);
         List<Transaction> GetLatestTransactions();
         List<Transaction> GetDailyTakings(int numberOfDays);
+        List<Transaction> GetAllTransactions();
+        Transaction GetTransactionById(int transactionId);
     }
 }

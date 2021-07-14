@@ -30,6 +30,18 @@ namespace ECommerceRepository.BusinessLogic
             }
         }
 
+        public List<Transaction> GetAllTransactions()
+        {
+            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
+            {
+                return context.Transactions
+                    .Include("AddressDetails")
+                    .Include("Order")
+                    .Include("PaymentDetails")
+                    .ToList();
+            }
+        }
+
         public List<Transaction> GetDailyTakings(int numberOfDays)
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
@@ -49,6 +61,17 @@ namespace ECommerceRepository.BusinessLogic
 
                 return context.Transactions
                     .Where(p => p.CreatedDate >= startDate && p.CreatedDate <= endDate).ToList();
+            }
+        }
+
+        public Transaction GetTransactionById(int transactionId)
+        {
+            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
+            {
+                return context.Transactions
+                    .Include("AddressDetails")
+                    .Include("Order")
+                    .SingleOrDefault(p => p.Id == transactionId);
             }
         }
     }
