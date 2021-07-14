@@ -40,6 +40,8 @@ namespace ECommerceWebsite
             services.AddMvc().AddRazorRuntimeCompilation();
             services.AddSession();
 
+            //TODO: AddTransient to AddSingleton where necessary e.g. Login, Menu, Cart, Category (Web)
+
             //web
             services.AddTransient<ILoginWebService, LoginWebService>();
             services.AddTransient<IMenuWebService, MenuWebService>();
@@ -51,6 +53,7 @@ namespace ECommerceWebsite
             services.AddTransient<ICategoryWebService, CategoryWebService>();
             services.AddTransient<IRoleWebService, RoleWebService>();
             services.AddTransient<IOrdersManagementWebService, OrdersManagementWebService>();
+            services.AddTransient<ITransactionWebService, TransactionWebService>();
 
             //validation
             services.AddTransient<IUserValidationService, UserValidationService>();
@@ -71,6 +74,7 @@ namespace ECommerceWebsite
             services.AddTransient<IGenderService, GenderService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IOrdersManagementService, OrdersManagementService>();
+            services.AddTransient<ITransactionService, TransactionService>();
 
             //repo
             services.AddTransient<IMenuRepository, MenuRepository>();
