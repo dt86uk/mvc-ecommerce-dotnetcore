@@ -12,12 +12,14 @@ namespace TestsECommerceService.BusinessLogic
     {
         private TransactionService _transactionService;
         private Mock<ITransactionRepository> _mockTransactionRepository;
+        private Mock<IUserRepository> _mockUserRepository;
 
         [TestInitialize]
         public void Init()
         {
             _mockTransactionRepository = new Mock<ITransactionRepository>();
-            _transactionService = new TransactionService(_mockTransactionRepository.Object);
+            _mockUserRepository = new Mock<IUserRepository>();
+            _transactionService = new TransactionService(_mockTransactionRepository.Object, _mockUserRepository.Object);
         }
 
         [TestMethod]
@@ -50,7 +52,7 @@ namespace TestsECommerceService.BusinessLogic
                         SizeId = 1
                     }
                 },
-                OrderStatus = "Ongoing",
+                OrderStatusId = 1,
                 PaymentReceived = true,
                 ReferenceNumber = string.Empty
             };

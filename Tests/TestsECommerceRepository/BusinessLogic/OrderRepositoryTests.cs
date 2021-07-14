@@ -50,7 +50,7 @@ namespace TestsECommerceRepository.BusinessLogic
                         SizeId = 1
                     }
                 },
-                OrderStatus = "Ongoing",
+                OrderStatusId = 1,
                 PaymentReceived = true,
                 ReferenceNumber = string.Empty
             };
