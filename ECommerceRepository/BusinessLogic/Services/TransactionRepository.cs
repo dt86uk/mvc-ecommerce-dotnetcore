@@ -37,6 +37,9 @@ namespace ECommerceRepository.BusinessLogic
                 return context.Transactions
                     .Include(p => p.Address)
                     .Include(p => p.Order)
+                        .ThenInclude(p => p.Customer)
+                    .Include(p => p.Order)
+                        .ThenInclude(p => p.OrderedProducts)
                     .Include(p => p.PaymentDetails)
                     .ToList();
             }

@@ -39,15 +39,7 @@ namespace ECommerceService.BusinessLogic
 
         public List<TransactionItemDTO> GetAllTransactions()
         {
-            var listTransactions = mapper.Map<List<Transaction>, List<TransactionItemDTO>>(_transactionRepository.GetAllTransactions());
-
-            foreach (var transaction in listTransactions)
-            {
-                var user = _userRepository.GetUserById(transaction.UserId);
-                transaction.CustomerName = $"{user.FirstName} {user.LastName}";
-            }
-
-            return listTransactions;
+            return mapper.Map<List<Transaction>, List<TransactionItemDTO>>(_transactionRepository.GetAllTransactions());
         }
 
         public TransactionDTO GetTransactionById(int transactionId)
