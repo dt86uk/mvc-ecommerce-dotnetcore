@@ -11,9 +11,19 @@ namespace ECommerceDatabase.Database.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public DateTime CreatedDate { get; set; }
+
+        [ForeignKey("Id")]
+        public int OrderId { get; set; }
         public virtual Order Order { get; set; }
+
         public decimal TotalPrice => Order.OrderedProducts.Sum(p => p.Price);
-        public virtual PaymentDetail PaymentDetails { get; set; }
-        public virtual Address AddressDetails { get; set; }
+
+        [ForeignKey("Id")]
+        public int PaymentDetailsId { get; set; }
+        public virtual PaymentDetails PaymentDetails { get; set; }
+
+        [ForeignKey("Id")]
+        public int AddressId { get; set; }
+        public virtual Address Address { get; set; }
     }
 }

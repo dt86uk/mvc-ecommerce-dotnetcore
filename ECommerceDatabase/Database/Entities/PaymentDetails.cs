@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ECommerceDatabase.Database.Entities
 {
-    public class PaymentDetail
+    public class PaymentDetails
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

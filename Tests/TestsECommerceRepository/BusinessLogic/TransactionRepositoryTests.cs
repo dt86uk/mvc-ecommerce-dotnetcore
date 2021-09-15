@@ -59,17 +59,17 @@ namespace TestsECommerceRepository.BusinessLogic
 
             var transaction = new Transaction()
             {
-                AddressDetails = new Address()
+                Address = new Address()
                 {
                     Address1 = "1 Beehive Avenue",
                     Address2 = "Somewhere",
-                    City = "Wellington",
-                    PostCode = "6021",
+                    CityTown = "Wellington",
+                    PostalCode = "6021",
                     Region = "Greater Wellington",
                     Country = "New Zealand",
                 },
                 Order = order,
-                PaymentDetails = new PaymentDetail()
+                PaymentDetails = new PaymentDetails()
                 {
                     NameOnCard = "Mr John Smith",
                     CardNumber = "483501234567",
@@ -85,7 +85,7 @@ namespace TestsECommerceRepository.BusinessLogic
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.IsNotNull(result.AddressDetails);
+            Assert.IsNotNull(result.Address);
             Assert.IsNotNull(result.Order);
             Assert.IsNotNull(result.PaymentDetails);
             Assert.IsTrue(result.Id > 0);

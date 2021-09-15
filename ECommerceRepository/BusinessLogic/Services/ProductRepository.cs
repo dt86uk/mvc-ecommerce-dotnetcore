@@ -21,10 +21,10 @@ namespace ECommerceRepository.BusinessLogic
                 var category = context.Categories.SingleOrDefault(item => string.Equals(item.CategoryName, categoryName, StringComparison.InvariantCultureIgnoreCase));
 
                 return context.Products.
-                    Include("Images").
-                    Include("Brand").
-                    Include("Sizes").
-                    Include("ProductType").
+                    Include(p => p.Images).
+                    Include(p => p.Brand).
+                    Include(p => p.Sizes).
+                    Include(p => p.ProductType).
                     Where(x => x.CategoryId == category.Id).ToList();
             }
         }
@@ -39,10 +39,10 @@ namespace ECommerceRepository.BusinessLogic
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 return context.Products.
-                    Include("Images").
-                    Include("Brand").
-                    Include("Sizes").
-                    Include("ProductType").
+                    Include(p => p.Images).
+                    Include(p => p.Brand).
+                    Include(p => p.Sizes).
+                    Include(p => p.ProductType).
                     SingleOrDefault(p =>
                         string.Equals(p.ProductName, productName, StringComparison.InvariantCultureIgnoreCase));
             }
@@ -58,10 +58,10 @@ namespace ECommerceRepository.BusinessLogic
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 var listAllProducts = context.Products.
-                    Include("Images").
-                    Include("Brand").
-                    Include("Sizes").
-                    Include("ProductType").ToList();
+                    Include(p => p.Images).
+                    Include(p => p.Brand).
+                    Include(p => p.Sizes).
+                    Include(p => p.ProductType).ToList();
 
                 return listAllProducts.Take(3).ToList();
             }
@@ -77,10 +77,10 @@ namespace ECommerceRepository.BusinessLogic
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 var listAllProducts = context.Products.
-                    Include("Images").
-                    Include("Brand").
-                    Include("Sizes").
-                    Include("ProductType").ToList();
+                    Include(p => p.Images).
+                    Include(p => p.Brand).
+                    Include(p => p.Sizes).
+                    Include(p => p.ProductType).ToList();
 
                 return listAllProducts.Take(3).ToList();
             }
@@ -97,7 +97,7 @@ namespace ECommerceRepository.BusinessLogic
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 var product = context.Products.
-                    Include("ProductType")
+                    Include(p => p.ProductType)
                     .SingleOrDefault(p => p.Id == productId);
 
                 if (product == null)
@@ -131,10 +131,10 @@ namespace ECommerceRepository.BusinessLogic
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 var product = context.Products.
-                    Include("Images").
-                    Include("Brand").
-                    Include("Sizes").
-                    Include("ProductType").Single(p => p.Id == productId);
+                    Include(p => p.Images).
+                    Include(p => p.Brand).
+                    Include(p => p.Sizes).
+                    Include(p => p.ProductType).Single(p => p.Id == productId);
 
                 product.Sizes = context.ProductSizes
                     .Where(p => p.ProductId == product.Id).ToList();
@@ -148,9 +148,9 @@ namespace ECommerceRepository.BusinessLogic
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 var listProducts = context.Products
-                    .Include("Sizes")
-                    .Include("Brand")
-                    .Include("ProductType")
+                    .Include(p => p.Sizes)
+                    .Include(p => p.Brand)
+                    .Include(p => p.ProductType)
                     .ToList();
 
                 foreach (var product in listProducts)
@@ -171,10 +171,10 @@ namespace ECommerceRepository.BusinessLogic
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 return context.Products.
-                    Include("Images").
-                    Include("Brand").
-                    Include("Sizes").
-                    Include("ProductType")
+                    Include(p => p.Images).
+                    Include(p => p.Brand).
+                    Include(p => p.Sizes).
+                    Include(p => p.ProductType)
                     .ToList();
             }
         }
@@ -184,10 +184,10 @@ namespace ECommerceRepository.BusinessLogic
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 var productEntity = context.Products.
-                    Include("Images").
-                    Include("Brand").
-                    Include("Sizes").
-                    Include("ProductType").
+                    Include(p => p.Images).
+                    Include(p => p.Brand).
+                    Include(p => p.Sizes).
+                    Include(p => p.ProductType).
                     SingleOrDefault(p => p.Id == productId);
 
                 if (productEntity != null)
@@ -241,10 +241,10 @@ namespace ECommerceRepository.BusinessLogic
                 try
                 {
                     var productEntity = context.Products.
-                        Include("Images").
-                        Include("Brand").
-                        Include("Sizes").
-                        Include("ProductType").
+                        Include(p => p.Images).
+                        Include(p => p.Brand).
+                        Include(p => p.Sizes).
+                        Include(p => p.ProductType).
                         SingleOrDefault(p => p.Id == product.Id);
 
                     if (product == null)

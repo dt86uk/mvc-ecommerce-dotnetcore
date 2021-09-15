@@ -57,7 +57,7 @@ namespace TestsECommerceService.BusinessLogic
                 ReferenceNumber = string.Empty
             };
 
-            var paymentDetail = new PaymentDetail()
+            var paymentDetail = new PaymentDetails()
             {
                 NameOnCard = "Mr John Smith",
                 CardNumber = "483501234567",
@@ -72,12 +72,12 @@ namespace TestsECommerceService.BusinessLogic
                 Id = 1,
                 Order = order,
                 PaymentDetails = paymentDetail,
-                AddressDetails = new Address()
+                Address = new Address()
                 {
                     Address1 = "1 Beehive Avenue",
                     Address2 = "Somewhere",
-                    City = "Wellington",
-                    PostCode = "6021",
+                    CityTown = "Wellington",
+                    PostalCode = "6021",
                     Region = "Greater Wellington",
                     Country = "New Zealand",
                 }

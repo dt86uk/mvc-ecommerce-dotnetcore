@@ -29,7 +29,7 @@ namespace ECommerceDatabase.Database.EntityFramework
             modelBuilder.Entity<OrderStatus>()
                 .HasKey(p => p.Id);
 
-            modelBuilder.Entity<PaymentDetail>()
+            modelBuilder.Entity<PaymentDetails>()
                 .HasKey(p => p.Id);
 
             modelBuilder.Entity<Product>()
@@ -83,7 +83,7 @@ namespace ECommerceDatabase.Database.EntityFramework
         public DbSet<DeliveryInformation> BillingInformation { get; set; }
         public DbSet<DeliveryInformation> ShippingInformation { get; set; }
         public DbSet<OrderStatus> OrderStatuses { get; set; }
-        public DbSet<PaymentDetail> PaymentDetails { get; set; }
+        public DbSet<PaymentDetails> PaymentDetails { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ProductSize> ProductSizes { get; set; }

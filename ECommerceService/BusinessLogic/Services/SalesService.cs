@@ -27,6 +27,7 @@ namespace ECommerceService.BusinessLogic
                 {
                     var financialInfo = new FinancialInformationDTO()
                     {
+                        Id = transaction.Id,
                         Date = transaction.CreatedDate,
                         TotalTakings = transaction.TotalPrice
                     };
@@ -55,6 +56,7 @@ namespace ECommerceService.BusinessLogic
             {
                 var latestTransaction = new LatestTransactionsDTO()
                 {
+                    Id = transaction.Id,
                     DateCreated = transaction.CreatedDate,
                     FirstName = transaction.Order.BillingInformation.FirstName,
                     LastName = transaction.Order.BillingInformation.LastName,

@@ -1,16 +1,65 @@
 ﻿@using ECommerceWebsite.Models.Admin
-@model TransactionItemViewModel
+@model TransactionViewModel
 @{
     ViewData["Title"] = "Admin View Transaction";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
+@*TODO: Consider creating new Models e.g. OrderedProducts passed through*@
 <div>
-    <div class="titleHeader floatLeft width48perc">Transactions</div>
+    <div class="titleHeader floatLeft width48perc">Transaction: @Model.Id</div>
     <div class="addNewText">
         &nbsp;
     </div>
     <div class="clearBoth"></div>
 </div>
 
-@*TODO: look at Brand Edit page for layout*@
+<div>
+    <div class="floatLeft width48perc">
+        @Html.LabelFor(p => p.TotalPrice)
+    </div>
+    <div class="floatLeft">
+        $@Html.DisplayFor(p => p.TotalPrice, new { @class = "width200px" })
+    </div>
+    <div class="clearBoth"></div>
+</div>
+
+
+<div>
+    <div class="floatLeft width48perc">
+        @Html.LabelFor(p => p.CreatedDate)
+    </div>
+    <div class="floatLeft">
+        @Html.DisplayFor(p => p.CreatedDate, new { @class = "width200px" })
+    </div>
+    <div class="clearBoth"></div>
+</div>
+
+<div>
+    <div class="floatLeft width48perc">
+        Customer Details
+        @*TODO NO INFO COMING THROUGH*@
+    </div>
+    <div class="floatLeft">
+        @Html.DisplayFor(p => p.Order.Customer.FirstName) <br />
+        @Html.DisplayFor(p => p.Order.Customer.LastName)<br />
+        @Html.DisplayFor(p => p.Order.Customer.Email)<br />
+        @Html.DisplayFor(p => p.Order.Customer.DateOfBirth)<br />
+        @Html.DisplayFor(p => p.AddressDetails.Address1)<br />
+        @Html.DisplayFor(p => p.AddressDetails.Address2)<br />
+        @Html.DisplayFor(p => p.AddressDetails.CityTown)<br />
+        @Html.DisplayFor(p => p.AddressDetails.Country)<br />
+        @Html.DisplayFor(p => p.AddressDetails.PostCode)<br />
+    </div>
+    <div class="clearBoth"></div>
+</div>
+
+<div>
+    <div class="floatLeft width48perc">
+        Order Details
+    </div>
+    <div class="floatLeft">
+        @Html.DisplayFor(p => p.Order.ReferenceNumber)<br />
+        @Html.DisplayFor(p => p.Order.OrderStatus)<br />
+    </div>
+    <div class="clearBoth"></div>
+</div>

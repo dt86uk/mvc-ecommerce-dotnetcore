@@ -175,7 +175,7 @@ namespace ECommerceDatabase
                     context.SaveChanges();
                 }
 
-                if (context.BillingInformation.Count() == 0)
+                if (context.ShippingInformation.Count() == 0)
                 {
                     var shippingInformation = new DeliveryInformation()
                     {
@@ -221,6 +221,43 @@ namespace ECommerceDatabase
                     };
 
                     context.Orders.Add(order);
+                    context.SaveChanges();
+
+                    var address = new Address()
+                    {
+                        Address1 = "1 Purchase Way",
+                        Address2 = "Moolah Town",
+                        CityTown = "Dot upon Net",
+                        Country = "United Kingdom",
+                        Region = "Tyne & Wear",
+                        PostalCode = "NE13 6DR"
+                    };
+
+                    context.Addresses.Add(address);
+                    context.SaveChanges();
+
+                    var paymentDetails = new PaymentDetails()
+                    {
+                        NameOnCard = "Johnny B Goode",
+                        CardNumber = "4835123456789876",
+                        CardType = "VISA",
+                        CCV = "123",
+                        ExpiryDateMonth = DateTime.Now.Month.ToString().PadLeft(2, '0'),
+                        ExpiryDateYear = DateTime.Now.Year.ToString("yy")
+                    };
+
+                    context.PaymentDetails.Add(paymentDetails);
+                    context.SaveChanges();
+
+                    var transaction = new Transaction()
+                    {
+                        OrderId = 1,
+                        AddressId = 1,
+                        CreatedDate = DateTime.Now,
+                        PaymentDetailsId = 1
+                    };
+
+                    context.Transactions.Add(transaction);
                     context.SaveChanges();
                 }
 

@@ -86,6 +86,7 @@ namespace ECommerceWebsite.Mapping
                 cfg.CreateMap<OrderInformationDTO, OrderInformationViewModel>().ReverseMap();
                 cfg.CreateMap<EditOrderedProductDTO, OrderedProductViewModel>().ReverseMap();
                 cfg.CreateMap<DeliveryInformationDTO, DeliveryInformationViewModel>().ReverseMap();
+                cfg.CreateMap<AddressDTO, DeliveryInformationViewModel>().ReverseMap();
                 cfg.CreateMap<EditOrderInformationDTO, EditOrderInformationViewModel>()
                     .ForMember(src => src.BillingInformation, opt => opt.MapFrom(src => src.BillingInformation))
                     .ForPath(src => src.BillingInformation.CityTown, opt => opt.MapFrom(src => src.BillingInformation.CityTown))
@@ -96,12 +97,27 @@ namespace ECommerceWebsite.Mapping
                     .ForMember(src => src.OrderedProducts, opt => opt.MapFrom(src => src.OrderedProducts))
                     .ForMember(src => src.OrderStatusId, opt => opt.MapFrom(src => src.OrderStatusId))
                     .ReverseMap();
-                cfg.CreateMap<TransactionItemViewModel, TransactionItemDTO>()
-                    .ReverseMap();
+                cfg.CreateMap<TransactionItemViewModel, TransactionItemDTO>().ReverseMap();
                 cfg.CreateMap<TransactionDTO, TransactionViewModel>()
+                    .ForMember(src => src.TotalPrice, opt => opt.MapFrom(dest => dest.TotalPrice))
                     .ForMember(src => src.AddressDetails, opt => opt.MapFrom(dest => dest.AddressDetails))
                     .ForMember(src => src.Order, opt => opt.MapFrom(dest => dest.Order))
+                    .ForPath(src => src.Order.Customer.FirstName, opt => opt.MapFrom(dest => dest.Order.Customer.FirstName))
+                    .ForPath(src => src.Order.Customer.LastName, opt => opt.MapFrom(dest => dest.Order.Customer.LastName))
+                    .ForPath(src => src.Order.Customer.Email, opt => opt.MapFrom(dest => dest.Order.Customer.Email))
+                    .ForPath(src => src.Order.Customer.DateOfBirth, opt => opt.MapFrom(dest => dest.Order.Customer.DateOfBirth))
+                    .ForPath(src => src.Order.ReferenceNumber, opt => opt.MapFrom(dest => dest.Order.ReferenceNumber))
+                    .ForPath(src => src.Order.OrderStatus, opt => opt.MapFrom(dest => dest.Order.OrderStatus))
+                    .ForPath(src => src.AddressDetails.Address1, opt => opt.MapFrom(dest => dest.AddressDetails.Address1))
+                    .ForPath(src => src.AddressDetails.Address2, opt => opt.MapFrom(dest => dest.AddressDetails.Address2))
+                    .ForPath(src => src.AddressDetails.CityTown, opt => opt.MapFrom(dest => dest.AddressDetails.CityTown))
+                    .ForPath(src => src.AddressDetails.Country, opt => opt.MapFrom(dest => dest.AddressDetails.Country))
+                    .ForPath(src => src.AddressDetails.PostCode, opt => opt.MapFrom(dest => dest.AddressDetails.PostCode))
                     .ReverseMap();
+                cfg.CreateMap<OrderedProductDTO, ProductViewModel>()
+                    .ForMember(src => src.Price, opt => opt.MapFrom(dest => dest.Price))
+                    .ReverseMap();
+                cfg.CreateMap<OrderDTO, OrderViewModel>().ReverseMap();
             });
         }
     }

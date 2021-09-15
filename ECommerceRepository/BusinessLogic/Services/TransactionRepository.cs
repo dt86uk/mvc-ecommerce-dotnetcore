@@ -23,9 +23,9 @@ namespace ECommerceRepository.BusinessLogic
                 context.SaveChanges();
 
                 return context.Transactions
-                    .Include("AddressDetails")
-                    .Include("Order")
-                    .Include("PaymentDetails")
+                    .Include(p => p.Address)
+                    .Include(p => p.Order)
+                    .Include(p => p.PaymentDetails)
                     .Single(p => p.Id == createdTransaction.Id);
             }
         }
@@ -35,9 +35,9 @@ namespace ECommerceRepository.BusinessLogic
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 return context.Transactions
-                    .Include("AddressDetails")
-                    .Include("Order")
-                    .Include("PaymentDetails")
+                    .Include(p => p.Address)
+                    .Include(p => p.Order)
+                    .Include(p => p.PaymentDetails)
                     .ToList();
             }
         }
@@ -47,6 +47,8 @@ namespace ECommerceRepository.BusinessLogic
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 return context.Transactions
+                    .Include(t => t.Order)
+                    .ThenInclude(o => o.OrderedProducts)
                     .Where(p => p.CreatedDate > DateTime.Now.AddDays(-numberOfDays) && p.CreatedDate <= DateTime.Now)
                     .Take(5).ToList();
             }
@@ -56,11 +58,16 @@ namespace ECommerceRepository.BusinessLogic
         {
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
-                var startDate = DateTime.Now.AddDays(-8);
-                var endDate = DateTime.Now.AddDays(-1);
+                var startDate = DateTime.Today.AddDays(-8);
+                var endDate = DateTime.Today;
 
                 return context.Transactions
-                    .Where(p => p.CreatedDate >= startDate && p.CreatedDate <= endDate).ToList();
+                    .Include(t => t.Order)
+                    .ThenInclude(o => o.OrderedProducts)
+                    .Include(t => t.Order)
+                    .ThenInclude(o => o.BillingInformation)
+                    .Where(p => p.CreatedDate > DateTime.Now.AddDays(-5) && p.CreatedDate <= DateTime.Now)
+                    .ToList();
             }
         }
 
@@ -69,8 +76,8 @@ namespace ECommerceRepository.BusinessLogic
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 return context.Transactions
-                    .Include("AddressDetails")
-                    .Include("Order")
+                    .Include(p => p.Address)
+                    .Include(p => p.Order)
                     .SingleOrDefault(p => p.Id == transactionId);
             }
         }

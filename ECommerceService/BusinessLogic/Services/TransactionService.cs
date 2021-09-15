@@ -22,14 +22,14 @@ namespace ECommerceService.BusinessLogic
             mapper = _config.CreateMapper();
         }
 
-        public TransactionDTO Create(Order order, PaymentDetail paymentDetail)
+        public TransactionDTO Create(Order order, PaymentDetails paymentDetail)
         {
             var address = mapper.Map<DeliveryInformation, Address>(order.ShippingInformation);
             var transaction = new Transaction()
             {
                 Order = order,
                 PaymentDetails = paymentDetail,
-                AddressDetails = address
+                Address = address
             };
 
             var newTransaction = _transactionRepository.Create(transaction);
@@ -55,7 +55,7 @@ namespace ECommerceService.BusinessLogic
             return mapper.Map<Transaction, TransactionDTO>(_transactionRepository.GetTransactionById(transactionId));
         }
 
-        public bool ProcessPayment(PaymentDetail paymentDetails)
+        public bool ProcessPayment(PaymentDetails paymentDetails)
         {
             //a small delay to pretend card charge occured
             Thread.Sleep(3000);

@@ -25,7 +25,7 @@ namespace ECommerceService.BusinessLogic
         public OrderDTO PlaceOrder(OrderDTO newOrder)
         {
             var dbOrder = mapper.Map<OrderDTO, Order>(newOrder);
-            var paymentDetails = mapper.Map<PaymentDetailDTO, PaymentDetail>(newOrder.PaymentDetails);
+            var paymentDetails = mapper.Map<PaymentDetailDTO, PaymentDetails>(newOrder.PaymentDetails);
 
             //check we have stock to fulfill order
             foreach (var product in newOrder.OrderedProducts)

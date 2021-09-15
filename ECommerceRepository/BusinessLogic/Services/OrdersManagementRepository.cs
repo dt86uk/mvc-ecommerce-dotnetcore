@@ -13,8 +13,8 @@ namespace ECommerceRepository.BusinessLogic
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 var listOrders = context.Orders
-                    .Include("OrderedProducts")
-                    .Include("Customer")
+                    .Include(p => p.OrderedProducts)
+                    .Include(p => p.Customer)
                     .ToList();
 
                 return listOrders;
@@ -26,11 +26,11 @@ namespace ECommerceRepository.BusinessLogic
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 var order = context.Orders
-                    .Include("OrderStatus")
-                    .Include("OrderedProducts")
-                    .Include("Customer")
-                    .Include("BillingInformation")
-                    .Include("ShippingInformation")
+                    .Include(p => p.OrderStatus)
+                    .Include(p => p.OrderedProducts)
+                    .Include(p => p.Customer)
+                    .Include(p => p.BillingInformation)
+                    .Include(p => p.ShippingInformation)
                     .SingleOrDefault(p => p.Id == orderId);
 
                 return order;
@@ -50,11 +50,11 @@ namespace ECommerceRepository.BusinessLogic
             using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
             {
                 var orderEntity = context.Orders
-                    .Include("OrderStatus")
-                    .Include("OrderedProducts")
-                    .Include("Customer")
-                    .Include("BillingInformation")
-                    .Include("ShippingInformation")
+                    .Include(p => p.OrderStatus)
+                    .Include(p => p.OrderedProducts)
+                    .Include(p => p.Customer)
+                    .Include(p => p.BillingInformation)
+                    .Include(p => p.ShippingInformation)
                     .SingleOrDefault(p => p.Id == order.Id);
 
                 if (orderEntity != null)

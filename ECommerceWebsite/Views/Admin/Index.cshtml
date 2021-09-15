@@ -89,14 +89,16 @@
                 <hr />
             </div>
 
-            @*@foreach (var transaction in Model.LatestTransactions)
+            @foreach (var transaction in Model.LatestTransactions)
             {
                 <div class="width56perc displayInlineBlock">
-                    @Html.ActionLink($"{transaction.FirstName} {transaction.LastName}", "Edit", "AdminTransactionController", new { @title = "Edit User" })
+                    <a href="@Url.Action("view", "transactions", new { transaction.Id })">
+                        @transaction.FirstName @transaction.LastName
+                    </a>
                 </div>
                 <div class="width20perc displayInlineBlock textAlignCenter">$@transaction.TotalCost</div>
                 <div class="width20perc displayInlineBlock textAlignCenter">@transaction.DateCreated.ToShortDateString()</div>
-            }*@
+            }
         }
 
         <div class="floatRight marginRight20">
@@ -124,7 +126,9 @@
             {
                 <div>
                     <div class="width76perc displayInlineBlock">
-                        @Html.ActionLink($"{dailyTakings.Date.ToShortDateString()}", "Takings", "AdminTransactionController", new { @title = "Edit User" })
+                        <a href="@Url.Action("takings", "transactions", new { dailyTakings.Id })">
+                            @dailyTakings.Date.ToShortDateString()
+                        </a>
                     </div>
                     <div class="width20perc displayInlineBlock textAlignCenter">$@dailyTakings.TotalTakings</div>
                 </div>
@@ -132,7 +136,7 @@
         }
 
         <div class="floatRight marginRight20">
-            <a href="~/admin/transactions" class="textAlignRight">View Financial Information</a>
+            <a href="~/admin/financial" class="textAlignRight">View Financial Information</a>
         </div>
         <div class="clearBoth"></div>
     </div>

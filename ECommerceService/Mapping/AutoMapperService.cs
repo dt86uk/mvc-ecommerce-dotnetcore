@@ -12,7 +12,7 @@ namespace ECommerceService.Mapping
         {
             Configuration = new MapperConfiguration(cfg => {
                 cfg.CreateMap<Address, AddressDTO>().ReverseMap();
-                cfg.CreateMap<PaymentDetail, PaymentDetailDTO>().ReverseMap();
+                cfg.CreateMap<PaymentDetails, PaymentDetailDTO>().ReverseMap();
                 cfg.CreateMap<OrderedProduct, OrderedProductDTO>().ReverseMap();
                 cfg.CreateMap<Role, RoleDTO>().ReverseMap();
                 cfg.CreateMap<User, UserDTO>().ReverseMap();
@@ -36,7 +36,7 @@ namespace ECommerceService.Mapping
                     .ForMember(src => src.BillingInformation, opt => opt.Ignore())
                     .ReverseMap();
                 cfg.CreateMap<Transaction, TransactionDTO>()
-                    .ForMember(src => src.AddressDetails, opt => opt.MapFrom(dest => dest.AddressDetails))
+                    .ForMember(src => src.AddressDetails, opt => opt.MapFrom(dest => dest.Address))
                     .ForMember(src => src.Order, opt => opt.MapFrom(dest => dest.Order))
                     .ForMember(src => src.PaymentDetails, opt => opt.MapFrom(dest => dest.PaymentDetails))
                     .ReverseMap();
