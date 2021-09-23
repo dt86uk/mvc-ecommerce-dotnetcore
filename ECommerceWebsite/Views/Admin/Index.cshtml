@@ -9,7 +9,14 @@
 
 <div class="cardPadBottom">
     <div class="dashboardCard floatLeft">
-        <div class="subTitleHeader">Low Stock</div>
+        <div class="subTitleHeader">
+            Low Stock
+
+            <div class="floatRight">
+                <a href="~/admin/products" class="viewAll">View all Products</a>
+            </div>
+            <div class="clearBoth"></div>
+        </div>
 
         @if (Model.LowStockProducts.Count == 0)
         {
@@ -32,14 +39,18 @@
             }
         }
 
-        <div class="floatRight marginRight20">
-            <a href="~/admin/products">View all Products</a>
-        </div>
-        <div class="clearBoth"></div>
+        
     </div>
 
     <div class="dashboardCard cardPadLeft floatRight">
-        <div class="subTitleHeader">New Users</div>
+        <div class="subTitleHeader">
+            New Users
+
+            <div class="floatRight">
+                <a href="~/admin/users" class="viewAll">View all Users</a>
+            </div>
+            <div class="clearBoth"></div>
+        </div>
 
         @if (Model.NewUsers.Count == 0)
         {
@@ -63,18 +74,20 @@
                 </div>
             }
         }
-
-        <div class="floatRight marginRight20">
-            <a href="~/admin/users">View all Users</a>
-        </div>
-        <div class="clearBoth"></div>
     </div>
     <div class="clearBoth"></div>
 </div>
 
 <div class="cardPadBottom">
     <div class="dashboardCard floatLeft">
-        <div class="subTitleHeader">Latest Transactions</div>
+        <div class="subTitleHeader">
+            Latest Transactions
+
+            <div class="floatRight">
+                <a href="~/admin/transactions" class="textAlignRight">View all Transactions</a>
+            </div>
+            <div class="clearBoth"></div>
+        </div>
 
         @if (Model.LatestTransactions.Count == 0)
         {
@@ -101,14 +114,18 @@
             }
         }
 
-        <div class="floatRight marginRight20">
-            <a href="~/admin/transactions" class="textAlignRight">View all Transactions</a>
-        </div>
-        <div class="clearBoth"></div>
+        
     </div>
 
     <div class="dashboardCard cardPadLeft floatRight">
-        <div class="subTitleHeader">Financial Information</div>
+        <div class="subTitleHeader">
+            Financial Information
+
+            <div class="floatRight">
+                <a href="~/admin/financial" class="textAlignRight">View Financial Information</a>
+            </div>
+            <div class="clearBoth"></div>
+        </div>
 
         @if (Model.FinancialInformation.Count == 0)
         {
@@ -134,11 +151,6 @@
                 </div>
             }
         }
-
-        <div class="floatRight marginRight20">
-            <a href="~/admin/financial" class="textAlignRight">View Financial Information</a>
-        </div>
-        <div class="clearBoth"></div>
     </div>
     <div class="clearBoth"></div>
 </div>

@@ -10,6 +10,11 @@ body {
     padding: 60px;
 }
 
+.viewAll {
+    text-decoration: none;
+    font-size: 15px;
+}
+
 .titleHeader {
     color: black;
     font-size: 30px;
