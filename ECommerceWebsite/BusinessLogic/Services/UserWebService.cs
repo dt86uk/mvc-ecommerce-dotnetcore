@@ -40,7 +40,8 @@ namespace ECommerceWebsite.BusinessLogic
                 return response;
             }
 
-            if (_userValidationService.IsEmailInUse(model.Email))
+            var isEmailInUse = _userValidationService.IsEmailInUse(model.Email);
+            if (isEmailInUse)
             {
                 response.Error = new ErrorServiceViewModel()
                 {
@@ -64,9 +65,9 @@ namespace ECommerceWebsite.BusinessLogic
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     DateOfBirth = new DateTime(
-                        Convert.ToInt32(model.DateOfBirthYear),
-                        Convert.ToInt32(model.DateOfBirthMonth),
-                        Convert.ToInt32(model.DateOfBirthDay)),
+                        int.Parse(model.DateOfBirthYear),
+                        int.Parse(model.DateOfBirthMonth),
+                        int.Parse(model.DateOfBirthDay)),
                     IsSubscribed = model.IsSubscribed,
                     Password = model.Password
                 });
@@ -123,9 +124,9 @@ namespace ECommerceWebsite.BusinessLogic
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     DateOfBirth = new DateTime(
-                        Convert.ToInt32(model.DateOfBirthYear),
-                        Convert.ToInt32(model.DateOfBirthMonth),
-                        Convert.ToInt32(model.DateOfBirthDay)),
+                        int.Parse(model.DateOfBirthYear),
+                        int.Parse(model.DateOfBirthMonth),
+                        int.Parse(model.DateOfBirthDay)),
                     IsSubscribed = model.IsSubscribed,
                     Password = model.Password
                 });
@@ -138,6 +139,7 @@ namespace ECommerceWebsite.BusinessLogic
                     Name = "User",
                     Message = "There was a problem creating the user. Please try again or contact support."
                 };
+
                 //TODO: Create logging service at Service layer and log error
                 return response;
             }
@@ -156,7 +158,9 @@ namespace ECommerceWebsite.BusinessLogic
         {
             var user = _userService.GetUserById(userId);
             var model = mapper.Map<UserDTO, EditUserViewModel>(user);
-            model.Roles = SelectListItemHelper.BuildDropDownList(_userService.GetAllUserRoles());
+            var listUserRoles = _userService.GetAllUserRoles();
+
+            model.Roles = SelectListItemHelper.BuildDropDownList(listUserRoles);
 
             return model;
         }
@@ -198,7 +202,14 @@ namespace ECommerceWebsite.BusinessLogic
 
         public int GetRoleByUserId(int userId)
         {
-            return _userService.GetUserById(userId).RoleId;
+            var userDto = _userService.GetUserById(userId);
+
+            if (userDto == null)
+            {
+                throw new Exception($"User not found (ID: {userId}}");
+            }
+
+            return userDto.RoleId;
         }
 
         public List<NewUserViewModel> GetLatestNewUsers(int numberOfUsers)
@@ -208,7 +219,8 @@ namespace ECommerceWebsite.BusinessLogic
 
         public AdminUsersViewModel GetAllUsers()
         {
-            var listUserDetails = mapper.Map<List<UserDetailsDTO>, List<UsersViewModel>>(_userService.GetAllUsers());
+            var listUsersDto = _userService.GetAllUsers();
+            var listUserDetails = mapper.Map<List<UserDetailsDTO>, List<UsersViewModel>>(listUsersDto);
 
             return new AdminUsersViewModel()
             {
@@ -218,9 +230,11 @@ namespace ECommerceWebsite.BusinessLogic
 
         public AddUserViewModel GetAddUserModel()
         {
+            var listUserRoles = _userService.GetAllUserRoles();
+
             return new AddUserViewModel()
             {
-                Roles = SelectListItemHelper.BuildDropDownList(_userService.GetAllUserRoles())
+                Roles = SelectListItemHelper.BuildDropDownList(listUserRoles)
             };
         }
 

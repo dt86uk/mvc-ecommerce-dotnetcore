@@ -154,7 +154,8 @@ namespace ECommerceWebsite.BusinessLogic
 
         public EditRoleViewModel GetRoleById(int roleId)
         {
-            return mapper.Map<RoleDTO, EditRoleViewModel>(_roleService.GetRoleById(roleId));
+            var roleDto = _roleService.GetRoleById(roleId);
+            return mapper.Map<RoleDTO, EditRoleViewModel>(roleDto);
         }
     }
 }

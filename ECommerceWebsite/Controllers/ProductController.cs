@@ -1,4 +1,5 @@
-﻿using ECommerceWebsite.BusinessLogic;
+﻿using System;
+using ECommerceWebsite.BusinessLogic;
 using ECommerceWebsite.Helpers;
 using ECommerceWebsite.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +31,8 @@ namespace ECommerceWebsite.Controllers
             model.TopMenuItems = _menuWebService.GetSubMenuItems();
             model.SuggestedProducts = _productWebService.GetSuggestedProducts(
                 model.Login.User == null ? 
-                0 : model.Login.User.Id, HttpContext.Request.Host.ToString());
+                0 : 
+                model.Login.User.Id, HttpContext.Request.Host.ToString());
 
             return View(model);
         }
@@ -38,12 +40,17 @@ namespace ECommerceWebsite.Controllers
         [HttpPost]
         public IActionResult AddToCart(ProductViewModel model)
         {
-            UpdateCart(
-                _cartWebService.AddToCart(
-                    GetCart(), model.AddToCart));
+            var updatedCart = _cartWebService.AddToCart(GetCart(), model.AddToCart);
+            UpdateCart(updatedCart);
 
-            string productName = ProductHelper.BuildProductUrl(
-                _productWebService.GetProductById(model.AddToCart.ProductId).ProductName); 
+            var product = _productWebService.GetProductById(model.AddToCart.ProductId);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            string productName = ProductHelper.BuildProductUrl(product.ProductName); 
         
             TempData["AddedToCart"] = true;
             return Redirect($"https://{HttpContext.Request.Host}{HttpContext.Request.Path}/{productName.ToLower()}");

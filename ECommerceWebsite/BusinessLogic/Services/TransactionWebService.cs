@@ -22,7 +22,8 @@ namespace ECommerceWebsite.BusinessLogic
 
         public AdminTransactionsViewModel GetAllTransactions()
         {
-            var listTransactions = mapper.Map<List<TransactionItemDTO>, List<TransactionItemViewModel>>(_transactionService.GetAllTransactions());
+            var listTransactionsDto = _transactionService.GetAllTransactions();
+            var listTransactions = mapper.Map<List<TransactionItemDTO>, List<TransactionItemViewModel>>(listTransactionsDto);
 
             return new AdminTransactionsViewModel
             {
@@ -32,7 +33,8 @@ namespace ECommerceWebsite.BusinessLogic
 
         public TransactionViewModel GetTransactionById(int transactionId)
         {
-            return mapper.Map<TransactionDTO, TransactionViewModel>(_transactionService.GetTransactionById(transactionId));
+            var transaction = _transactionService.GetTransactionById(transactionId);
+            return mapper.Map<TransactionDTO, TransactionViewModel>(transaction);
         }
     }
 }

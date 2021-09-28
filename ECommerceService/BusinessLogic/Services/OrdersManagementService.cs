@@ -31,7 +31,8 @@ namespace ECommerceService.BusinessLogic
 
         public List<OrderInformationDTO> GetOrders()
         {
-            var listOrdersInfoDto = mapper.Map<List<Order>, List<OrderInformationDTO>>(_ordersManagementRepository.GetOrders());
+            var listOrderEntities = _ordersManagementRepository.GetOrders();
+            var listOrdersInfoDto = mapper.Map<List<Order>, List<OrderInformationDTO>>(listOrderEntities);
 
             foreach (var orderDto in listOrdersInfoDto)
             {
@@ -44,7 +45,8 @@ namespace ECommerceService.BusinessLogic
 
         public EditOrderInformationDTO GetOrderById(int orderId)
         {
-            var model = mapper.Map<Order, EditOrderInformationDTO>(_ordersManagementRepository.GetOrderById(orderId));
+            var orderEntity = _ordersManagementRepository.GetOrderById(orderId);
+            var model = mapper.Map<Order, EditOrderInformationDTO>(orderEntity);
 
             foreach (var orderedProductDto in model.OrderedProducts)
             {
@@ -59,12 +61,14 @@ namespace ECommerceService.BusinessLogic
 
         public List<OrderStatusDTO> GetOrderStatuses()
         {
-            return mapper.Map<List<OrderStatus>, List<OrderStatusDTO>>(_ordersManagementRepository.GetOrderStatuses());
+            var orderStatusEntity = _ordersManagementRepository.GetOrderStatuses();
+            return mapper.Map<List<OrderStatus>, List<OrderStatusDTO>>(orderStatusEntity);
         }
 
         public bool Update(EditOrderInformationDTO order)
         {
-            return _ordersManagementRepository.Update(mapper.Map<EditOrderInformationDTO, Order>(order));
+            var orderEntity = mapper.Map<EditOrderInformationDTO, Order>(order);
+            return _ordersManagementRepository.Update(orderEntity);
         }
     }
 }

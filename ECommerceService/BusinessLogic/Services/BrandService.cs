@@ -23,17 +23,20 @@ namespace ECommerceService.BusinessLogic
 
         public bool Add(BrandDTO brand)
         {
-            return _brandRepository.Add(mapper.Map<BrandDTO, Brand>(brand));
+            var brandEntity = mapper.Map<BrandDTO, Brand>(brand);
+            return _brandRepository.Add(brandEntity);
         }
 
         public List<BrandDTO> GetAllBrands()
         {
-            return mapper.Map<List<Brand>, List<BrandDTO>>(_brandRepository.GetAllBrands());
+            var listBrands = _brandRepository.GetAllBrands();
+            return mapper.Map<List<Brand>, List<BrandDTO>>(listBrands);
         }
 
         public BrandDTO GetBrandById(int brandId)
         {
-            return mapper.Map<Brand, BrandDTO>(_brandRepository.GetBrandById(brandId));
+            var brandEntity = _brandRepository.GetBrandById(brandId);
+            return mapper.Map<Brand, BrandDTO>(brandEntity);
         }
 
         public bool BrandNameExists(BrandDTO brandDto)
@@ -49,7 +52,8 @@ namespace ECommerceService.BusinessLogic
 
         public bool Update(BrandDTO brand)
         {
-            return _brandRepository.Update(mapper.Map<BrandDTO, Brand>(brand));
+            var brandEntity = mapper.Map<BrandDTO, Brand>(brand);
+            return _brandRepository.Update(brandEntity);
         }
 
         public bool BrandHasProducts(int brandId)

@@ -243,16 +243,18 @@ namespace ECommerceWebsite.BusinessLogic
         public EditProductViewModel GetProductById(EditProductViewModel editProductsViewModel)
         {
             var product = _productService.GetProductById(editProductsViewModel.Id);
+            var genders = _genderService.GetAllGenders();
+            var listBrandsDto = _brandService.GetAllBrands();
 
             var editProductViewModel = new EditProductViewModel()
             {
                 Id = editProductsViewModel.Id,
                 ProductName = product.ProductName,
                 Description = product.Description,
-                Genders = SelectListItemHelper.BuildGendersDropDownList(_genderService.GetAllGenders()),
+                Genders = SelectListItemHelper.BuildGendersDropDownList(genders),
                 HeroImageCurrent = product.HeroImage,
                 HeroTitle = product.HeroTitle,
-                Brands = SelectListItemHelper.BuildDropDownList(_brandService.GetAllBrands()),
+                Brands = SelectListItemHelper.BuildDropDownList(listBrandsDto),
                 Price = product.Price.ToString(),
                 Sizes = mapper.Map<List<ProductSizeDTO>, List<ProductSizeViewModel>>(product.Sizes)
             };
@@ -276,6 +278,7 @@ namespace ECommerceWebsite.BusinessLogic
                     Selected = productType.Id == product.CategoryId
                 });
             }
+
             //TODO: Refactor this - Helper
             foreach (var image in product.Images)
             {
@@ -285,6 +288,7 @@ namespace ECommerceWebsite.BusinessLogic
                     editProductViewModel.ImagesSrc.Add($"data:image/jpeg;base64,{Convert.ToBase64String(image.Image)}");
                 }
             }
+
             //TODO: Refactor this - Helper
             var listCategories = _categoryService.GetAllCategories();
             foreach (var category in listCategories)
@@ -369,6 +373,7 @@ namespace ECommerceWebsite.BusinessLogic
         {
             AddProductContentsDTO addProductDto = _productService.GetAddProductContents();
             var model = new AddProductViewModel();
+
             //TODO: Refactor this - Helper
             foreach (var brand in addProductDto.Brands)
             {
@@ -378,6 +383,7 @@ namespace ECommerceWebsite.BusinessLogic
                     Text = brand.BrandName
                 });
             }
+
             //TODO: Refactor this - Helper
             foreach (var category in addProductDto.Categories)
             {
@@ -387,6 +393,7 @@ namespace ECommerceWebsite.BusinessLogic
                     Text = category.CategoryName
                 });
             }
+
             //TODO: Refactor this - Helper
             foreach (var genders in addProductDto.Genders)
             {
@@ -396,6 +403,7 @@ namespace ECommerceWebsite.BusinessLogic
                     Text = genders.GenderName
                 });
             }
+
             //TODO: Refactor this - Helper
             foreach (var productType in addProductDto.ProductTypes)
             {
@@ -405,6 +413,7 @@ namespace ECommerceWebsite.BusinessLogic
                     Text = productType.ProductTypeName
                 });
             }
+
             //TODO: Refactor this - Helper
             foreach (var size in addProductDto.Sizes)
             {
@@ -432,6 +441,7 @@ namespace ECommerceWebsite.BusinessLogic
                     ProductTypes = SelectListItemHelper.BuildDropDownList(addProductContents.ProductTypes)
                 };
             }
+
             //TODO: Refactor this - mapper
             model.Brands = SelectListItemHelper.BuildDropDownList(addProductContents.Brands);
             model.Categories = SelectListItemHelper.BuildDropDownList(addProductContents.Categories);
@@ -444,8 +454,9 @@ namespace ECommerceWebsite.BusinessLogic
         public BaseWebServiceResponse Add(AddProductViewModel model)
         {
             var response = new BaseWebServiceResponse();
+            var productNameExists = _productService.ProductNameExists(model.ProductName);
 
-            if (_productService.ProductNameExists(model.ProductName))
+            if (productNameExists)
             {
                 response.Error.Name = "Product Name";
                 response.Error.Message = "Product Name exists";
@@ -463,7 +474,7 @@ namespace ECommerceWebsite.BusinessLogic
                 return response;
             }
 
-            List<IFormFile> listFiles = new List<IFormFile>()
+            var listFiles = new List<IFormFile>()
             {
                 model.Image1,
                 model.Image2,
@@ -518,7 +529,8 @@ namespace ECommerceWebsite.BusinessLogic
             var response = new BaseWebServiceResponse();
 
             //TODO: Refactor this - Move this check to a new service => ProductValidationService?
-            if (_productService.ProductNameExists(model.ProductName, model.Id))
+            var productNameExists = _productService.ProductNameExists(model.ProductName, model.Id);
+            if (productNameExists)
             {
                 response.Error.Name = "Product Name";
                 response.Error.Message = "Product Name exists";
@@ -536,7 +548,7 @@ namespace ECommerceWebsite.BusinessLogic
                 return response;
             }
 
-            List<IFormFile> listFiles = new List<IFormFile>()
+            var listFiles = new List<IFormFile>()
             {
                 model.Image1,
                 model.Image2,

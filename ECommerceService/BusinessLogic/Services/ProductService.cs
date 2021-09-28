@@ -39,7 +39,9 @@ namespace ECommerceService.BusinessLogic
         /// <returns></returns>
         public ProductDTO GetProductById(int productId)
         {
-            return mapper.Map<Product, ProductDTO>(_productRepository.GetProductById(productId));
+            var productEntity = _productRepository.GetProductById(productId);
+
+            return mapper.Map<Product, ProductDTO>(productEntity);
         }
 
         /// <summary>
@@ -117,14 +119,18 @@ namespace ECommerceService.BusinessLogic
         public AddProductContentsDTO GetAddProductContents()
         {
             var listGendersDto = _genderService.GetAllGenders();
+            var listBrandEntities = _brandRepository.GetAllBrands();
+            var listCategoryEntities = _categoryRepository.GetAllCategories();
+            var listProductTypeEntities = _productTypeRepository.GetAllProductTypes();
+            var listProductSizeEntities = _productSizeRepository.GetAllProductSizes();
 
             var addProductDTO = new AddProductContentsDTO()
             {
-                Brands = mapper.Map<List<Brand>, List<BrandDTO>>(_brandRepository.GetAllBrands()),
-                Categories = mapper.Map<List<Category>, List<CategoryDTO>>(_categoryRepository.GetAllCategories()),
+                Brands = mapper.Map<List<Brand>, List<BrandDTO>>(listBrandEntities),
+                Categories = mapper.Map<List<Category>, List<CategoryDTO>>(listCategoryEntities),
                 Genders = listGendersDto,
-                ProductTypes = mapper.Map<List<ProductType>, List<ProductTypeDTO>>(_productTypeRepository.GetAllProductTypes()),
-                Sizes = mapper.Map<List<ProductSize>, List<ProductSizeDTO>>(_productSizeRepository.GetAllProductSizes())
+                ProductTypes = mapper.Map<List<ProductType>, List<ProductTypeDTO>>(listProductTypeEntities),
+                Sizes = mapper.Map<List<ProductSize>, List<ProductSizeDTO>>(listProductSizeEntities)
             };
 
             return addProductDTO;
@@ -139,12 +145,14 @@ namespace ECommerceService.BusinessLogic
         {
             var productEntity = mapper.Map<ProductDTO, Product>(productDto);
             productEntity.IsActive = false;
+
             return _productRepository.Add(productEntity);
         }
 
         public bool Update(ProductDTO productDto)
         {
             var productEntity = mapper.Map<ProductDTO, Product>(productDto);
+
             return _productRepository.Update(productEntity);
         }
     }

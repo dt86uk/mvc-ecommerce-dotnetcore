@@ -18,7 +18,8 @@ namespace ECommerceWebsite.BusinessLogic
             var product = _productWebService.GetProductById(addToCartModel.ProductId);
 
             bool productQuantityUpdated = false;
-            if (!_productWebService.ProductQuantityIsOk(addToCartModel.ProductId, addToCartModel.SizeId))
+            bool productQuantityIsOk = _productWebService.ProductQuantityIsOk(addToCartModel.ProductId, addToCartModel.SizeId);
+            if (!productQuantityIsOk)
             {
                 return null;
             }

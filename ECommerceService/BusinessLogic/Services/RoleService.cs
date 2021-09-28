@@ -22,12 +22,14 @@ namespace ECommerceService.BusinessLogic
 
         public bool Add(RoleDTO role)
         {
-            return _roleRepository.Add(mapper.Map<RoleDTO, Role>(role));
+            var roleEntity = mapper.Map<RoleDTO, Role>(role);
+            return _roleRepository.Add(roleEntity);
         }
 
         public bool Update(RoleDTO role)
         {
-            return _roleRepository.Update(mapper.Map<RoleDTO, Role>(role));
+            var roleEntity = mapper.Map<RoleDTO, Role>(role);
+            return _roleRepository.Update(roleEntity);
         }
 
         public bool Delete(int roleId)
@@ -37,8 +39,8 @@ namespace ECommerceService.BusinessLogic
 
         public List<RoleDTO> GetAllRoles()
         {
-            var roles = _roleRepository.GetAllRoles();
-            return mapper.Map<List<Role>, List<RoleDTO>>(roles);
+            var listRoleEntities = _roleRepository.GetAllRoles();
+            return mapper.Map<List<Role>, List<RoleDTO>>(listRoleEntities);
         }
 
         public bool RoleHasUsers(int roleId)
@@ -54,7 +56,8 @@ namespace ECommerceService.BusinessLogic
 
         public RoleDTO GetRoleById(int roleId)
         {
-            return mapper.Map<Role, RoleDTO>(_roleRepository.GetRoleById(roleId));
+            var roleEntity = _roleRepository.GetRoleById(roleId);
+            return mapper.Map<Role, RoleDTO>(roleEntity);
         }
     }
 }

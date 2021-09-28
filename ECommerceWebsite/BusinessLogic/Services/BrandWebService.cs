@@ -23,7 +23,8 @@ namespace ECommerceWebsite.BusinessLogic
 
         public AdminBrandsViewModel GetAllBrands()
         {
-            var listBrands = mapper.Map<List<BrandDTO>, List<BrandViewModel>>(_brandService.GetAllBrands());
+            var listBrandsDto = _brandService.GetAllBrands();
+            var listBrands = mapper.Map<List<BrandDTO>, List<BrandViewModel>>(listBrandsDto);
 
             return new AdminBrandsViewModel()
             {
@@ -154,7 +155,8 @@ namespace ECommerceWebsite.BusinessLogic
 
         public EditBrandViewModel GetBrandById(int brandId)
         {
-            return mapper.Map<BrandDTO, EditBrandViewModel>(_brandService.GetBrandById(brandId));
+            var brandDto = _brandService.GetBrandById(brandId);
+            return mapper.Map<BrandDTO, EditBrandViewModel>(brandDto);
         }
     }
 }

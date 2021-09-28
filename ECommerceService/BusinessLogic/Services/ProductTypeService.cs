@@ -23,12 +23,14 @@ namespace ECommerceService.BusinessLogic
 
         public List<ProductTypeDTO> GetAllProductTypes()
         {
-            return mapper.Map<List<ProductType>, List<ProductTypeDTO>>(_productTypeRepository.GetAllProductTypes());
+            var listProductTypeEntities = _productTypeRepository.GetAllProductTypes();
+            return mapper.Map<List<ProductType>, List<ProductTypeDTO>>(listProductTypeEntities);
         }
 
         public ProductTypeDTO GetProductTypeById(int productTypeId)
         {
-            return mapper.Map<ProductType, ProductTypeDTO>(_productTypeRepository.GetProductTypeById(productTypeId));
+            var productTypeEntity = _productTypeRepository.GetProductTypeById(productTypeId);
+            return mapper.Map<ProductType, ProductTypeDTO>(productTypeEntity);
         }
     }
 }

@@ -17,7 +17,8 @@ namespace ECommerceWebsite.BusinessLogic
 
         public ErrorServiceViewModel ValidateUserDateOfBirth(int day, int month, int year)
         {
-            if (!IsDateOfBirthValid(day, month, year))
+            var isDobValid = !IsDateOfBirthValid(day, month, year);
+            if (isDobValid)
             {
                 return new ErrorServiceViewModel()
                 {
@@ -26,7 +27,8 @@ namespace ECommerceWebsite.BusinessLogic
                 };
             }
 
-            if (!IsDateOfBirthOver18(day, month, year))
+            var isDobOver18 = IsDateOfBirthOver18(day, month, year);
+            if (!isDobOver18)
             {
                 return new ErrorServiceViewModel()
                 {
@@ -35,7 +37,8 @@ namespace ECommerceWebsite.BusinessLogic
                 };
             }
 
-            if (!IsDateOfBirthWithinHumanLivingYears(year))
+            var isDobInLivingYears = IsDateOfBirthWithinHumanLivingYears(year);
+            if (!isDobInLivingYears)
             {
                 return new ErrorServiceViewModel()
                 {
@@ -49,7 +52,8 @@ namespace ECommerceWebsite.BusinessLogic
 
         public ErrorServiceViewModel ValidatePassword(string password, string confirmPassword)
         {
-            if (!IsPasswordValid(password))
+            var isPasswordValid = !IsPasswordValid(password);
+            if (isPasswordValid)
             {
                 return new ErrorServiceViewModel()
                 {
@@ -58,7 +62,8 @@ namespace ECommerceWebsite.BusinessLogic
                 };
             }
 
-            if (!DoPasswordsMatch(password, confirmPassword))
+            var passwordsMatch = PasswordsMatch(password, confirmPassword);
+            if (!passwordsMatch)
             {
                 return new ErrorServiceViewModel()
                 {
@@ -81,7 +86,7 @@ namespace ECommerceWebsite.BusinessLogic
         /// <param name="password"></param>
         /// <param name="confirmPassword"></param>
         /// <returns></returns>
-        private bool DoPasswordsMatch(string password, string confirmPassword)
+        private bool PasswordsMatch(string password, string confirmPassword)
         {
             return string.Equals(password, confirmPassword, StringComparison.InvariantCulture);
         }
@@ -135,8 +140,6 @@ namespace ECommerceWebsite.BusinessLogic
         {
             return (DateTime.Now.Year - year) < 120;
         }
-
-        
 
         /// <summary>
         /// Checks password meets strength requirements: at least one number, one special character, one upper and lower case and 8 characters minimum.

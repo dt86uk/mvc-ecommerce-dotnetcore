@@ -26,7 +26,8 @@ namespace ECommerceWebsite.BusinessLogic
 
         public AdminOrdersViewModel GetOrders()
         {
-            var listOrders = mapper.Map<List<OrderInformationDTO>, List<OrderInformationViewModel>>(_ordersManagementService.GetOrders());
+            var listOrdersDto = _ordersManagementService.GetOrders();
+            var listOrders = mapper.Map<List<OrderInformationDTO>, List<OrderInformationViewModel>>(listOrdersDto);
 
             return new AdminOrdersViewModel()
             {

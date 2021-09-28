@@ -23,12 +23,14 @@ namespace ECommerceService.BusinessLogic
 
         public List<CategoryDTO> GetAllCategories()
         {
-            return mapper.Map<List<Category>, List<CategoryDTO>>(_categoryRepository.GetAllCategories());
+            var listCategoryEntities = _categoryRepository.GetAllCategories();
+            return mapper.Map<List<Category>, List<CategoryDTO>>(listCategoryEntities);
         }
 
         public CategoryDTO GetCategoryById(int categoryId)
         {
-            return mapper.Map<Category, CategoryDTO>(_categoryRepository.GetCategoryById(categoryId));
+            var categoryEntity = _categoryRepository.GetCategoryById(categoryId);
+            return mapper.Map<Category, CategoryDTO>(categoryEntity);
         }
 
         public bool CategoryHasProducts(int categoryId)

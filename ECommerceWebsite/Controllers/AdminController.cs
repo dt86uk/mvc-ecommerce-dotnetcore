@@ -28,11 +28,15 @@ namespace ECommerceWebsite.Controllers
 
         public IActionResult Index()
         {
+            var listLatestTransactions = _salesService.GetLatestTransactions();
+            var listDailyTakings = _salesService.GetDailyTakings(5);
+            var listLowestStocks = _stockService.GetFiveLowestStockProducts();
+
             var model = new AdminDashboardViewModel()
             {
-                LatestTransactions = mapper.Map<List<LatestTransactionsDTO>, List<LatestTransactionsViewModel>>(_salesService.GetLatestTransactions()),
-                FinancialInformation = mapper.Map<List<FinancialInformationDTO>, List<FinancialInformationViewModel>>(_salesService.GetDailyTakings(5)),
-                LowStockProducts = mapper.Map<List<ProductStockDTO>, List<ProductStockViewModel>>(_stockService.GetFiveLowestStockProducts()),
+                LatestTransactions = mapper.Map<List<LatestTransactionsDTO>, List<LatestTransactionsViewModel>>(listLatestTransactions),
+                FinancialInformation = mapper.Map<List<FinancialInformationDTO>, List<FinancialInformationViewModel>>(listDailyTakings),
+                LowStockProducts = mapper.Map<List<ProductStockDTO>, List<ProductStockViewModel>>(listLowestStocks),
                 NewUsers = _userWebService.GetLatestNewUsers(5)
             };
 

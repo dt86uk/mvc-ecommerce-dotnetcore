@@ -25,7 +25,7 @@ namespace ECommerceService.BusinessLogic
         public List<ProductDTO> GetHomeCarouselItems()
         {
             var listProducts = _menuRepository.GetHomeCarouselItems();
-            List<ProductDTO> listProductsDto = mapper.Map<List<Product>, List<ProductDTO>>(listProducts);
+            var listProductsDto = mapper.Map<List<Product>, List<ProductDTO>>(listProducts);
 
             return listProductsDto;
         }
@@ -33,7 +33,7 @@ namespace ECommerceService.BusinessLogic
         public List<CategoryDTO> GetSubMenuItems()
         {
             var listCategories = _menuRepository.GetSubMenuItems();
-            List<CategoryDTO> listCategoryDto = mapper.Map<List<Category>, List<CategoryDTO>>(listCategories);
+            var listCategoryDto = mapper.Map<List<Category>, List<CategoryDTO>>(listCategories);
 
             return listCategoryDto;
         }

@@ -39,17 +39,19 @@ namespace ECommerceService.BusinessLogic
 
         public List<TransactionItemDTO> GetAllTransactions()
         {
-            return mapper.Map<List<Transaction>, List<TransactionItemDTO>>(_transactionRepository.GetAllTransactions());
+            var listTransactons = _transactionRepository.GetAllTransactions();
+            return mapper.Map<List<Transaction>, List<TransactionItemDTO>>(listTransactons);
         }
 
         public TransactionDTO GetTransactionById(int transactionId)
         {
-            return mapper.Map<Transaction, TransactionDTO>(_transactionRepository.GetTransactionById(transactionId));
+            var transaction = _transactionRepository.GetTransactionById(transactionId);
+            return mapper.Map<Transaction, TransactionDTO>(transaction);
         }
 
         public bool ProcessPayment(PaymentDetails paymentDetails)
         {
-            //a small delay to pretend card charge occured
+            //a small delay to simulate card charge occured
             Thread.Sleep(3000);
             return true;
         }

@@ -102,7 +102,8 @@ namespace ECommerceWebsite.BusinessLogic
 
         public AdminCategoriesViewModel GetAllCategories()
         {
-            var listCategories = mapper.Map<List<CategoryDTO>, List<CategoryItemViewModel>>(_categoryService.GetAllCategories());
+            var listCategoriesDto = _categoryService.GetAllCategories();
+            var listCategories = mapper.Map<List<CategoryDTO>, List<CategoryItemViewModel>>(listCategoriesDto);
 
             return new AdminCategoriesViewModel()
             {
