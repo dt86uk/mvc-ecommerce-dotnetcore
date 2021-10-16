@@ -10,5 +10,6 @@ namespace ECommerceService.BusinessLogic
         TransactionDTO Create(Order order, PaymentDetails paymentDetail);
         List<TransactionItemDTO> GetAllTransactions();
         TransactionDTO GetTransactionById(int transactionId);
+        List<FinancialDetailsDTO> GetFinancialsByCurrentMonth();
     }
 }

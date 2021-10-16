@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ECommerceDatabase.Database.Entities;
+using ECommerceDatabase.Database.Models;
 using ECommerceRepository.BusinessLogic;
 using ECommerceService.Models;
 using System.Collections.Generic;
@@ -10,14 +11,12 @@ namespace ECommerceService.BusinessLogic
     public class TransactionService : ITransactionService
     {
         private readonly ITransactionRepository _transactionRepository;
-        private readonly IUserRepository _userRepository;
         private readonly IMapper mapper;
         private MapperConfiguration _config;
 
-        public TransactionService(ITransactionRepository transactionRepository, IUserRepository userRepository)
+        public TransactionService(ITransactionRepository transactionRepository)
         {
             _transactionRepository = transactionRepository;
-            _userRepository = userRepository;
             _config = new Mapping.AutoMapperService().Configuration;
             mapper = _config.CreateMapper();
         }
@@ -41,6 +40,12 @@ namespace ECommerceService.BusinessLogic
         {
             var listTransactons = _transactionRepository.GetAllTransactions();
             return mapper.Map<List<Transaction>, List<TransactionItemDTO>>(listTransactons);
+        }
+
+        public List<FinancialDetailsDTO> GetFinancialsByCurrentMonth()
+        {
+            var listFinancialDetailsDto = _transactionRepository.GetFinancialDetailsByCurrentMonth();
+            return mapper.Map<List<TransactionDetails>, List<FinancialDetailsDTO>>(listFinancialDetailsDto);
         }
 
         public TransactionDTO GetTransactionById(int transactionId)

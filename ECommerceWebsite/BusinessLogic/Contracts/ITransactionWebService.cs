@@ -6,5 +6,6 @@ namespace ECommerceWebsite.BusinessLogic
     {
         AdminTransactionsViewModel GetAllTransactions();
         TransactionViewModel GetTransactionById(int transactionId);
+        AdminFinancialsViewModel GetFinancialsByCurrentMonth();
     }
 }

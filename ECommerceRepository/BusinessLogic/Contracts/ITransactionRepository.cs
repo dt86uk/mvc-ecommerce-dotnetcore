@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using ECommerceDatabase.Database.Entities;
+using ECommerceDatabase.Database.Models;
 
 namespace ECommerceRepository.BusinessLogic
 {
     /// <summary>
-    /// Creates and queries the database for Transactions and returns the Entity Framework models for Transactions
+    /// Creates and queries the database for Transactions, Orders and Financials
     /// </summary>
     public interface ITransactionRepository
     {
@@ -13,5 +14,6 @@ namespace ECommerceRepository.BusinessLogic
         List<Transaction> GetDailyTakings(int numberOfDays);
         List<Transaction> GetAllTransactions();
         Transaction GetTransactionById(int transactionId);
+        List<TransactionDetails> GetFinancialDetailsByCurrentMonth();
     }
 }

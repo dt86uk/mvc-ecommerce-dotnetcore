@@ -206,7 +206,7 @@ namespace ECommerceWebsite.BusinessLogic
 
             if (userDto == null)
             {
-                throw new Exception($"User not found (ID: {userId}}");
+                throw new Exception($"User not found (ID: {userId})");
             }
 
             return userDto.RoleId;

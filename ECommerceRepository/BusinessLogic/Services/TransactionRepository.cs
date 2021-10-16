@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using ECommerceDatabase.Database.Entities;
 using ECommerceDatabase.Database.EntityFramework;
+using ECommerceDatabase.Database.Models;
 
 namespace ECommerceRepository.BusinessLogic
 {
@@ -54,6 +55,28 @@ namespace ECommerceRepository.BusinessLogic
                     .ThenInclude(o => o.OrderedProducts)
                     .Where(p => p.CreatedDate > DateTime.Now.AddDays(-numberOfDays) && p.CreatedDate <= DateTime.Now)
                     .Take(5).ToList();
+            }
+        }
+
+        public List<TransactionDetails> GetFinancialDetailsByCurrentMonth()
+        {
+            using (var context = new ECommerceContextDb(new ECommerceDatabase.StartupDatabase().GetOptions()))
+            {
+                //TODO: Extra Test Data served by EF InMemory at startup for past Orders.
+                var listTransactionEntitiesThisMonth = context.Transactions
+                    .Include(t => t.Order)
+                    .ThenInclude(o => o.OrderedProducts)
+                    .Where(p => p.CreatedDate.Month == DateTime.Now.Month).ToList();
+
+                return listTransactionEntitiesThisMonth
+                    .Select(p => new TransactionDetails()
+                    {
+                        TransactionId = p.Id,
+                        Date = p.CreatedDate,
+                        NumberOfItems = p.Order.OrderedProducts.Count,
+                        ProductsSold = p.Order.OrderedProducts,
+                        TotalPrice = p.TotalPrice,
+                    }).ToList();
             }
         }
 

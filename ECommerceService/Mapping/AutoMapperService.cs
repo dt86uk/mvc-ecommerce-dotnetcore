@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using AutoMapper;
 using ECommerceDatabase.Database.Entities;
+using ECommerceDatabase.Database.Models;
 using ECommerceService.Models;
 
 namespace ECommerceService.Mapping
@@ -72,6 +73,8 @@ namespace ECommerceService.Mapping
                 cfg.CreateMap<OrderStatus, OrderStatusDTO>()
                     .ForMember(src => src.OrderStatus, opt => opt.MapFrom(dest => dest.Status))
                     .ReverseMap();
+                cfg.CreateMap<TransactionDetails, FinancialDetailsDTO>();
+                    //.ForMember(src => src.ProductsSold, opt => opt.MapFrom(dest => dest.ProductsSold);
             });
         }
     }

@@ -31,6 +31,17 @@ namespace ECommerceWebsite.BusinessLogic
             };
         }
 
+        public AdminFinancialsViewModel GetFinancialsByCurrentMonth()
+        {
+            var listFinancialsThisMonthDto = _transactionService.GetFinancialsByCurrentMonth();
+            var listFinancialsThisMonth = mapper.Map<List<FinancialDetailsDTO>, List<AdminFinancialsDetailsItemViewModel>>(listFinancialsThisMonthDto);
+
+            return new AdminFinancialsViewModel
+            {
+                DailyTakings = listFinancialsThisMonth
+            };
+        }
+
         public TransactionViewModel GetTransactionById(int transactionId)
         {
             var transaction = _transactionService.GetTransactionById(transactionId);
